@@ -23,14 +23,3 @@ Este projeto é um sistema de votação desenvolvido em **Java**, com o objetivo
 - Apuração automática com verificação de integridade
 - Exportação de resultados
 
-## Como executar
-
-```
-# Clone o repositório
-git clone secure-voting-system.git
-
-#Compile
-javac Main.java
-
-# Execute
-java Main

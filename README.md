@@ -23,7 +23,7 @@ Este projeto é um sistema de votação desenvolvido em **Java**, com o objetivo
 - Apuração automática com verificação de integridade
 - Exportação de resultados
 
-## Autores
+## Autores:
 
 - [@georiSamuel](https://github.com/georiSamuel)
 - [@Horlanlacerda](https://github.com/Horlanlacerda)

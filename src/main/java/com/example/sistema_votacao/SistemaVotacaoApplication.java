@@ -29,9 +29,9 @@ CommandLineRunner init(UsuarioRepository usuarioRepo) {
             admin.setDataCadastro(LocalDateTime.now());
             
             usuarioRepo.save(admin);
-            System.out.println("✅ Admin criado com sucesso");
+            System.out.println("Cadastro criado com sucesso");
         } else {
-            System.out.println("⚠️ Admin já existe");
+            System.out.println("O cadastro já existe");
         }
     };
 }

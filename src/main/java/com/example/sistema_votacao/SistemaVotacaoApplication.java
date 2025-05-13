@@ -21,7 +21,6 @@ public class SistemaVotacaoApplication {
 @Bean
 CommandLineRunner init(UsuarioRepository usuarioRepo) {
     return args -> {
-        // Verifica se já existe admin
         if (usuarioRepo.findByCpf("123.456.789-00") == null) {
             Usuario admin = new Usuario();
             admin.setCpf("123.456.789-00");

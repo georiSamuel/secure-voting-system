@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.example.sistema_votacao.Repository.UsuarioRepository;
+import com.example.sistema_votacao.repository.UsuarioRepository;
 import com.example.sistema_votacao.modelo.Usuario;
 
 import org.mindrot.jbcrypt.BCrypt;

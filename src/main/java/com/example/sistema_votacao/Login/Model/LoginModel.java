@@ -1,5 +1,6 @@
-package com.example.sistema_votacao.Cadastro.Model;
+package com.example.sistema_votacao.Login.Model;
 
+//import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,24 +10,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
-@Table(name = "tb_cadastro")
+@Table(name = "login")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CadastroModel {
+public class LoginModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String nome;
-    private String cpf;
     private String email;
     private String senha;
 
-    
-
-
-    
 }

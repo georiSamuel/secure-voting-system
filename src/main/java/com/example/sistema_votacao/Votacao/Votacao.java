@@ -1,5 +1,6 @@
-package com.example.sistema_votacao.modelo;
+package com.example.sistema_votacao.Votacao;
 
+import com.example.sistema_votacao.Voto.Voto;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;

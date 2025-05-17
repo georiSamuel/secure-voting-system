@@ -1,4 +1,7 @@
-package com.example.sistema_votacao.modelo;
+package com.example.sistema_votacao.Voto;
+
+import com.example.sistema_votacao.Votante.Votante;
+import com.example.sistema_votacao.Votacao.Votacao;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
@@ -15,8 +18,8 @@ public class Voto {
     private Timestamp horario;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @JoinColumn(name = "votante_id")
+    private Votante votante;
 
     @ManyToOne
     @JoinColumn(name = "votacao_id")
@@ -25,10 +28,10 @@ public class Voto {
     public Voto() {
     }
 
-    public Voto(String votoCriptografado, Timestamp horario, Usuario usuario, Votacao votacao) {
+    public Voto(String votoCriptografado, Timestamp horario, Votante votante, Votacao votacao) {
         this.votoCriptografado = votoCriptografado;
         this.horario = horario;
-        this.usuario = usuario;
+        this.votante = votante;
         this.votacao = votacao;
     }
 
@@ -56,12 +59,12 @@ public class Voto {
         this.horario = horario;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Votante getVotante() {
+        return votante;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setVotante(Votante votante) {
+        this.votante = votante;
     }
 
     public Votacao getVotacao() {

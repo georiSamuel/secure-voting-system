@@ -7,8 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.example.sistema_votacao.repository.UsuarioRepository;
-import com.example.sistema_votacao.modelo.Usuario;
+import com.example.sistema_votacao.Votante.Votante;
+import com.example.sistema_votacao.Votante.VotanteRepository;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -20,13 +20,13 @@ public class SistemaVotacaoApplication {
     }
 
     @Bean
-    CommandLineRunner init(UsuarioRepository usuarioRepo) {
+    CommandLineRunner init(VotanteRepository usuarioRepo) {
         return args -> {
             if (usuarioRepo.findByCpf("122.709.134-00") == null) {
-                Usuario admin = new Usuario();
+                Votante admin = new Votante();
                 admin.setCpf("122.709.134-00");
                 admin.setNome("Administrador");
-                admin.setSenha(BCrypt.hashpw("senha123", BCrypt.gensalt())); // ajeitar o bcrypt dps
+                admin.setSenha(BCrypt.hashpw("senha123", BCrypt.gensalt()));
                 admin.setDataCadastro(LocalDateTime.now());
 
                 usuarioRepo.save(admin);

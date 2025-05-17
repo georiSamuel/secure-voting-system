@@ -1,8 +1,10 @@
-package com.example.sistema_votacao.modelo;
+package com.example.sistema_votacao.Votante;
 
+import com.example.sistema_votacao.Voto.Voto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
 @Table(name = "usuarios")
 @Getter
 @Setter
-public class Usuario {
+public class Votante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +28,13 @@ public class Usuario {
     @Column(nullable = false)
     private String senha;
 
-    @Column(name = "data_cadastro") // Padrão snake_case para nomes de colunas
+    @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
 
     @Column(name = "ja_votou", nullable = false)
     private boolean jaVotou = false;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "votante", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Voto> votos = new ArrayList<>();
 
     @PrePersist
@@ -42,15 +44,15 @@ public class Usuario {
 
     public void adicionarVoto(Voto voto) {
         votos.add(voto);
-        voto.setUsuario(this);
+        voto.setVotante(this);
     }
 
     public void removerVoto(Voto voto) {
         votos.remove(voto);
-        voto.setUsuario(null);
+        voto.setVotante(null);
     }
 
     public void criptografarSenha() {
-
+        // implementar criptografia
     }
 }

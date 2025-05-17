@@ -1,6 +1,5 @@
-package com.example.sistema_votacao.Votante;
+package com.example.sistema_votacao.Model;
 
-import com.example.sistema_votacao.Voto.Voto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

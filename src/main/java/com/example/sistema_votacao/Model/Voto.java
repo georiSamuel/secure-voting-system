@@ -1,11 +1,9 @@
-package com.example.sistema_votacao.Voto;
-
-import com.example.sistema_votacao.Votante.Votante;
-import com.example.sistema_votacao.Votacao.Votacao;
+package com.example.sistema_votacao.Model;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
+//dependendo de votante e votacao
 @Entity
 public class Voto {
 

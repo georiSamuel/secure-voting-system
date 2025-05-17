@@ -1,7 +1,10 @@
-package com.example.sistema_votacao.Votante;
+package com.example.sistema_votacao.Service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+
+import com.example.sistema_votacao.Model.Votante;
+import com.example.sistema_votacao.Repository.VotanteRepository;
 
 @Service
 public class VotanteService {

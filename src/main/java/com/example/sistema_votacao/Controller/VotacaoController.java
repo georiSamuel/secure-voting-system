@@ -1,7 +1,10 @@
-package com.example.sistema_votacao.Votacao;
+package com.example.sistema_votacao.Controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.sistema_votacao.Model.Votacao;
+import com.example.sistema_votacao.Service.VotacaoService;
 
 import java.util.List;
 

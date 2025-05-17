@@ -1,6 +1,5 @@
-package com.example.sistema_votacao.Votacao;
+package com.example.sistema_votacao.Model;
 
-import com.example.sistema_votacao.Voto.Voto;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ public class Votacao {
         this.fim = fim;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

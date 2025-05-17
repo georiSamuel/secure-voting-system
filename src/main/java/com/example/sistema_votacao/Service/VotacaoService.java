@@ -1,6 +1,10 @@
-package com.example.sistema_votacao.Votacao;
+package com.example.sistema_votacao.Service;
 
 import org.springframework.stereotype.Service;
+
+import com.example.sistema_votacao.Model.Votacao;
+import com.example.sistema_votacao.Repository.VotacaoRepository;
+
 import java.util.List;
 
 @Service

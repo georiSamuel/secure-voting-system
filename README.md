@@ -12,7 +12,7 @@ Este projeto é um sistema de votação desenvolvido em **Java**, com o objetivo
 ## Tecnologias
 
 - Java 17+
-- Criptografia simétrica e/ou assimétrica (ex: AES, RSA)
+- Criptografia assimétrica (RSA)
 - Interface gráfica (futuramente)
 
 ## Funcionalidades previstas

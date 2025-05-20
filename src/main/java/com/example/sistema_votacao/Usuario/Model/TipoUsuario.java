@@ -1,11 +1,11 @@
-package com.example.sistema_votacao.Cadastro.Model;
+package com.example.sistema_votacao.Usuario.Model;
 
 public class TipoUsuario {
 
     public enum Tipo{
         
         ADMIN,
-        VOTANTE
+        COMUM
     }
     
 }

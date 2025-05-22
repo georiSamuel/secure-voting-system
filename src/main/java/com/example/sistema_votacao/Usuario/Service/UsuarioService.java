@@ -2,17 +2,17 @@ package com.example.sistema_votacao.Usuario.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.events.Event.ID;
-
 import com.example.sistema_votacao.Usuario.Model.UsuarioModel;
 import com.example.sistema_votacao.Usuario.Model.TipoUsuario.Tipo;
 import com.example.sistema_votacao.Usuario.Repository.UsuarioRepository;
 import com.example.sistema_votacao.Votacao.Repository.VotoRepository;
-
 import jakarta.persistence.Id;
 
 import java.util.Optional;
 
+@Service
 public class UsuarioService {
 
     @Autowired

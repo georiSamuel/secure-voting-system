@@ -14,5 +14,9 @@ public interface VotoRepository extends JpaRepository<Voto, Long> {
 
     List<Voto> findByVotanteId(Long votanteId); // voto do votante
 
+    boolean existsByUsuario_IdAndVotacao_Id(Long usuarioId, Long votacaoId);
+
     boolean existsByUsuarioIdAndVotacaoId(Long usuarioId, Long votacaoId);
+
+
 }

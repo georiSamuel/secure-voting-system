@@ -1,9 +1,9 @@
-package com.example.sistema_votacao.Repository;
+package com.example.sistema_votacao.Votacao.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository; //salva, busca, deleta
 import org.springframework.stereotype.Repository;
 
-import com.example.sistema_votacao.Model.Votacao;
+import com.example.sistema_votacao.Votacao.Model.Votacao;
 
 import java.util.List;
 

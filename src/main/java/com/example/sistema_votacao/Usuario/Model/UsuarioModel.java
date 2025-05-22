@@ -1,5 +1,8 @@
 package com.example.sistema_votacao.Usuario.Model;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,7 +13,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Table(name = "tb_usuario")
@@ -27,6 +29,17 @@ public class UsuarioModel {
     private String email;
     private String senha;
 
-    @Enumerated(EnumType.STRING) // essa anotação diz ao banco de dados para salvar como um nome literal do enum, como ADMIN E COMUM;
-    private TipoUsuario.Tipo tipo;    
+    @Column(name = "ja_votou")
+    private boolean jaVotou = false; // coloquei isso aqui para o usuario não poder votar mais de uma vez
+
+    @Enumerated(EnumType.STRING) // essa anotação diz ao banco de dados para salvar como um nome literal do enum,
+                                 // como ADMIN E COMUM;
+    private TipoUsuario.Tipo tipo;
+
+    @Column(unique = true, nullable = false)
+    private String cpf;
+
+    @Column(name = "data_cadastro")
+    private LocalDateTime dataCadastro;
+
 }

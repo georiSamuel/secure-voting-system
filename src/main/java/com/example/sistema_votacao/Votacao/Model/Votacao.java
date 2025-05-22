@@ -1,4 +1,4 @@
-package com.example.sistema_votacao.Model;
+package com.example.sistema_votacao.Votacao.Model;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;

@@ -1,16 +1,15 @@
 package com.example.sistema_votacao;
 
-import java.time.LocalDateTime;
-
+import com.example.sistema_votacao.Usuario.Model.UsuarioModel;
+import com.example.sistema_votacao.Usuario.Repository.UsuarioRepository;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import com.example.sistema_votacao.Usuario.Model.TipoUsuario;
 
-import com.example.sistema_votacao.Model.Votante;
-import com.example.sistema_votacao.Repository.VotanteRepository;
-
-import org.mindrot.jbcrypt.BCrypt;
+import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class SistemaVotacaoApplication {
@@ -20,19 +19,27 @@ public class SistemaVotacaoApplication {
     }
 
     @Bean
-    CommandLineRunner init(VotanteRepository usuarioRepo) {
+    CommandLineRunner initAdminUser(UsuarioRepository usuarioRepository) {
         return args -> {
-            if (usuarioRepo.findByCpf("122.709.134-00") == null) {
-                Votante admin = new Votante();
-                admin.setCpf("122.709.134-00");
-                admin.setNome("Administrador");
-                admin.setSenha(BCrypt.hashpw("senha123", BCrypt.gensalt()));
-                admin.setDataCadastro(LocalDateTime.now());
+            final String ADMIN_EMAIL = "admin@sistema.votacao";
+            final String ADMIN_SENHA = "SenhaAdmin@123";
 
-                usuarioRepo.save(admin);
-                System.out.println("Cadastro criado com sucesso");
+            if (usuarioRepository.findByEmail(ADMIN_EMAIL).isEmpty()) {
+                UsuarioModel admin = new UsuarioModel();
+                admin.setNome("Administrador do Sistema");
+                admin.setEmail(ADMIN_EMAIL);
+                admin.setSenha(BCrypt.hashpw(ADMIN_SENHA, BCrypt.gensalt()));
+                admin.setDataCadastro(LocalDateTime.now());
+                admin.setTipo(TipoUsuario.Tipo.ADMIN);
+                admin.setCpf("00000000000");
+                admin.setJaVotou(false);
+
+                usuarioRepository.save(admin);
+                System.out.println("Cadastro criado com sucesso.");
+                System.out.println("Email: " + ADMIN_EMAIL);
+                System.out.println("Senha: " + ADMIN_SENHA);
             } else {
-                System.out.println("Cadastro já existente");
+                System.out.println("O cadastro já existe no sistema.");
             }
         };
     }

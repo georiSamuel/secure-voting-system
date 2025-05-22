@@ -1,4 +1,4 @@
-package com.example.sistema_votacao.Usuario.Controller;
+package com.example.sistema_votacao.Usuario.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

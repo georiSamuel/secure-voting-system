@@ -16,9 +16,7 @@ public class VotoService {
     private final UsuarioService usuarioService;
     private final VotacaoService votacaoService;
 
-    public VotoService(VotoRepository votoRepository,
-            UsuarioService usuarioService,
-            VotacaoService votacaoService) {
+    public VotoService(VotoRepository votoRepository, UsuarioService usuarioService, VotacaoService votacaoService) {
         this.votoRepository = votoRepository;
         this.usuarioService = usuarioService;
         this.votacaoService = votacaoService;
@@ -63,7 +61,7 @@ public class VotoService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         voto.setHorario(new Timestamp(System.currentTimeMillis()));
-        voto.setUsuario(usuario);
+        voto.setUsuariomodel(usuario); // UsuarioModel e não apenas usuário
 
         Voto votoSalvo = votoRepository.save(voto);
 

@@ -1,11 +1,18 @@
 package com.example.sistema_votacao.Votacao.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Timestamp;
 
 import com.example.sistema_votacao.Usuario.Model.UsuarioModel;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Voto {
 
     @Id
@@ -21,56 +28,61 @@ public class Voto {
     private UsuarioModel usuariomodel;
 
     @ManyToOne
+    @JoinColumn(name = "opcaoVoto_id")
+    private OpcaoVoto opcaoVoto;
+
+    @ManyToOne
     @JoinColumn(name = "votacao_id")
     private Votacao votacao;
 
-    public Voto() {
-    }
 
-    public Voto(String votoCriptografado, Timestamp horario, UsuarioModel usuarioModel, Votacao votacao) {
-        this.votoCriptografado = votoCriptografado;
-        this.horario = horario;
-        this.usuariomodel = usuarioModel;
-        this.votacao = votacao;
-    }
+    //public Voto() {
+    //}
 
-    public Long getId() {
-        return id;
-    }
+    //public Voto(String votoCriptografado, Timestamp horario, UsuarioModel usuarioModel, Votacao votacao) {
+        //this.votoCriptografado = votoCriptografado;
+        //this.horario = horario;
+        //this.usuariomodel = usuarioModel;
+        //this.votacao = votacao;
+    //}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    //public Long getId() {
+        //return id;
+    //}
 
-    public String getVotoCriptografado() {
-        return votoCriptografado;
-    }
+    //public void setId(Long id) {
+        //this.id = id;
+    //}
 
-    public void setVotoCriptografado(String votoCriptografado) {
-        this.votoCriptografado = votoCriptografado;
-    }
+    //public String getVotoCriptografado() {
+        //return votoCriptografado;
+    //}
 
-    public Timestamp getHorario() {
-        return horario;
-    }
+    //public void setVotoCriptografado(String votoCriptografado) {
+        //this.votoCriptografado = votoCriptografado;
+    //}
 
-    public void setHorario(Timestamp horario) {
-        this.horario = horario;
-    }
+    //public Timestamp getHorario() {
+        //return horario;
+    //}
 
-    public UsuarioModel getUsuario() {
-        return usuariomodel;
-    }
+    //public void setHorario(Timestamp horario) {
+        //this.horario = horario;
+    //}
 
-    public void setUsuario(UsuarioModel usuarioModel) {
-        this.usuariomodel = usuarioModel;
-    }
+    //public UsuarioModel getUsuario() {
+        //return usuariomodel;
+    //}
 
-    public Votacao getVotacao() {
-        return votacao;
-    }
+    //public void setUsuario(UsuarioModel usuarioModel) {
+        //this.usuariomodel = usuarioModel;
+    //}
 
-    public void setVotacao(Votacao votacao) {
-        this.votacao = votacao;
-    }
+    //public Votacao getVotacao() {
+        //return votacao;
+    //}
+
+    //public void setVotacao(Votacao votacao) {
+        //this.votacao = votacao;
+    //}
 }

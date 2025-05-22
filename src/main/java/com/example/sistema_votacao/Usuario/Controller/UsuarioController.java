@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.sistema_votacao.Usuario.DTO.LoginRequest;
 import com.example.sistema_votacao.Usuario.Model.UsuarioModel;
 import com.example.sistema_votacao.Usuario.Service.UsuarioService;
 

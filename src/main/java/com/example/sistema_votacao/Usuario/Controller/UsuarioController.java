@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.Optional; // retorna uma coisa ou outra;eu
 
 @RestController
-@RequestMapping("/api/cadastro")
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired // injeção de instância automática, ou seja, a classejá receb os seus objetos prontos, em vez de utilizar o new
@@ -69,6 +69,4 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Nenhum usuário logado.");
         }
     }
-
-    
 }

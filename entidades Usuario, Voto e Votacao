@@ -1,0 +1,35 @@
+[33mcommit ddd7fd226310651d6f329b898fe151ee21ea06b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: lethy-while <melo.lethycia@aluno.uepb.edu.br>
+Date:   Tue May 13 18:47:16 2025 -0300
+
+    Corrigindo println para versão local
+
+[33mcommit 63a24a05cada1cae38c9b3f430a81cbe0c8fc1ab[m
+Author: lethy-while <melo.lethycia@aluno.uepb.edu.br>
+Date:   Mon May 12 22:34:23 2025 -0300
+
+    Update SistemaVotacaoApplication.java
+
+[33mcommit fc71c6462f75fc7c9c13b89d99fdbe9a0b03d1bf[m
+Author: lethy-while <melo.lethycia@aluno.uepb.edu.br>
+Date:   Mon May 12 22:32:36 2025 -0300
+
+    Update SistemaVotacaoApplication.java
+
+[33mcommit 2b9e5909544ee9bb0c7b08b5485ea7a3c4ea3b8c[m
+Author: lethy-while <melo.lethycia@aluno.uepb.edu.br>
+Date:   Mon May 12 22:28:32 2025 -0300
+
+    Adiciona pacotes modelo e repository e modifica a classe principal
+
+[33mcommit cbcb3fb8790f7d97700b978b89f0bf3f42e07ace[m
+Author: lethy-while <melo.lethycia@aluno.uepb.edu.br>
+Date:   Mon May 12 21:53:01 2025 -0300
+
+    Update application.properties
+
+[33mcommit a901def3a9ba11e78f57bc19751b4fd28b09abd2[m
+Author: lethy-while <melo.lethycia@aluno.uepb.edu.br>
+Date:   Mon May 12 21:43:01 2025 -0300
+
+    Adicionando sistema de votação com criptografia

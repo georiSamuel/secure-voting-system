@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="backgroundTela" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.java10x.Interface.TelaUsuarioController">
+    <children>
+        <AnchorPane fx:id="telaBranca" layoutX="200.0" layoutY="71.0" prefHeight="457.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
+            <children>
+              <Text fx:id="conectadoText" fill="#080808" layoutX="52.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-titulo" text="Você está conectado como usuário." textAlignment="CENTER" wrappingWidth="296.74261474609375">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font></Text>
+                <Text fx:id="selecioneText" fill="#b1b1b1" layoutX="133.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-subtitulo" text="Selecione uma opção:">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+
+                <MenuButton fx:id="menuVotacoesAbertas" layoutX="105.0" layoutY="229.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="190.0" style="-fx-background-color: #8276e2;" styleClass="botao-menu" text="Votações em aberto">
+                    <items>
+                        <MenuItem mnemonicParsing="false" styleClass="menu-item" text="todo" />
+                        <MenuItem mnemonicParsing="false" styleClass="menu-item" text="todo" />
+                    </items>
+               <font>
+                  <Font size="15.0" />
+               </font>
+                </MenuButton>
+                <Hyperlink fx:id="desconectar" layoutX="163.0" layoutY="422.0" onAction="#desconectar" styleClass="link-desconectar" text="Desconectar" />
+            <Text layoutX="130.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+
+            </children>
+        </AnchorPane>
+    </children>
+
+</AnchorPane>

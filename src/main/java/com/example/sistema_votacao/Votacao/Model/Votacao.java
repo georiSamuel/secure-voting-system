@@ -5,7 +5,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.sistema_votacao.Voto.Model.VotoModel;
+
 @Entity
+@Table(name = "tb_votacao")
 public class Votacao {
 
     @Id
@@ -18,7 +21,7 @@ public class Votacao {
     private Timestamp fim;
 
     @OneToMany(mappedBy = "votacao")
-    private List<Voto> votos = new ArrayList<>();
+    private List<VotoModel> votos = new ArrayList<>();
 
     // Construtores
     public Votacao() {
@@ -63,11 +66,11 @@ public class Votacao {
         this.fim = fim;
     }
 
-    public List<Voto> getVotos() {
+    public List<VotoModel> getVotos() {
         return votos;
     }
 
-    public void setVotos(List<Voto> votos) {
+    public void setVotos(List<VotoModel> votos) {
         this.votos = votos;
     }
 }

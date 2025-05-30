@@ -5,6 +5,8 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.sistema_votacao.Voto.Model.VotoModel;
+
 @Data
 @Entity
 @Table(name = "tb_opcao_voto")
@@ -24,7 +26,7 @@ public class OpcaoVoto {
     private Votacao votacao;
 
     @OneToMany(mappedBy = "opcaoVoto", cascade = CascadeType.ALL)
-    private List<Voto> votos = new ArrayList<>();
+    private List<VotoModel> votos = new ArrayList<>();
 
     // Construtores
     public OpcaoVoto() {

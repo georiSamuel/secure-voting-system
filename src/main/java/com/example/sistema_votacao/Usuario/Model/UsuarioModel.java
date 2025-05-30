@@ -47,7 +47,7 @@ public class UsuarioModel {
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "pergunta_seguranca", unique = true)
     private String perguntaSeguranca;
 
 }

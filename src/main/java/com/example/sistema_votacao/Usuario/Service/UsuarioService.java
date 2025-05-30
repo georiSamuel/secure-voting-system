@@ -5,13 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.events.Event.ID;
 import org.mindrot.jbcrypt.BCrypt;
 import com.example.sistema_votacao.Usuario.Model.UsuarioModel;
 import com.example.sistema_votacao.Usuario.Model.TipoUsuario.Tipo;
 import com.example.sistema_votacao.Usuario.Repository.UsuarioRepository;
-import com.example.sistema_votacao.Votacao.Repository.VotoRepository;
-import jakarta.persistence.Id;
+import com.example.sistema_votacao.Voto.Repository.VotoRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

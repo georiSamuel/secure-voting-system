@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Compiled class file
 *.class
 
@@ -24,8 +23,6 @@
 hs_err_pid*
 replay_pid*
 
-=======
->>>>>>> master
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -59,3 +56,4 @@ build/
 
 ### VS Code ###
 .vscode/
+

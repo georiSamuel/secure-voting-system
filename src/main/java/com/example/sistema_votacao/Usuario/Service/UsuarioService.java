@@ -17,16 +17,16 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
-    @Autowired
+    //@Autowired - se der errado avisa pq alterei no git
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
+    //@Autowired
     private VotoRepository votoRepository;
 
-    @Autowired
+    //@Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    // NÃO ENTENDI A PRESENÇA DESSE CONSTRUTOR AQUI
+    // NÃO ENTENDI A PRESENÇA DESSE CONSTRUTOR AQUI - tira a função do autowired
     public UsuarioService(UsuarioRepository usuarioRepository,VotoRepository votoRepository, BCryptPasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.votoRepository = votoRepository;

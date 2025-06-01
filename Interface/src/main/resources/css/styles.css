@@ -1,0 +1,53 @@
+/* Estilos globais */
+.root {
+    -fx-font-family: 'Segoe UI', Arial;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Estilo para o painel branco */
+.tela-branca {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+/* Estilo para textos */
+.texto-titulo {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-fill: #333333;
+    -fx-text-alignment: center;
+}
+
+.texto-subtitulo {
+    -fx-font-size: 14px;
+    -fx-fill: #a6a6a6;
+}
+
+/* Estilo para botões */
+.botao-menu {
+    -fx-background-color: #8276e2;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-pref-width: 190px;
+    -fx-pref-height: 46px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.botao-menu:hover {
+    -fx-background-color: #6b5fcf;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 1);
+}
+
+/* Estilo para o link de desconectar */c
+.link-desconectar {
+    -fx-text-fill: #c0392b;
+    -fx-underline: true;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.link-desconectar:hover {
+    -fx-text-fill: #e74c3c;
+}

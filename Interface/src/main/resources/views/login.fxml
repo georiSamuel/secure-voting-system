@@ -5,38 +5,26 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="backgroundCor" prefHeight="600" prefWidth="800" style="-fx-background-color: #3F31A7;"
-            xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="dev.java10x.Interface.LoginController">
-    <AnchorPane fx:id="telaBranca" layoutX="200.0" layoutY="71.0" prefHeight="457.0" prefWidth="400"
-                style="-fx-background-color: white; -fx-background-radius: 10;">
-        <Label fx:id="tituloText" layoutX="121.0" layoutY="30.0" prefHeight="40.0" prefWidth="157.0"
-               text="Bem-vindo" textFill="#2b2b2b">
+<AnchorPane fx:id="backgroundCor" prefHeight="600" prefWidth="800" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.java10x.Interface.LoginController">
+    <AnchorPane fx:id="telaBranca" layoutX="200.0" layoutY="71.0" prefHeight="457.0" prefWidth="400" style="-fx-background-color: white; -fx-background-radius: 10;">
+        <Label fx:id="tituloText" layoutX="121.0" layoutY="30.0" prefHeight="40.0" prefWidth="157.0" text="Bem-vindo" textFill="#2b2b2b">
             <font>
-                <Font name="System Bold" size="30.0"/>
+                <Font name="System Bold" size="30.0" />
             </font>
         </Label>
-        <Label fx:id="descricaoText" layoutX="131.0" layoutY="176.0" prefHeight="18.0" prefWidth="137.0"
-               text="Faça login para continuar" textAlignment="CENTER" textFill="#7a7a7a"/>
-        <TextField fx:id="usuarioCampo" layoutX="50.0" layoutY="229.0" prefHeight="35" prefWidth="300"
-                   promptText="Digite seu usuário"/>
-        <PasswordField fx:id="senhaCampo" layoutX="50.0" layoutY="291.0" prefHeight="35" prefWidth="300"
-                       promptText="Digite sua senha"/>
-        <Button fx:id="botaoLogin" layoutX="50.0" layoutY="352.0" mnemonicParsing="false" onAction="#fazerLogin"
-                prefHeight="40" prefWidth="300" style="-fx-background-color: #6555DB; -fx-text-fill: white;"
-                text="Entrar"/>
-        <Hyperlink fx:id="esqueceuSenha" layoutX="50.0" layoutY="413.0" onAction="#recuperarSenha"
-                   text="Esqueceu a senha?" textFill="#7a7a7a"/>
-        <ImageView fx:id="imagem_icon" fitHeight="120.0" fitWidth="172.0" layoutX="114.0" layoutY="76.0"
-                   pickOnBounds="true" preserveRatio="true">
-            <Image url="@images/icon.png"/>
+        <Label fx:id="descricaoText" layoutX="131.0" layoutY="176.0" prefHeight="18.0" prefWidth="137.0" text="Faça login para continuar" textAlignment="CENTER" textFill="#7a7a7a" />
+        <TextField fx:id="usuarioCampo" layoutX="50.0" layoutY="229.0" prefHeight="35" prefWidth="300" promptText="Digite seu usuário" />
+        <PasswordField fx:id="senhaCampo" layoutX="50.0" layoutY="291.0" prefHeight="35" prefWidth="300" promptText="Digite sua senha" />
+        <Button fx:id="botaoLogin" layoutX="50.0" layoutY="352.0" mnemonicParsing="false" onAction="#fazerLogin" prefHeight="40" prefWidth="300" style="-fx-background-color: #6555DB; -fx-text-fill: white;" text="Entrar" />
+        <Hyperlink fx:id="esqueceuSenha" layoutX="50.0" layoutY="413.0" onAction="#recuperarSenha" text="Esqueceu a senha?" textFill="#7a7a7a" />
+        <ImageView fx:id="imagem_icon" fitHeight="120.0" fitWidth="172.0" layoutX="114.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@images/icon.png" />
         </ImageView>
-        <Hyperlink fx:id="cadastroBotao" layoutX="253.0" layoutY="413.0" onAction="#abrirCadastro"
-                   text="Cadastre-se aqui" textFill="#7a7a7a"/>
+        <Hyperlink fx:id="cadastroBotao" layoutX="253.0" layoutY="413.0" onAction="#abrirCadastro" text="Cadastre-se aqui" textFill="#7a7a7a" />
     </AnchorPane>
     <Hyperlink fx:id="linkGithub" layoutX="14.0" layoutY="562.0" onAction="#abrirRepositorio" text="Github">
         <font>
-          <Font size="13.0"/>
+          <Font size="13.0" />
         </font>
     </Hyperlink>
 </AnchorPane>

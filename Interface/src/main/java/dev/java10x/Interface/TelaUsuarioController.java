@@ -1,6 +1,10 @@
 package dev.java10x.Interface;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
@@ -8,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.text.Text;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.stage.Stage;
 
 public class TelaUsuarioController {
 
@@ -56,8 +61,32 @@ public class TelaUsuarioController {
      * @since 28/05
      */
     @FXML private void desconectar() {
-        System.out.println("Usuário desconectado");
-        // retorno para a tela de login
+        try {
+        Parent telaLogin = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
+        Scene cenaAtual = desconectar.getScene();
+        Stage palco = (Stage) cenaAtual.getWindow();
+        palco.setScene(new Scene(telaLogin));
+        palco.sizeToScene();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Erro", "Não foi possível carregar a tela do usuário.");
+        }
+    }
+
+    /**
+     * Método que será usado para emitir alertas na tela caso o usuário tenha feito algo fora do planejado e não possa prosseguir.
+     * @author Suelle
+     * @version 1.0
+     * @since 22/05/25
+     * @param erro, @param mensagem
+     */
+    private void mostrarAlerta(String erro, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(erro);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 
     /** Método para atualizar dinamicamente todos os itens do menu de votações abertas

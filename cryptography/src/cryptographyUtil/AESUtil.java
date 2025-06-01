@@ -1,4 +1,4 @@
-package cryptographyInt;
+package cryptographyUtil;
 
 // Classe para criptografar chave privada com criptografia simétrica baseada em senha (AES-GCM)
 // TODO: Vou criar uma nova senha para o admin descriptografar a chave privada com a chave simétrica??
@@ -50,7 +50,7 @@ public class AESUtil {
 
         byte[] cipherText = cipher.doFinal(privateKeyBytes);
 
-        // Concatena IV + ciphertext
+        // Concatena IV + ciphertext para guardar IV em Base64
         byte[] encryptedIvAndText = new byte[iv.length + cipherText.length];
         System.arraycopy(iv, 0, encryptedIvAndText, 0, iv.length);
         System.arraycopy(cipherText, 0, encryptedIvAndText, iv.length, cipherText.length);

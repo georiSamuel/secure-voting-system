@@ -1,4 +1,4 @@
-package cryptographyInt;
+package cryptographyUtil;
 
 // Hash de Senhas - BCrypt
 import org.mindrot.jbcrypt.BCrypt;

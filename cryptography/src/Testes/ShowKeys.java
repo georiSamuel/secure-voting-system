@@ -1,6 +1,6 @@
 package Testes;
 
-import cryptographyInt.RSAUtil;
+import cryptographyUtil.RSAUtil;
 
 import java.security.KeyPair;
 import java.security.PrivateKey;

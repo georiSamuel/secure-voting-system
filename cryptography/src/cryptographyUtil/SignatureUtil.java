@@ -1,4 +1,4 @@
-package cryptographyInt;
+package cryptographyUtil;
 
 //  Assinatura Digital (SHA-256 + RSA)
 import java.security.*;

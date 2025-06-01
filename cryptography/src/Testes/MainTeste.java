@@ -1,6 +1,6 @@
 package Testes;
 
-import cryptographyInt.*;
+import cryptographyUtil.*;
 
 import javax.crypto.SecretKey;
 import java.security.KeyPair;

@@ -1,6 +1,6 @@
-package cryptographyInt;
+package cryptographyUtil;
 
-//SHA-256 – Hash para integridade do voto (NÃO É NECESSÁRIO, MAS DECIDIR DEIXAR PARA MOSTRAR OUTRA TÉCNICA DE SEGURANÇA)
+//SHA-256 – Hash para integridade do voto (NÃO É NECESSÁRIO NO PROJETO, MAS DECIDIR DEIXAR PARA MOSTRAR OUTRA TÉCNICA DE SEGURANÇA)
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 

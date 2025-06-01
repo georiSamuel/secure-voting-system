@@ -1,4 +1,4 @@
-package cryptographyInt;
+package cryptographyUtil;
 
 //Criptografar e Decriptar Votos (criptografia assimétrica)
 import java.nio.ByteBuffer;

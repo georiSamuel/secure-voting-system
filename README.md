@@ -1,28 +1,77 @@
 # secure-voting-system
 
-Este projeto é um sistema de votação desenvolvido em **Java**, com o objetivo de simular uma **urna eletrônica**, garantindo segurança, integridade e sigilo dos votos.
+Este projeto é um sistema de votação desenvolvido na linguagem **Java**, visando criar eleições com garantia de segurança, integridade e sigilo dos votos pela aplicação técnicas de criptografia avançadas.
 
+---
 ## Objetivos
 
-- Permitir que eleitores votem de forma simples e segura
-- Utilizar **criptografia** para proteger os dados dos votos
-- Simular funcionalidades de uma **urna eletrônica oficial**
-- Garantir auditabilidade e transparência no processo
+- Votação segura e simples para eleitores 
+- Proteção criptográfica completa dos dados 
+- Simulação de urna eletrônica com funcionalidades oficiais 
+- Auditabilidade e transparência no processo eleitoral
 
+---
 ## Tecnologias
 
-- Java 17+
-- Criptografia assimétrica (RSA)
-- Interface gráfica (futuramente)
 
+### **Backend & Core**
+| Tecnologia | Versão | Propósito |
+|------------|--------|-----------|
+| **Java** | 21+ | Linguagem principal |
+| **Spring Boot** | 3.x | Framework web e injeção de dependência |
+| **Lombok** | Latest | Redução de boilerplate code |
+
+### **Banco de Dados**
+| Tecnologia | Propósito |
+|------------|-----------|
+| **MySQL** | Armazenamento de dados |
+
+### **Interface Gráfica**
+| Tecnologia | Propósito |
+|------------|-----------|
+| **JavaFX** | Interface desktop nativa |
+
+### **Segurança & Criptografia**
+| Algoritmo/Biblioteca | Aplicação | Características                              |
+|-----------------------|-----------|----------------------------------------------|
+| **RSA** | Criptografia assimétrica | Criptografia dos votos, assinaturas digitais |
+| **AES-256** | Criptografia simétrica | Criptografia da chave privada                |
+| **SHA-256** | Hash criptográfico | Assinaturas digitais                         |
+| **BCrypt** | Hash de senhas | Armazenamento seguro de credenciais          |
+| **PBKDF2** | Derivação de chaves | Geração de chaves a partir de senhas         |
+
+### **Ferramentas de Desenvolvimento**
+| Ferramenta | Propósito |
+|------------|-----------|
+| **Maven** | Gerenciamento de dependências |
+| **Git** | Controle de versão |
+| **JUnit 5** | Testes unitários |
+
+
+---
 ## Funcionalidades previstas
 
 - Cadastro de candidatos
 - Identificação do eleitor
-- Registro e criptografia dos votos
+- Registro, armazenamento seguro de senhas e criptografia dos votos
 - Apuração automática com verificação de integridade
 - Exportação de resultados
 
+---
+## Estratégia de Segurança
+
+### Camadas de Proteção:
+
+1. Criptografia Híbrida (RSA + AES)
+2. Assinatura digital (SHA-256)
+3. Hash Seguro de Senhas (BCrypt)
+4. Integridade de Dados (SHA-256)
+
+### Fluxo de Votação Segura:
+Eleitor → Autenticação (BCrypt) → Voto (RSA) → Assinatura (SHA-256) → Banco de dados
+
+
+---
 ## Autores:
 
 - [@georiSamuel](https://github.com/georiSamuel)

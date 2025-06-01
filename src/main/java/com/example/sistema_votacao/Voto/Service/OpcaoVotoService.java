@@ -1,9 +1,9 @@
-package com.example.sistema_votacao.Votacao.Service;
+package com.example.sistema_votacao.Voto.Service;
 
-import com.example.sistema_votacao.Votacao.Model.OpcaoVoto;
 import com.example.sistema_votacao.Votacao.Model.Votacao;
-import com.example.sistema_votacao.Votacao.Repository.OpcaoVotoRepository;
 import com.example.sistema_votacao.Votacao.Repository.VotacaoRepository;
+import com.example.sistema_votacao.Voto.Model.OpcaoVoto;
+import com.example.sistema_votacao.Voto.Repository.OpcaoVotoRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

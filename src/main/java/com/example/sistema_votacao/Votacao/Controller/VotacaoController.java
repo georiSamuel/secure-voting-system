@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.sistema_votacao.Votacao.Model.Votacao;
+import com.example.sistema_votacao.Votacao.Model.VotacaoPersonalizada;
 import com.example.sistema_votacao.Votacao.Service.VotacaoService;
 
 import java.util.List;
@@ -18,18 +19,21 @@ public class VotacaoController {
         this.votacaoService = votacaoService;
     }
 
+    // Criar uma votação simples
     @PostMapping
     public ResponseEntity<Votacao> criarVotacao(@RequestBody Votacao votacao) {
         Votacao novaVotacao = votacaoService.criarVotacao(votacao);
         return ResponseEntity.ok(novaVotacao);
     }
 
+    // Buscar todas as votações
     @GetMapping
     public ResponseEntity<List<Votacao>> buscarTodasVotacoes() {
         List<Votacao> votacoes = votacaoService.buscarTodasVotacoes();
         return ResponseEntity.ok(votacoes);
     }
 
+    // Buscar votação por ID
     @GetMapping("/{id}")
     public ResponseEntity<Votacao> buscarPorId(@PathVariable Long id) {
         Votacao votacao = votacaoService.buscarPorId(id);
@@ -39,9 +43,17 @@ public class VotacaoController {
         return ResponseEntity.ok(votacao);
     }
 
+    // Deletar votação por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarVotacao(@PathVariable Long id) {
         votacaoService.deletarVotacao(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Criar uma votação personalizada
+    @PostMapping("/personalizada")
+    public ResponseEntity<Votacao> criarVotacaoPersonalizada(@RequestBody VotacaoPersonalizada votacao) {
+        Votacao novaVotacao = votacaoService.criarVotacao(votacao);
+        return ResponseEntity.ok(novaVotacao);
     }
 }

@@ -1,6 +1,6 @@
-package com.example.sistema_votacao.Votacao.DTO;
+package com.example.sistema_votacao.Voto.DTO;
 
-import com.example.sistema_votacao.Votacao.Model.OpcaoVoto;
+import com.example.sistema_votacao.Voto.Model.OpcaoVoto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

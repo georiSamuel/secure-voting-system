@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
-//import com.example.sistema_votacao.Usuario.Model.UsuarioModel;
-import com.example.sistema_votacao.Votacao.Model.OpcaoVoto;
+
+import com.example.sistema_votacao.Usuario.Model.UsuarioModel;
 import com.example.sistema_votacao.Votacao.Model.Votacao;
 
 @Entity
@@ -22,13 +22,18 @@ public class VotoModel {
 
     private String votoCriptografado;
 
-    //@ManyToOne
-    //@JoinColumn(name = "usuario_id")
-    //private UsuarioModel usuariomodel; --> não é necessário, já que o voto é secreto
+    // @ManyToOne
+    // @JoinColumn(name = "usuario_id")
+    // private UsuarioModel usuariomodel; --> não é necessário, já que o voto é
+    // secreto
 
     @ManyToOne
     @JoinColumn(name = "opcaoVoto_id")
     private OpcaoVoto opcaoVoto;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private UsuarioModel usuario;
 
     @ManyToOne
     @JoinColumn(name = "votacao_id")

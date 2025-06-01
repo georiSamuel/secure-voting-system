@@ -7,10 +7,9 @@ import com.example.sistema_votacao.Usuario.Service.UsuarioService;
 import com.example.sistema_votacao.Voto.Repository.VotoRepository;
 import com.example.sistema_votacao.Voto.DTO.VotoRequestDTO;
 import com.example.sistema_votacao.Voto.DTO.VotoResponseDTO;
+import com.example.sistema_votacao.Voto.Model.OpcaoVoto;
 import com.example.sistema_votacao.Voto.Model.VotoModel;
-import com.example.sistema_votacao.Votacao.Model.OpcaoVoto;
 import com.example.sistema_votacao.Votacao.Model.Votacao;
-import com.example.sistema_votacao.Votacao.Service.OpcaoVotoService;
 import com.example.sistema_votacao.Votacao.Service.VotacaoService;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -81,21 +80,16 @@ public class VotoService {
         opcaoVotoService.incrementarVotos(dto.getOpcaoVotoId());
 
         return new VotoResponseDTO(
-            salvo.getId(),
-            dto.getUsuarioId(),
-            dto.getVotacaoId(),
-            salvo.getVotoCriptografado(),
-            salvo.getDataHoraVoto()
-        );
+                salvo.getId(),
+                dto.getUsuarioId(),
+                dto.getVotacaoId(),
+                salvo.getVotoCriptografado(),
+                salvo.getDataHoraVoto());
     }
-
-
-
-
 
     @Transactional(readOnly = true)
     public List<VotoModel> buscarVotosPorVotacao(Long votacaoId) {
-        
+
         return votoRepository.findByVotacaoId(votacaoId);
     }
 

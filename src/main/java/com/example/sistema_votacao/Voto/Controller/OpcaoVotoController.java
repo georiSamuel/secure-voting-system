@@ -1,9 +1,10 @@
-package com.example.sistema_votacao.Votacao.Controller;
+package com.example.sistema_votacao.Voto.Controller;
 
-import com.example.sistema_votacao.Votacao.Model.OpcaoVoto;
-import com.example.sistema_votacao.Votacao.Service.OpcaoVotoService;
-import com.example.sistema_votacao.Votacao.DTO.OpcaoVotoRequestDTO;
-import com.example.sistema_votacao.Votacao.DTO.OpcaoVotoResponseDTO;
+import com.example.sistema_votacao.Voto.DTO.OpcaoVotoRequestDTO;
+import com.example.sistema_votacao.Voto.DTO.OpcaoVotoResponseDTO;
+import com.example.sistema_votacao.Voto.Model.OpcaoVoto;
+import com.example.sistema_votacao.Voto.Service.OpcaoVotoService;
+
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -5,34 +5,33 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.sistema_votacao.Voto.Model.OpcaoVoto;
 import com.example.sistema_votacao.Voto.Model.VotoModel;
 
 @Entity
 @Table(name = "tb_votacao")
-public class Votacao {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_votacao", discriminatorType = DiscriminatorType.STRING)
+public abstract class Votacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String titulo;
-
     private Timestamp inicio;
     private Timestamp fim;
+
+    @OneToMany(mappedBy = "votacao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OpcaoVoto> opcoes = new ArrayList<>();
 
     @OneToMany(mappedBy = "votacao")
     private List<VotoModel> votos = new ArrayList<>();
 
-    // Construtores
-    public Votacao() {
-    }
+    // Métodos abstratos que subclasses implementarão
+    public abstract boolean validarVoto(VotoModel voto);
 
-    public Votacao(Long id, String titulo, Timestamp inicio, Timestamp fim) {
-        this.id = id;
-        this.titulo = titulo;
-        this.inicio = inicio;
-        this.fim = fim;
-    }
+    public abstract String gerarResultado();
 
     public Long getId() {
         return id;
@@ -66,11 +65,16 @@ public class Votacao {
         this.fim = fim;
     }
 
+    public List<OpcaoVoto> getOpcoes() {
+        return opcoes;
+    }
+
     public List<VotoModel> getVotos() {
         return votos;
     }
 
-    public void setVotos(List<VotoModel> votos) {
-        this.votos = votos;
+    public boolean isAtiva() {
+        Timestamp agora = new Timestamp(System.currentTimeMillis());
+        return inicio.before(agora) && fim.after(agora);
     }
 }

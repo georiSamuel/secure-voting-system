@@ -1,11 +1,11 @@
-package com.example.sistema_votacao.Votacao.Model;
+package com.example.sistema_votacao.Voto.Model;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.sistema_votacao.Voto.Model.VotoModel;
+import com.example.sistema_votacao.Votacao.Model.Votacao;
 
 @Data
 @Entity
@@ -21,6 +21,9 @@ public class OpcaoVoto {
     @Column(name = "quantidade_votos", nullable = false)
     private Long quantidadeVotos = 0L;
 
+    @Column(name = "idade_candidato")
+    private Integer idadeCandidato; // nova propriedade
+
     @ManyToOne
     @JoinColumn(name = "votacao_id", nullable = false)
     private Votacao votacao;
@@ -28,7 +31,6 @@ public class OpcaoVoto {
     @OneToMany(mappedBy = "opcaoVoto", cascade = CascadeType.ALL)
     private List<VotoModel> votos = new ArrayList<>();
 
-    // Construtores
     public OpcaoVoto() {
     }
 
@@ -37,11 +39,20 @@ public class OpcaoVoto {
         this.votacao = votacao;
     }
 
-    // Método para incrementar votos
     public void incrementarVotos() {
         if (this.quantidadeVotos == null) {
             this.quantidadeVotos = 0L;
         }
         this.quantidadeVotos++;
+    }
+
+    // Getters e setters para idadeCandidato, se horlan quiser fazer aql lombock
+    // dele tudo bem
+    public Integer getIdadeCandidato() {
+        return idadeCandidato;
+    }
+
+    public void setIdadeCandidato(Integer idadeCandidato) {
+        this.idadeCandidato = idadeCandidato;
     }
 }

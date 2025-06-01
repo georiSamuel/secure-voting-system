@@ -22,17 +22,21 @@ import java.util.Optional; // retorna uma coisa ou outra;eu
 @RequestMapping("/usuario")
 public class UsuarioController {
 
-    @Autowired // injeção de instância automática, ou seja, a classejá receb os seus objetos prontos, em vez de utilizar o new
+    @Autowired // injeção de instância automática, ou seja, a classejá receb os seus objetos
+               // prontos, em vez de utilizar o new
     private UsuarioService usuarioService;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<UsuarioModel> cadastrar(@RequestBody UsuarioModel usuario){ // "ReponseEntity" - controla a resposta que a HTTP envia, incluindo corpo, status HTTP (200,201, 404, 500);
+    public ResponseEntity<UsuarioModel> cadastrar(@RequestBody UsuarioModel usuario) { // "ReponseEntity" - controla a
+                                                                                       // resposta que a HTTP envia,
+                                                                                       // incluindo corpo, status HTTP
+                                                                                       // (200,201, 404, 500);
         UsuarioModel novoUsuario = usuarioService.cadastrarUsuario(usuario);
         return ResponseEntity.ok(novoUsuario);
     }
 
     @GetMapping("id/{id}")
-    public ResponseEntity<UsuarioModel> buscarPorId(@PathVariable long id){
+    public ResponseEntity<UsuarioModel> buscarPorId(@PathVariable long id) {
         Optional<UsuarioModel> usuario = usuarioService.buscarPorId(id);
         return usuario.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -40,30 +44,31 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpSession session){
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
 
         UsuarioModel usuario = usuarioService.autenticar(loginRequest.getEmail(), loginRequest.getSenha());
 
-        if(usuario != null){
+        if (usuario != null) {
             session.setAttribute("usuario", usuario);
             return ResponseEntity.ok("Login realizado com sucesso!");
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou senha inválidos.");    
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou senha inválidos.");
         }
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpSession session){
-        session.invalidate(); // invalida a sessão do usuário --> destrói a sessão atual e remove todos os dados associados a ela
+    public ResponseEntity<String> logout(HttpSession session) {
+        session.invalidate(); // invalida a sessão do usuário --> destrói a sessão atual e remove todos os
+                              // dados associados a ela
         return ResponseEntity.ok("Logout realizado com sucesso!");
-        
+
     }
 
     @GetMapping("/logado")
-    public ResponseEntity<String> verificarSessao(HttpSession session){
+    public ResponseEntity<String> verificarSessao(HttpSession session) {
         UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuario");
 
-        if(usuario != null){
+        if (usuario != null) {
             return ResponseEntity.ok("Usuário logado: " + usuario.getNome());
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Nenhum usuário logado.");

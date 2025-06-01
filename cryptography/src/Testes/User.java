@@ -1,3 +1,5 @@
+package Testes;
+
 public class User {
 
     String email;

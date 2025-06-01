@@ -1,3 +1,5 @@
+package Testes;
+
 public class Candidato {
 
     private final String nome;

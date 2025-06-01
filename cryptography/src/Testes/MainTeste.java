@@ -1,13 +1,14 @@
-    import cryptographyInt.RSAUtil;
-    import cryptographyInt.HashUtil;
-    import cryptographyInt.SignatureUtil;
-    import cryptographyInt.PasswordUtil;
+package Testes;
 
-    import java.security.KeyPair;
+import cryptographyInt.*;
+
+import javax.crypto.SecretKey;
+import java.security.KeyPair;
     import java.security.PrivateKey;
     import java.security.PublicKey;
+import java.util.Arrays;
 
-    public class Main {
+public class MainTeste {
         public static void main(String[] args) {
             try {
                 // Geração de chaves e separação
@@ -16,7 +17,7 @@
                 PrivateKey privKey = pair.getPrivate();
 
 
-                // User
+                // Testes.User
                 User anora = new User("Anora", "123456");
                 String hashSenha = PasswordUtil.hashPassword(anora.getSenha());
                 System.out.printf("Hash da Senha de %s : " + hashSenha + "\n", anora.getSenha());
@@ -59,6 +60,31 @@
                 // Voto descptografado
                 int votosDescriptografados = RSAUtil.decrypt(votoCriptografado, privKey);
                 System.out.println("Votos Descriptografados: " + votosDescriptografados);
+
+                //Criptografando chave privada
+                byte[] salt = AESUtil.generateSalt();
+                SecretKey secretKey = AESUtil.getKeyFromPassword(anora.getSenha(), salt);
+                String EncryptedPrivateKey = AESUtil.encryptPrivateKey(privKey.getEncoded(),secretKey);
+
+
+                // Salvar no banco:
+                // - encrypted.encryptedText (String)
+                // - encrypted.salt (byte[])
+
+                System.out.println("Private Key Encrypted: " + EncryptedPrivateKey);
+
+                //Descriptografando a chave privada e verificando se deu certo
+                PrivateKey decryptedPrivateKey = AESUtil.decryptPrivateKey(EncryptedPrivateKey,secretKey);
+                boolean saoIguais = (decryptedPrivateKey == privKey); //DÁ ERRADO == compara referências de objetos na memória
+                                                                          //privKey e decryptedPrivateKey são objetos diferentes (criados em momentos diferentes)
+                System.out.println("Private Keys são iguais: " + saoIguais);
+
+                boolean saoIguais2 = Arrays.equals(decryptedPrivateKey.getEncoded(), privKey.getEncoded());
+                System.out.println("Private Keys são iguais: " + saoIguais2 + "\n"); //Dá certo (OBG DEUS) pois o conteúdo do array de bytes da chave é comparado
+
+                //Testando descriptografia com a chave privada após ser descriptografada
+                int votosDescriptografadosComPrivKeyDesciptografada = RSAUtil.decrypt(votoCriptografado, decryptedPrivateKey);
+                System.out.println("Votos Descriptografados: " + votosDescriptografadosComPrivKeyDesciptografada); //Deus seja louvado
 
 
             } catch (Exception e) {

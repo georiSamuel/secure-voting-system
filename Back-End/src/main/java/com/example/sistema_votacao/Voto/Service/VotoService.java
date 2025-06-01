@@ -22,11 +22,12 @@ public class VotoService {
     private final VotacaoService votacaoService;
     private final OpcaoVotoService opcaoVotoService;
 
-    public VotoService(VotoRepository votoRepository, UsuarioService usuarioService, VotacaoService votacaoService) {
+    public VotoService(VotoRepository votoRepository, UsuarioService usuarioService, VotacaoService votacaoService,
+            OpcaoVotoService opcaoVotoService) {
         this.votoRepository = votoRepository;
         this.usuarioService = usuarioService;
         this.votacaoService = votacaoService;
-        this.opcaoVotoService = null;
+        this.opcaoVotoService = opcaoVotoService;
     }
 
     @Transactional
@@ -65,7 +66,8 @@ public class VotoService {
         }
 
         OpcaoVoto opcao = opcaoVotoService.buscarPorId(dto.getOpcaoVotoId());
-        Votacao votacao = votacaoService.buscarPorId(dto.getVotacaoId());
+        Votacao votacao = votacaoService.buscarPorId(dto.getVotacaoId())
+                .orElseThrow(() -> new RuntimeException("Votação não encontrada com o ID: " + dto.getVotacaoId()));
 
         VotoModel voto = new VotoModel();
         voto.setOpcaoVoto(opcao);

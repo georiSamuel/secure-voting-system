@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/opcoes-voto")
+@RequestMapping("/votos")
 public class OpcaoVotoController {
 
     private final OpcaoVotoService opcaoVotoService;

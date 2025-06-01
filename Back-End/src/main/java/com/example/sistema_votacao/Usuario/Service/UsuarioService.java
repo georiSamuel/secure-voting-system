@@ -1,11 +1,7 @@
 package com.example.sistema_votacao.Usuario.Service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.mindrot.jbcrypt.BCrypt;
 import com.example.sistema_votacao.Usuario.Model.UsuarioModel;
 import com.example.sistema_votacao.Usuario.Model.TipoUsuario.Tipo;
 import com.example.sistema_votacao.Usuario.Repository.UsuarioRepository;
@@ -17,17 +13,18 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
-    //@Autowired - se der errado avisa pq alterei no git
+    // @Autowired
     private UsuarioRepository usuarioRepository;
 
-    //@Autowired
+    // @Autowired
     private VotoRepository votoRepository;
 
-    //@Autowired
+    // @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     // NÃO ENTENDI A PRESENÇA DESSE CONSTRUTOR AQUI - tira a função do autowired
-    public UsuarioService(UsuarioRepository usuarioRepository,VotoRepository votoRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, VotoRepository votoRepository,
+            BCryptPasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.votoRepository = votoRepository;
         this.passwordEncoder = passwordEncoder;
@@ -60,27 +57,9 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-
     public Optional<UsuarioModel> buscarPorId(Long id) {
         return Optional.ofNullable(
                 usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario não encontrado")));
-    }
-
-    public ResponseEntity<?> cadastrarUsuarioResponse(UsuarioModel usuario) {
-        try {
-            if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email já cadastrado.");
-            }
-
-            // Criptografar senha e salvar
-            usuario.setSenha(BCrypt.hashpw(usuario.getSenha(), BCrypt.gensalt()));
-            usuario.setDataCadastro(LocalDateTime.now());
-            usuarioRepository.save(usuario);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno ao cadastrar.");
-        }
     }
 
     public UsuarioModel autenticar(String email, String senha) {
@@ -89,7 +68,7 @@ public class UsuarioService {
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
 
-            if (BCrypt.checkpw(senha, usuario.getSenha())) {
+            if (passwordEncoder.matches(senha, usuario.getSenha())) {
                 return usuario;
             }
         }
@@ -100,13 +79,6 @@ public class UsuarioService {
     // horlan, tem problema eu colocar isso aqui?
     public boolean verificarSeUsuarioJaVotou(Long usuarioId, Long votacaoId) {
         return votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacaoId); // Verifica se o voto existe
-    }
-
-    public void atualizarStatusVotacao(Long usuarioId, boolean status) {
-        UsuarioModel usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário com ID " + usuarioId + " não foi encontrado"));
-        usuario.setJaVotou(status); // Atualiza o status de já votou
-        usuarioRepository.save(usuario);
     }
 
     public void atualizarStatusVoto(Long usuarioId, boolean status) {

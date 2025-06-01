@@ -1,6 +1,7 @@
 package com.example.sistema_votacao.Votacao.Model;
 
 import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,8 +74,17 @@ public abstract class Votacao {
         return votos;
     }
 
+    public void setOpcoes(List<OpcaoVoto> opcoes) {
+        this.opcoes = opcoes;
+    }
+
+    public void setVotos(List<VotoModel> votos) {
+        this.votos = votos;
+    }
+
     public boolean isAtiva() {
         Timestamp agora = new Timestamp(System.currentTimeMillis());
         return inicio.before(agora) && fim.after(agora);
     }
+
 }

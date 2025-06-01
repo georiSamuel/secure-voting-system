@@ -19,7 +19,11 @@ public class RecuperacaoSenhaController {
     @PostMapping("/solicitar")
     public ResponseEntity<String> solicitar(@RequestParam String email) {
         String token = service.gerarToken(email);
-        return ResponseEntity.ok("Token gerado: " + token);
+        // return ResponseEntity.ok("Token gerado: " + token); //isso pode ser melhorado
+        // para enviar um email com o token, não está seguro porque o token é exposto na
+        // resposta
+        System.out.println("Token gerado (para testes): " + token);
+        return ResponseEntity.ok("Se o e-mail estiver cadastrado, você receberá instruções.");
     }
 
     @PostMapping("/redefinir")
@@ -28,5 +32,3 @@ public class RecuperacaoSenhaController {
         return ResponseEntity.ok("Senha redefinida com sucesso.");
     }
 }
-
-

@@ -11,6 +11,8 @@ import com.example.sistema_votacao.Voto.DTO.VotoRequestDTO;
 import com.example.sistema_votacao.Voto.DTO.VotoResponseDTO;
 import com.example.sistema_votacao.Voto.Service.VotoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/votos")
 public class VotoController {
@@ -19,7 +21,7 @@ public class VotoController {
     private VotoService votoservice;
 
     @PostMapping
-    public ResponseEntity<VotoResponseDTO> votar(@RequestBody VotoRequestDTO dto){
+    public ResponseEntity<VotoResponseDTO> votar(@Valid @RequestBody VotoRequestDTO dto) {
 
         VotoResponseDTO response = votoservice.registrarVoto(dto);
         return ResponseEntity.ok(response);

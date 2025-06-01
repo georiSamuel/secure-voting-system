@@ -8,6 +8,7 @@ import com.example.sistema_votacao.Votacao.Model.VotacaoPersonalizada;
 import com.example.sistema_votacao.Votacao.Service.VotacaoService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/votacoes")
@@ -36,11 +37,11 @@ public class VotacaoController {
     // Buscar votação por ID
     @GetMapping("/{id}")
     public ResponseEntity<Votacao> buscarPorId(@PathVariable Long id) {
-        Votacao votacao = votacaoService.buscarPorId(id);
-        if (votacao == null) {
+        Optional<Votacao> votacao = votacaoService.buscarPorId(id);
+        if (votacao.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(votacao);
+        return ResponseEntity.ok(votacao.get());
     }
 
     // Deletar votação por ID
@@ -52,8 +53,8 @@ public class VotacaoController {
 
     // Criar uma votação personalizada
     @PostMapping("/personalizada")
-    public ResponseEntity<Votacao> criarVotacaoPersonalizada(@RequestBody VotacaoPersonalizada votacao) {
-        Votacao novaVotacao = votacaoService.criarVotacao(votacao);
+    public ResponseEntity<VotacaoPersonalizada> criarVotacaoPersonalizada(@RequestBody VotacaoPersonalizada votacao) {
+        VotacaoPersonalizada novaVotacao = votacaoService.criarVotacaoPersonalizada(votacao);
         return ResponseEntity.ok(novaVotacao);
     }
 }

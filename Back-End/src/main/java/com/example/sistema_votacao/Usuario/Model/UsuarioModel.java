@@ -38,7 +38,8 @@ public class UsuarioModel {
     @Column(name = "ja_votou")
     private boolean jaVotou = false; // coloquei isso aqui para o usuario não poder votar mais de uma vez
 
-    @Enumerated(EnumType.STRING) // essa anotação diz ao banco de dados para salvar como um nome literal do enum,como ADMIN E COMUM;
+    @Enumerated(EnumType.STRING) // essa anotação diz ao banco de dados para salvar como um nome literal do
+                                 // enum,como ADMIN E COMUM;
     private TipoUsuario.Tipo tipo;
 
     @Column(unique = true, nullable = false)
@@ -47,7 +48,8 @@ public class UsuarioModel {
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
 
-    @Column(name = "pergunta_seguranca", unique = true)
+    @Column(name = "pergunta_seguranca") // não sei se é realmente necessário ser unico, normal escolher a mesma
+                                         // pergunta, qualquer coisa vollta com unique = true ai
     private String perguntaSeguranca;
 
 }

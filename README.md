@@ -27,10 +27,10 @@ Este projeto é um sistema de votação desenvolvido na linguagem **Java**, visa
 | **MySQL** | Armazenamento de dados |
 
 ### **Interface Gráfica**
-| Tecnologia | Propósito |
-|------------|-----------|
-| **JavaFX** | Interface desktop nativa |
-
+| Tecnologia        | Propósito |
+|-------------------|-----------|
+| **JavaFX**        | Interface desktop nativa |
+ | **JPA/Hibernate** | ORM (Object-Relational Mapping) |
 ### **Segurança & Criptografia**
 | Algoritmo/Biblioteca | Aplicação | Características                              |
 |-----------------------|-----------|----------------------------------------------|

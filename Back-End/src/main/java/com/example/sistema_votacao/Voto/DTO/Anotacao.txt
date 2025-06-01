@@ -1,0 +1,16 @@
+INFORMAÇÕES A RESPEITO DESSA DTO:
+
+Minha dúvida era que as classes da DTO estavam com os mesmos atributos das classes do Model. No entanto, ambas
+são coisas distintas. A DTO serve apenas para transferência de dados (representa os dados que entram ou saem da 
+API - Controller). Já o Model representa a entidade JPA, ou seja, uma estrutura do banco de dados.
+
+Mini resumo: 
+
+    * VotoRequestDTO: representa os dados necessários para registrar um voto (vem do usuário para a API).
+    * VotoResponseDTO: representa os dados que API retorna ao usuário após o voto.
+    * VotoModel: é a entidade real, persistida no banco de dados.
+
+Relação entre eles:
+
+    * O controller recebe um VotoRequestDTO, converte para VotoModel, salva no banco via o VotoService.
+    * Depois, o VotoService retorna um VotoResponseDTO para o controller devolver ao cliente.

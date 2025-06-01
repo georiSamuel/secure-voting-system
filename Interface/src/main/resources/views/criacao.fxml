@@ -14,34 +14,28 @@
     <children>
         <AnchorPane fx:id="telaBranca" layoutX="200.0" layoutY="71.0" prefHeight="457.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" styleClass="painel-principal">
             <children>
-                <!-- Cabeçalho -->
                 <Text fx:id="tituloText" fill="#080808" layoutX="100.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-titulo" text="Criar Nova Votação" textAlignment="CENTER" wrappingWidth="200.0">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>
                 </Text>
 
-                <!-- Formulário de criação -->
                 <Label fx:id="labelTitulo" layoutX="52.0" layoutY="128.0" styleClass="texto-label" text="Título da Votação:" />
                 <TextField fx:id="campoTitulo" layoutX="50.0" layoutY="155.0" prefWidth="300.0" promptText="Digite o título da votação" />
 
-                <!-- Área para adicionar itens votáveis -->
                 <Label fx:id="labelItens" layoutX="52.0" layoutY="210.0" styleClass="texto-label" text="Itens Votáveis:" />
 
                 <HBox layoutX="50.0" layoutY="275.0" spacing="5.0" />
 
-                <!-- Lista de itens adicionados -->
                 <ListView fx:id="listaItens" layoutX="50.0" layoutY="275.0" prefHeight="100.0" prefWidth="300.0">
                     <placeholder>
                         <Label text="Nenhum item adicionado ainda" />
                     </placeholder>
                 </ListView>
 
-                <!-- Rodapé com botões -->
                 <Button fx:id="botaoCancelar" layoutX="78.0" layoutY="407.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-secundario" text="Cancelar" />
                 <Button fx:id="botaoCriar" layoutX="220.0" layoutY="407.0" mnemonicParsing="false" onAction="#criarVotacao" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-primario" text="Criar" />
-      
-                <!-- Link para voltar -->
+
                 <Hyperlink fx:id="linkVoltar" layoutX="133.0" layoutY="456.0" onAction="#voltar" styleClass="link-voltar" text="Voltar para tela anterior" />
                  <TextField fx:id="campoItem" layoutX="50.0" layoutY="234.0" prefWidth="220.0" promptText="Digite um item votável" />
                  <Button fx:id="botaoAdicionar" layoutX="287.0" layoutY="234.0" mnemonicParsing="false" onAction="#adicionarItem" styleClass="botao-pequeno" text="+" />

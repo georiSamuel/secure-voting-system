@@ -2,7 +2,7 @@
 
 Este projeto é um sistema de votação desenvolvido na linguagem **Java**, visando criar eleições com garantia de segurança, integridade e sigilo dos votos pela aplicação técnicas de criptografia avançadas.
 
----
+
 ## Objetivos
 
 - Votação segura e simples para eleitores 
@@ -10,7 +10,7 @@ Este projeto é um sistema de votação desenvolvido na linguagem **Java**, visa
 - Simulação de urna eletrônica com funcionalidades oficiais 
 - Auditabilidade e transparência no processo eleitoral
 
----
+
 ## Tecnologias
 
 
@@ -48,7 +48,7 @@ Este projeto é um sistema de votação desenvolvido na linguagem **Java**, visa
 | **JUnit 5** | Testes unitários |
 
 
----
+
 ## Funcionalidades previstas
 
 - Cadastro de candidatos
@@ -57,7 +57,7 @@ Este projeto é um sistema de votação desenvolvido na linguagem **Java**, visa
 - Apuração automática com verificação de integridade
 - Exportação de resultados
 
----
+
 ## Estratégia de Segurança
 
 ### Camadas de Proteção:
@@ -71,7 +71,6 @@ Este projeto é um sistema de votação desenvolvido na linguagem **Java**, visa
 Eleitor → Autenticação (BCrypt) → Voto (RSA) → Assinatura (SHA-256) → Banco de dados
 
 
----
 ## Autores:
 
 - [@georiSamuel](https://github.com/georiSamuel)

@@ -1,6 +1,5 @@
 package sistema_votacao.Usuario.Service;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import sistema_votacao.Usuario.Model.UsuarioModel;
 import sistema_votacao.Usuario.Model.TipoUsuario.Tipo;
@@ -21,14 +20,11 @@ public class UsuarioService {
     private VotoRepository votoRepository;
 
     // @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
     // NÃO ENTENDI A PRESENÇA DESSE CONSTRUTOR AQUI - tira a função do autowired
-    public UsuarioService(UsuarioRepository usuarioRepository, VotoRepository votoRepository,
-            BCryptPasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, VotoRepository votoRepository) {
         this.usuarioRepository = usuarioRepository;
         this.votoRepository = votoRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public UsuarioModel cadastrarUsuario(UsuarioModel usuario) {

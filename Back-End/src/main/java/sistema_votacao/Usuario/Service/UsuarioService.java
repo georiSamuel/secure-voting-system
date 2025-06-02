@@ -6,6 +6,7 @@ import sistema_votacao.Usuario.Model.UsuarioModel;
 import sistema_votacao.Usuario.Model.TipoUsuario.Tipo;
 import sistema_votacao.Usuario.Repository.UsuarioRepository;
 import sistema_votacao.Voto.Repository.VotoRepository;
+import sistema_votacao.cryptography.src.cryptographyUtil.PasswordUtil;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -51,11 +52,12 @@ public class UsuarioService {
             throw new TipoUsuarioInvalido(email);
         }
 
-        // Criptografa a senha e salva o usuário
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        // Usar sua função personalizada
+        usuario.setSenha(PasswordUtil.hashPassword(usuario.getSenha()));
         usuario.setDataCadastro(LocalDateTime.now());
         return usuarioRepository.save(usuario);
     }
+
 
     public Optional<UsuarioModel> buscarPorId(Long id) {
         return Optional.ofNullable(
@@ -68,7 +70,8 @@ public class UsuarioService {
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
 
-            if (passwordEncoder.matches(senha, usuario.getSenha())) {
+            // Usar sua função personalizada para verificar a senha
+            if (PasswordUtil.verifyPassword(senha, usuario.getSenha())) {
                 return usuario;
             }
         }

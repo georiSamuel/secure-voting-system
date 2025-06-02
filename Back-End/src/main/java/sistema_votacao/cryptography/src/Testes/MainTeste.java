@@ -1,11 +1,11 @@
 package sistema_votacao.cryptography.src.Testes;
 
-import cryptographyUtil.*;
+import sistema_votacao.cryptography.src.cryptographyUtil.*;
 
 import javax.crypto.SecretKey;
 import java.security.KeyPair;
-    import java.security.PrivateKey;
-    import java.security.PublicKey;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.Arrays;
 
 public class MainTeste {

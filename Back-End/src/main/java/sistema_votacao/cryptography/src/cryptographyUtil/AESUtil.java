@@ -16,7 +16,7 @@ public class AESUtil {
     private static final int ITERATIONS = 100022;
 
 
-    // Gera salt criptograficamente seguro que será armazenado no BD
+    // Gera salt criptograficamente seguro que será armazenado no BD..
     public static byte[] generateSalt() {
         byte[] salt = new byte[SALT_LENGTH];
         new SecureRandom().nextBytes(salt);

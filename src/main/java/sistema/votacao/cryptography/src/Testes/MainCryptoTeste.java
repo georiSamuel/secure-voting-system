@@ -1,7 +1,6 @@
 package sistema.votacao.cryptography.src.Testes;
 
 import sistema.votacao.cryptography.src.cryptographyUtil.*;
-import sistema.votacao.cryptography.src.cryptographyUtil.*;
 
 import javax.crypto.SecretKey;
 import java.security.KeyPair;
@@ -9,7 +8,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Arrays;
 
-public class MainTeste {
+public class MainCryptoTeste {
         public static void main(String[] args) {
             try {
                 // Geração de chaves e separação

@@ -30,19 +30,3 @@ public class SistemaVotacaoApplication extends Application {
     }
 }
 
-
-/* Versão anterior
-
-package sistema_votacao;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class sistema.votacao.SistemaVotacaoApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(sistema.votacao.SistemaVotacaoApplication.class, args);
-    }
-}
- */

@@ -23,19 +23,19 @@ public class AESUtil {
         return salt;
     }
 
-    // Gera a chave AES a partir da senha e salt (meu indentificador único, deixa meu código não tão seguro)  usando PBKDF2
+    // Gera a chave AES a partir da senha e salt usando PBKDF2
     public static SecretKey getKeyFromPassword(String password, byte[] salt)
             throws Exception {
 
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, ITERATIONS, 256);
         return new SecretKeySpec(factory.generateSecret(spec)
                 .getEncoded(), "AES");
     }
 
     // Gera um IV aleatório de 12 bytes (96 bits) para GCM
     public static byte[] generateIv() {
-        byte[] iv = new byte[12];
+        byte[] iv = new byte[IV_LENGTH];
         new SecureRandom().nextBytes(iv);
         return iv;
     }

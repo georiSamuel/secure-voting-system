@@ -10,97 +10,113 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sistema.votacao.Usuario.Model.UsuarioModel ;
-import sistema.votacao.Usuario.Model.TipoUsuario;
-import sistema.votacao.Usuario.Repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import okhttp3.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
-@Component
 public class CadastroController {
 
     @FXML
+    private TextField nome;
+    @FXML
+    private TextField cpf;
+    @FXML
     private TextField email;
-
     @FXML
     private PasswordField senha;
 
-    @FXML
-    private TextField cpf;
-
-    @FXML
-    private TextField nome;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final OkHttpClient httpClient = new OkHttpClient();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @FXML
     public void cadastrar(ActionEvent event) {
-        String nomeUsuario = nome.getText();
-        String emailUsuario = email.getText();
-        String senhaUsuario = senha.getText();
-        String cpfUsuario = cpf.getText();
+        String nomeText = nome.getText();
+        String cpfText = cpf.getText();
+        String emailText = email.getText();
+        String senhaText = senha.getText();
 
-        if (nomeUsuario.isEmpty() || emailUsuario.isEmpty() || senhaUsuario.isEmpty() || cpfUsuario.isEmpty()) {
-            showAlert(AlertType.ERROR, "Erro no Cadastro", "Por favor, preencha todos os campos.");
+        if (nomeText.isEmpty() || cpfText.isEmpty() || emailText.isEmpty() || senhaText.isEmpty()) {
+            showAlert(AlertType.ERROR, "Erro de Cadastro", "Por favor, preencha todos os campos.");
             return;
         }
 
-        if (!emailUsuario.contains("@")) {
-            showAlert(AlertType.ERROR, "Erro no Cadastro", "Por favor, insira um e-mail válido.");
-            return;
-        }
+        java.util.Map<String, String> requestBodyMap = new java.util.HashMap<>();
+        requestBodyMap.put("nome", nomeText);
+        requestBodyMap.put("cpf", cpfText);
+        requestBodyMap.put("email", emailText);
+        requestBodyMap.put("senha", senhaText);
+        requestBodyMap.put("tipo", "COMUM"); //tipo padrão para o cadastro
+
 
         try {
-            if (usuarioRepository.findByEmail(emailUsuario).isPresent()) {
-                showAlert(AlertType.ERROR, "Erro no Cadastro", "Já existe um usuário cadastrado com este e-mail.");
-                return;
-            }
+            String json = objectMapper.writeValueAsString(requestBodyMap); // Converte o Map para JSON
 
-            UsuarioModel novoUsuario = new UsuarioModel();
-            novoUsuario.setNome(nomeUsuario);
-            novoUsuario.setEmail(emailUsuario);
-            novoUsuario.setSenha(senhaUsuario); // Lembre-se: em produção, use criptografia (ex: BCrypt)!
-            novoUsuario.setCpf(cpfUsuario);
-            novoUsuario.setJaVotou(false);
-            novoUsuario.setTipo(TipoUsuario.Tipo.COMUM);
-            novoUsuario.setDataCadastro(LocalDateTime.now());
+            RequestBody body = RequestBody.create(json, MediaType.parse("application/json; charset=utf-8"));
 
-            usuarioRepository.save(novoUsuario);
+            Request request = new Request.Builder()
+                    .url("http://localhost:8080/usuario/cadastro") // Altere a porta se o seu Spring Boot estiver em outra
+                    .post(body)
+                    .build();
 
-            showAlert(AlertType.INFORMATION, "Cadastro Realizado", "Usuário cadastrado com sucesso!");
+            httpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace(); // Imprime o erro no console
+                    javafx.application.Platform.runLater(() ->
+                            showAlert(AlertType.ERROR, "Erro de Conexão", "Não foi possível conectar ao servidor. Verifique se o backend está rodando.")
+                    );
+                }
 
-            abrirLogin(event);
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    final String responseBody = response.body().string();
+                    if (response.isSuccessful()) {
+                        javafx.application.Platform.runLater(() -> {
+                            showAlert(AlertType.INFORMATION, "Sucesso", "Usuário cadastrado com sucesso!");
+                            clearFields();
+                            abrirLogin(null);
+                        });
+                    } else {
+                        javafx.application.Platform.runLater(() -> {
+                            showAlert(AlertType.ERROR, "Erro de Cadastro", "Erro ao cadastrar usuário: " + responseBody);
+                        });
+                    }
+                }
+            });
 
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Erro no Cadastro", "Ocorreu um erro ao cadastrar o usuário: " + e.getMessage());
+        } catch (IOException e) {
             e.printStackTrace();
+            showAlert(AlertType.ERROR, "Erro", "Erro ao preparar os dados para cadastro.");
         }
     }
 
     @FXML
     public void abrirLogin(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml")); // Ajuste o caminho
-            Parent root = loader.load();
-
+            // Carrega o FXML da tela de login
+            Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            showAlert(AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de Login: " + e.getMessage());
             e.printStackTrace();
+            showAlert(AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de login.");
         }
     }
 
-    private void showAlert(AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
+    private void showAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void clearFields() {
+        nome.clear();
+        cpf.clear();
+        email.clear();
+        senha.clear();
     }
 }

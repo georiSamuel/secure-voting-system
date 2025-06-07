@@ -14,14 +14,12 @@ import java.util.Optional;
 public class UsuarioService {
 
     // @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
     // @Autowired
-    private VotoRepository votoRepository;
+    private final VotoRepository votoRepository;
 
     // @Autowired
-
-    // NÃO ENTENDI A PRESENÇA DESSE CONSTRUTOR AQUI - tira a função do autowired
     public UsuarioService(UsuarioRepository usuarioRepository, VotoRepository votoRepository) {
         this.usuarioRepository = usuarioRepository;
         this.votoRepository = votoRepository;
@@ -75,7 +73,6 @@ public class UsuarioService {
         return null;
     }
 
-    // horlan, tem problema eu colocar isso aqui?
     public boolean verificarSeUsuarioJaVotou(Long usuarioId, Long votacaoId) {
         return votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacaoId); // Verifica se o voto existe
     }

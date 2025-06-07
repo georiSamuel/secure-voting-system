@@ -6,6 +6,12 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * Aplicação do JavaFX
+ * @author Suelle
+ * @version 1.0
+ * @since 26/05/25
+ */
 public class SistemaVotacaoApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {

@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import sistema.votacao.Usuario.DTO.LoginRequest;
+import sistema.votacao.Usuario.DTO.CadastroRequest;
 import sistema.votacao.Usuario.Model.UsuarioModel;
+import sistema.votacao.Usuario.Model.TipoUsuario;
 import sistema.votacao.Usuario.Service.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
+import java.time.LocalDateTime;
 import java.util.Optional; // retorna uma coisa ou outra;eu
 
 @RestController
@@ -27,12 +30,27 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<UsuarioModel> cadastrar(@RequestBody UsuarioModel usuario) { // "ReponseEntity" - controla a
-                                                                                       // resposta que a HTTP envia,
-                                                                                       // incluindo corpo, status HTTP
-                                                                                       // (200,201, 404, 500);
+    public ResponseEntity<UsuarioModel> cadastrar(@RequestBody CadastroRequest cadastroRequest) { // Agora aceita CadastroRequest
+        UsuarioModel usuario = new UsuarioModel();
+        usuario.setNome(cadastroRequest.getNome());
+        usuario.setCpf(cadastroRequest.getCpf());
+        usuario.setEmail(cadastroRequest.getEmail());
+        usuario.setSenha(cadastroRequest.getSenha());
+        usuario.setJaVotou(false); // Valor padrão
+        usuario.setDataCadastro(LocalDateTime.now());
+
+        if (cadastroRequest.getTipo() != null) {
+            try {
+                usuario.setTipo(TipoUsuario.Tipo.valueOf(cadastroRequest.getTipo().toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                usuario.setTipo(TipoUsuario.Tipo.COMUM); // Define COMUM como padrão
+            }
+        } else {
+            usuario.setTipo(TipoUsuario.Tipo.COMUM);
+        }
+
         UsuarioModel novoUsuario = usuarioService.cadastrarUsuario(usuario);
-        return ResponseEntity.ok(novoUsuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
     }
 
     @GetMapping("id/{id}")

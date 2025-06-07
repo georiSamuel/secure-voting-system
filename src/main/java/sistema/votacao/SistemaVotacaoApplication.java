@@ -1,3 +1,5 @@
+package sistema.votacao;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,10 +39,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SistemaVotacaoApplication {
+public class sistema.votacao.SistemaVotacaoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SistemaVotacaoApplication.class, args);
+        SpringApplication.run(sistema.votacao.SistemaVotacaoApplication.class, args);
     }
 }
  */

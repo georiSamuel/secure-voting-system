@@ -26,6 +26,7 @@
 
     <dependencies>
 
+    <!-- Dependências JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -42,6 +43,7 @@
             <artifactId>javafx-graphics</artifactId>
             <version>21.0.2</version>
         </dependency>
+
         <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -105,6 +107,7 @@
 
     <build>
         <plugins>
+        <!-- Plugin pra JavaFX no Maven -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>

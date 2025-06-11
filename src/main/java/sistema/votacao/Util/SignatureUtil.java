@@ -1,4 +1,4 @@
-package sistema.votacao.cryptography.src.cryptographyUtil;
+package sistema.votacao.Util;
 
 //  Assinatura Digital (SHA-256 + RSA)
 import java.security.*;

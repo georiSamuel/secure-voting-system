@@ -1,4 +1,4 @@
-package sistema.votacao.cryptography.src.cryptographyUtil;
+package sistema.votacao.Util;
 
 //SHA-256 – Hash para integridade do voto (NÃO É NECESSÁRIO NO PROJETO, MAS DECIDIR DEIXAR PARA MOSTRAR OUTRA TÉCNICA DE SEGURANÇA)
 import java.nio.ByteBuffer;

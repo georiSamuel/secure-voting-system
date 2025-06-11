@@ -1,4 +1,4 @@
-package sistema.votacao.cryptography.src.Testes;
+package sistema.votacao.Util.Testes;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

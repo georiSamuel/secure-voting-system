@@ -1,4 +1,4 @@
-package sistema.votacao.cryptography.src.cryptographyUtil;
+package sistema.votacao.Util;
 
 // Hash de Senhas - BCrypt
 import org.mindrot.jbcrypt.BCrypt;

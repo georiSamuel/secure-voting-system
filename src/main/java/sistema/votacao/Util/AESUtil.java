@@ -1,4 +1,4 @@
-package sistema.votacao.cryptography.src.cryptographyUtil;
+package sistema.votacao.Util;
 
 // Classe para criptografar chave privada com criptografia simétrica baseada em senha (AES-GCM)
 // TODO: Vou criar uma nova senha para o admin descriptografar a chave privada com a chave simétrica??

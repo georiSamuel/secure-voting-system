@@ -1,4 +1,4 @@
-package sistema.votacao.cryptography.src.Testes;
+package sistema.votacao.Util.Testes;
 
 public class Candidato {
 

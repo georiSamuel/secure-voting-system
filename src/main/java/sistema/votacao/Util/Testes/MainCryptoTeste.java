@@ -1,6 +1,6 @@
-package sistema.votacao.cryptography.src.Testes;
+package sistema.votacao.Util.Testes;
 
-import sistema.votacao.cryptography.src.cryptographyUtil.*;
+import sistema.votacao.Util.*;
 
 import javax.crypto.SecretKey;
 import java.security.KeyPair;

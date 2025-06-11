@@ -4,14 +4,11 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import sistema.votacao.Usuario.DTO.CadastroRequest;
 import sistema.votacao.Usuario.Model.UsuarioModel;
-import sistema.votacao.Usuario.Model.TipoUsuario.Tipo;
 import sistema.votacao.Usuario.Repository.UsuarioRepository;
 import sistema.votacao.Voto.Repository.VotoRepository;
-import sistema.votacao.cryptography.src.cryptographyUtil.PasswordUtil;
+import sistema.votacao.Util.PasswordUtil;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Data

@@ -21,6 +21,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class UsuarioModel {
 
+    @Enumerated(EnumType.STRING) // Armazena o enum como String no banco de dados
+    @Column(nullable = false)
+    private TipoUsuario.Tipo tipoUsuario;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -48,8 +51,15 @@ public class UsuarioModel {
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
 
-    @Column(name = "pergunta_seguranca") // não sei se é realmente necessário ser unico, normal escolher a mesma
-                                         // pergunta, qualquer coisa vollta com unique = true ai
+    @Column(name = "pergunta_seguranca")
     private String perguntaSeguranca;
+
+    public UsuarioModel(String nome, String email, String senha, String cpf, TipoUsuario.Tipo tipoUsuario) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.cpf = cpf;
+        this.tipoUsuario = tipoUsuario;
+    }
 
 }

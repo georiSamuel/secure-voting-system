@@ -20,9 +20,8 @@ public class VotoController {
     @Autowired
     private VotoService votoservice;
 
-    @PostMapping
+    @PostMapping("/registrar")
     public ResponseEntity<VotoResponseDTO> votar(@Valid @RequestBody VotoRequestDTO dto) {
-
         VotoResponseDTO response = votoservice.registrarVoto(dto);
         return ResponseEntity.ok(response);
     }

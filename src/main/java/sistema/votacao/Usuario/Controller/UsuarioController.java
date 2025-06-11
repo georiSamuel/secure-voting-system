@@ -25,8 +25,7 @@ import java.util.Optional; // retorna uma coisa ou outra;eu
 @RequestMapping("/usuario")
 public class UsuarioController {
 
-    @Autowired // injeção de instância automática, ou seja, a classejá receb os seus objetos
-               // prontos, em vez de utilizar o new
+    @Autowired
     private UsuarioService usuarioService;
 
     @PostMapping("/cadastro")
@@ -40,13 +39,9 @@ public class UsuarioController {
         usuario.setDataCadastro(LocalDateTime.now());
 
         if (cadastroRequest.getTipo() != null) {
-            try {
-                usuario.setTipo(TipoUsuario.Tipo.valueOf(cadastroRequest.getTipo().toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                usuario.setTipo(TipoUsuario.Tipo.COMUM); // Define COMUM como padrão
-            }
+            usuario.setTipoUsuario(cadastroRequest.getTipo());
         } else {
-            usuario.setTipo(TipoUsuario.Tipo.COMUM);
+            usuario.setTipoUsuario(TipoUsuario.Tipo.COMUM);
         }
 
         UsuarioModel novoUsuario = usuarioService.cadastrarUsuario(usuario);
@@ -76,8 +71,7 @@ public class UsuarioController {
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
-        session.invalidate(); // invalida a sessão do usuário --> destrói a sessão atual e remove todos os
-                              // dados associados a ela
+        session.invalidate();
         return ResponseEntity.ok("Logout realizado com sucesso!");
 
     }

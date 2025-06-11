@@ -1,6 +1,10 @@
 package sistema.votacao.Usuario.Service;
 
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import sistema.votacao.Usuario.DTO.CadastroRequest;
 import sistema.votacao.Usuario.Model.UsuarioModel;
 import sistema.votacao.Usuario.Model.TipoUsuario.Tipo;
 import sistema.votacao.Usuario.Repository.UsuarioRepository;
@@ -10,13 +14,17 @@ import sistema.votacao.cryptography.src.cryptographyUtil.PasswordUtil;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Data
 @Service
 public class UsuarioService {
 
-    // @Autowired
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private final UsuarioRepository usuarioRepository;
 
-    // @Autowired
+    @Autowired
     private final VotoRepository votoRepository;
 
     // @Autowired
@@ -25,30 +33,16 @@ public class UsuarioService {
         this.votoRepository = votoRepository;
     }
 
-    public UsuarioModel cadastrarUsuario(UsuarioModel usuario) {
-
-        String email = usuario.getEmail();
-
-        // Verifica se o email já está cadastrado
-        if (usuarioRepository.findByEmail(email).isPresent()) {
+    public UsuarioModel cadastrarUsuario(UsuarioModel usuario) { // Parâmetro alterado para UsuarioModel
+        if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
             throw new RuntimeException("Email já cadastrado.");
         }
 
-        // Define o tipo com base no domínio do email
-        if (email.endsWith("@admin.com")) {
-            if (usuarioRepository.existsByTipo(Tipo.ADMIN)) {
-                throw new RuntimeException("Já existe um administrador cadastrado no sistema.");
-            }
-            usuario.setTipo(Tipo.ADMIN);
-        } else if (email.endsWith("@usuario.com")) {
-            usuario.setTipo(Tipo.COMUM);
-        } else {
-            throw new TipoUsuarioInvalido(email);
+        if (usuario.getTipoUsuario() == null) { // Acessando diretamente de UsuarioModel
+            throw new TipoUsuarioInvalido("Tipo de usuário não pode ser nulo.");
         }
 
-        // Usar sua função personalizada
-        usuario.setSenha(PasswordUtil.hashPassword(usuario.getSenha()));
-        usuario.setDataCadastro(LocalDateTime.now());
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
     }
 
@@ -64,7 +58,6 @@ public class UsuarioService {
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
 
-            // Usar sua função personalizada para verificar a senha
             if (PasswordUtil.verifyPassword(senha, usuario.getSenha())) {
                 return usuario;
             }

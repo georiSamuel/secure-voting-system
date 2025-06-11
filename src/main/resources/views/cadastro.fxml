@@ -16,13 +16,18 @@
                 <Font name="System Bold" size="30.0" />
             </font>
         </Label>
-        <Label fx:id="descricaoText" layoutX="131.0" layoutY="176.0" prefHeight="18.0" prefWidth="137.0" textAlignment="CENTER" textFill="#7a7a7a" />
-        <TextField fx:id="email" layoutX="50.0" layoutY="238.0" prefHeight="35" prefWidth="300" promptText="Digite seu e-mail" />
-        <PasswordField fx:id="senha" layoutX="50.0" layoutY="295.0" prefHeight="35" prefWidth="300" promptText="Digite sua senha" />
-        <Button fx:id="botaoCadastrar" layoutX="96.0" layoutY="353.0" mnemonicParsing="false" onAction="#cadastrar" prefHeight="35.0" prefWidth="206.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" text="Cadastrar" />
-      <Text fx:id="infoText" fill="#b1b1b1" layoutX="128.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preencha todos os campos:" />
-      <Hyperlink fx:id="botaoVoltar" layoutX="134.0" layoutY="407.0" onAction="#abrirLogin" text="Voltar para a tela inicial" />
-      <TextField fx:id="cpf" layoutX="49.0" layoutY="185.0" prefHeight="35.0" prefWidth="300.0" promptText="Digite seu cpf" />
-      <TextField fx:id="nome" layoutX="49.0" layoutY="132.0" prefHeight="35.0" prefWidth="300.0" promptText="Digite seu nome" />
+        <Text fx:id="infoText" fill="#b1b1b1" layoutX="128.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preencha todos os campos:" />
+
+        <!-- Campos de texto e senha corrigidos para corresponder ao Controller -->
+        <TextField fx:id="txtNome" layoutX="49.0" layoutY="132.0" prefHeight="35.0" prefWidth="300.0" promptText="Digite seu nome" />
+        <TextField fx:id="txtCpf" layoutX="49.0" layoutY="185.0" prefHeight="35.0" prefWidth="300.0" promptText="Digite seu CPF" />
+        <TextField fx:id="txtEmail" layoutX="50.0" layoutY="238.0" prefHeight="35" prefWidth="300" promptText="Digite seu e-mail" />
+        <PasswordField fx:id="pwdSenha" layoutX="50.0" layoutY="295.0" prefHeight="35" prefWidth="300" promptText="Digite sua senha" />
+        <PasswordField fx:id="pwdConfirmarSenha" layoutX="50.0" layoutY="352.0" prefHeight="35" prefWidth="300" promptText="Confirme sua senha" />
+
+        <Button fx:id="btnCadastrar" layoutX="96.0" layoutY="409.0" mnemonicParsing="false" onAction="#handleCadastroButton" prefHeight="35.0" prefWidth="206.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" text="Cadastrar" />
+
+        <Hyperlink fx:id="btnVoltarLogin" layoutX="134.0" layoutY="448.0" onAction="#handleVoltarLoginButton" text="Voltar para a tela inicial" />
+        <!-- <Label fx:id="descricaoText" layoutX="131.0" layoutY="176.0" prefHeight="18.0" prefWidth="137.0" textAlignment="CENTER" textFill="#7a7a7a" /> -->
     </AnchorPane>
 </AnchorPane>

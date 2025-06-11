@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/votos")
+@RequestMapping("/votos") // Base mapping
 public class OpcaoVotoController {
 
     private final OpcaoVotoService opcaoVotoService;
@@ -23,7 +23,7 @@ public class OpcaoVotoController {
         this.opcaoVotoService = opcaoVotoService;
     }
 
-    @PostMapping
+    @PostMapping("/opcoes")
     public ResponseEntity<OpcaoVotoResponseDTO> criarOpcaoVoto(
             @Valid @RequestBody OpcaoVotoRequestDTO opcaoVotoRequest) {
 
@@ -64,12 +64,11 @@ public class OpcaoVotoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{id}/votar")
+    @PostMapping("/{id}/votar") 
     public ResponseEntity<Void> registrarVoto(
             @PathVariable Long id) {
 
         opcaoVotoService.incrementarVotos(id);
         return ResponseEntity.ok().build();
     }
-
 }

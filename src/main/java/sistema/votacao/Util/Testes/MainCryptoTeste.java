@@ -19,10 +19,10 @@ public class MainCryptoTeste {
 
                 // Testes.User
                 User anora = new User("Anora", "123456");
-                String hashSenha = PasswordUtil.hashPassword(anora.getSenha());
+                String hashSenha = Password.hashPassword(anora.getSenha());
                 System.out.printf("Hash da Senha de %s : " + hashSenha + "\n", anora.getSenha());
                 System.out.println("Verificando a senha de Anora...");
-                boolean senhaValida = PasswordUtil.verifyPassword(anora.getSenha(), hashSenha);
+                boolean senhaValida = Password.verifyPassword(anora.getSenha(), hashSenha);
                 System.out.println("Senha de Anora " + (senhaValida ? "Válida" : "Inválida"));
 
                 System.out.println("\n");
@@ -39,13 +39,13 @@ public class MainCryptoTeste {
                 System.out.println("\n");
 
                 // Assina o voto criptografado
-                String assinatura = SignatureUtil.sign(votoCriptografado, privKey);
+                String assinatura = Signature.sign(votoCriptografado, privKey);
                 System.out.println("Assinatura: " + assinatura);
 
                 //assinatura = assinatura + "georis"; //Daria erro pois tiraria a string do formato base64
 
                 // Verifica a assinatura
-                boolean valido = SignatureUtil.verify(votoCriptografado, assinatura, pubKey);
+                boolean valido = Signature.verify(votoCriptografado, assinatura, pubKey);
                 System.out.println("Assinatura Válida: " + valido);
 
 
@@ -53,7 +53,7 @@ public class MainCryptoTeste {
 
 
                 // Hash do voto para integridade
-                String hashVoto = HashUtil.sha256(Bolsonaro.getVotosRecebidos());
+                String hashVoto = Hash.sha256(Bolsonaro.getVotosRecebidos());
                 System.out.println("Hash do Voto: " + hashVoto);
 
 
@@ -62,9 +62,9 @@ public class MainCryptoTeste {
                 System.out.println("Votos Descriptografados: " + votosDescriptografados);
 
                 //Criptografando chave privada
-                byte[] salt = AESUtil.generateSalt();
-                SecretKey secretKey = AESUtil.getKeyFromPassword(anora.getSenha(), salt);
-                String EncryptedPrivateKey = AESUtil.encryptPrivateKey(privKey.getEncoded(),secretKey);
+                byte[] salt = AES.generateSalt();
+                SecretKey secretKey = AES.getKeyFromPassword(anora.getSenha(), salt);
+                String EncryptedPrivateKey = AES.encryptPrivateKey(privKey.getEncoded(),secretKey);
 
 
                 // Salvar no banco:
@@ -74,7 +74,7 @@ public class MainCryptoTeste {
                 System.out.println("Private Key Encrypted: " + EncryptedPrivateKey);
 
                 //Descriptografando a chave privada e verificando se deu certo
-                PrivateKey decryptedPrivateKey = AESUtil.decryptPrivateKey(EncryptedPrivateKey,secretKey);
+                PrivateKey decryptedPrivateKey = AES.decryptPrivateKey(EncryptedPrivateKey,secretKey);
                 boolean saoIguais = (decryptedPrivateKey == privKey); //DÁ ERRADO == compara referências de objetos na memória
                                                                           //privKey e decryptedPrivateKey são objetos diferentes (criados em momentos diferentes)
                 System.out.println("Private Keys são iguais: " + saoIguais);

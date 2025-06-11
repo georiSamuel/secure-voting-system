@@ -4,7 +4,7 @@ package sistema.votacao.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 
-public class HashUtil {
+public class Hash {
     // Método para gerar um hash SHA-256 de uma string
     public static String sha256(int data) throws Exception {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");

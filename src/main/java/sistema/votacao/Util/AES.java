@@ -10,7 +10,7 @@ import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 
-public class AESUtil {
+public class AES {
     private static final int SALT_LENGTH = 32;
     private static final int IV_LENGTH = 12;
     private static final int ITERATIONS = 100022;

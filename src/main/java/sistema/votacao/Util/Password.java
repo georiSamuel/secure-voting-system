@@ -3,7 +3,7 @@ package sistema.votacao.Util;
 // Hash de Senhas - BCrypt
 import org.mindrot.jbcrypt.BCrypt;
 
-public class PasswordUtil {
+public class Password {
     // Método para gerar o hash da senha que vai ser armazenada no banco de dados
     public static String hashPassword(String plainPassword) {
         // Gera um hash da senha usando BCrypt

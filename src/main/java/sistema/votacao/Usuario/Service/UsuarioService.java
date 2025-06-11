@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import sistema.votacao.Usuario.Model.UsuarioModel;
 import sistema.votacao.Usuario.Repository.UsuarioRepository;
 import sistema.votacao.Voto.Repository.VotoRepository;
-import sistema.votacao.Util.PasswordUtil;
+import sistema.votacao.Util.Password;
 
 import java.util.Optional;
 
@@ -55,7 +55,7 @@ public class UsuarioService {
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
 
-            if (PasswordUtil.verifyPassword(senha, usuario.getSenha())) {
+            if (Password.verifyPassword(senha, usuario.getSenha())) {
                 return usuario;
             }
         }

@@ -11,6 +11,7 @@ import sistema.votacao.Voto.Model.OpcaoVoto;
 import sistema.votacao.Voto.Model.VotoModel;
 import sistema.votacao.Votacao.Model.Votacao;
 import sistema.votacao.Votacao.Service.VotacaoService;
+import sistema.votacao.Util.ReproduzirSom; // Import da classe para reproduzir som
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -80,6 +81,8 @@ public class VotoService {
 
         usuarioService.atualizarStatusVoto(dto.getUsuarioId(), true);
         opcaoVotoService.incrementarVotos(dto.getOpcaoVotoId());
+
+        ReproduzirSom.tocarBeepUrna("Assets/audioUrna.wav"); // Tocando som após votação
 
         return new VotoResponseDTO(
                 salvo.getId(),

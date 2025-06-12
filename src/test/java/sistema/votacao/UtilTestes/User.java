@@ -1,4 +1,7 @@
-package sistema.votacao.Util.Testes;
+//TODO: Excluir depois
+
+package sistema.votacao.UtilTestes;
+
 
 public class User {
 

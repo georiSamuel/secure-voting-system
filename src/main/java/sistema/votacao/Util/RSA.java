@@ -6,7 +6,7 @@ import java.security.*;
 import javax.crypto.Cipher;
 import java.util.Base64;
 
-public class RSAUtil {
+public class RSA {
 
     // Método para gerar um par de chaves RSA (precisa dessa configuração)
     public static KeyPair generateKeyPair() throws Exception {

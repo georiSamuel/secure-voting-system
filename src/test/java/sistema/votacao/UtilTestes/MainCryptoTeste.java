@@ -1,4 +1,6 @@
-package sistema.votacao.Util.Testes;
+//TODO: Excluir depois
+
+package sistema.votacao.UtilTestes;
 
 import sistema.votacao.Util.*;
 
@@ -9,10 +11,11 @@ import java.security.PublicKey;
 import java.util.Arrays;
 
 public class MainCryptoTeste {
-        public static void main(String[] args) {
+
+    public static void main(String[] args){
             try {
                 // Geração de chaves e separação
-                KeyPair pair = RSAUtil.generateKeyPair();
+                KeyPair pair = RSA.generateKeyPair();
                 PublicKey pubKey = pair.getPublic();
                 PrivateKey privKey = pair.getPrivate();
 
@@ -33,7 +36,7 @@ public class MainCryptoTeste {
                 Bolsonaro.votar();
 
                 // Criptografa o voto
-                String votoCriptografado = RSAUtil.encrypt(Bolsonaro.getVotosRecebidos(), pubKey);
+                String votoCriptografado = RSA.encrypt(Bolsonaro.getVotosRecebidos(), pubKey);
                 System.out.println("Voto Criptografado: " + votoCriptografado);
 
                 System.out.println("\n");
@@ -58,7 +61,7 @@ public class MainCryptoTeste {
 
 
                 // Voto descptografado
-                int votosDescriptografados = RSAUtil.decrypt(votoCriptografado, privKey);
+                int votosDescriptografados = RSA.decrypt(votoCriptografado, privKey);
                 System.out.println("Votos Descriptografados: " + votosDescriptografados);
 
                 //Criptografando chave privada
@@ -83,7 +86,7 @@ public class MainCryptoTeste {
                 System.out.println("Private Keys são iguais: " + saoIguais2 + "\n"); //Dá certo (OBG DEUS) pois o conteúdo do array de bytes da chave é comparado
 
                 //Testando descriptografia com a chave privada após ser descriptografada
-                int votosDescriptografadosComPrivKeyDesciptografada = RSAUtil.decrypt(votoCriptografado, decryptedPrivateKey);
+                int votosDescriptografadosComPrivKeyDesciptografada = RSA.decrypt(votoCriptografado, decryptedPrivateKey);
                 System.out.println("Votos Descriptografados: " + votosDescriptografadosComPrivKeyDesciptografada); //Deus seja louvado
 
 

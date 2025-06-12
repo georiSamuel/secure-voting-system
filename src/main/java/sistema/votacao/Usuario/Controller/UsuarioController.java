@@ -1,3 +1,7 @@
+
+
+// POSSIVELMENTE NÃO SERÁ USADO, MAS MANTIDO PARA REFERÊNCIA FUTURA
+
 package sistema.votacao.Usuario.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,13 @@ import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Optional; // retorna uma coisa ou outra;eu
 
+/**
+ * Classe responsável por definir os endpoints (API) para o gerenciamento de usuários no sistema de votação.
+ * @author Horlan
+ * @version 1.0
+ * @since 20/05/2025
+ */
+
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -28,6 +39,11 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    /**
+     * Endpoint para cadastrar um novo usuário.
+     * @param cadastroRequest Objeto contendo os dados do usuário a ser cadastrado.
+     * @return ResponseEntity com o usuário cadastrado e status HTTP 201 (Created).
+     */
     @PostMapping("/cadastro")
     public ResponseEntity<UsuarioModel> cadastrar(@RequestBody CadastroRequest cadastroRequest) { // Agora aceita CadastroRequest
         UsuarioModel usuario = new UsuarioModel();
@@ -48,6 +64,11 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
     }
 
+    /**
+     * Endpoint para buscar um usuário pelo ID.
+     * @param id ID do usuário a ser buscado.
+     * @return ResponseEntity com o usuário encontrado ou status HTTP 404 (Not Found) se não encontrado.
+     */
     @GetMapping("id/{id}")
     public ResponseEntity<UsuarioModel> buscarPorId(@PathVariable long id) {
         Optional<UsuarioModel> usuario = usuarioService.buscarPorId(id);
@@ -56,6 +77,12 @@ public class UsuarioController {
 
     }
 
+    /**
+     * Endpoint para autenticar um usuário (login). Este método recebe um objeto LoginRequest contendo o email e a senha do usuário.
+     * @param loginRequest Objeto contendo o email e a senha do usuário.
+     * @param session HttpSession para gerenciar a sessão do usuário autenticado.
+     * @return ResponseEntity com uma mensagem de sucesso ou erro de autenticação.
+     */
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
 
@@ -69,12 +96,23 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Endpoint para realizar o logout do usuário, invalidando a sessão atual.
+     * @param session HttpSession para gerenciar a sessão do usuário.
+     * @return ResponseEntity com uma mensagem de sucesso.
+     */
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
         session.invalidate();
         return ResponseEntity.ok("Logout realizado com sucesso!");
 
     }
+
+    /**
+     * Endpoint para verificar se um usuário está logado.
+     * @param session HttpSession para verificar a sessão do usuário.
+     * @return ResponseEntity com o nome do usuário logado ou uma mensagem de erro se não houver usuário logado.
+     */
 
     @GetMapping("/logado")
     public ResponseEntity<String> verificarSessao(HttpSession session) {

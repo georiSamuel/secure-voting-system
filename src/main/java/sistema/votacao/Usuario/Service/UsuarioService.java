@@ -7,64 +7,51 @@ import org.springframework.stereotype.Service;
 import sistema.votacao.Usuario.Model.UsuarioModel;
 import sistema.votacao.Usuario.Repository.UsuarioRepository;
 import sistema.votacao.Voto.Repository.VotoRepository;
-import sistema.votacao.Util.Password; // Certifique-se de que esta classe está correta e funcional
+import sistema.votacao.Util.Password;
 
 import java.util.Optional;
+
+/**
+ * Classe responsável por implementar a lógica de negócios relacionada aos usuários do sistema de votação.
+ * @author Horlan
+ * @version 1.0
+ * @since 20/05/2025
+ */
 
 @Data
 @Service
 public class UsuarioService {
 
-    // O PasswordEncoder é usado para codificar senhas no cadastro
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Autowired private PasswordEncoder passwordEncoder;
 
-    // Repositório para operações de persistência de usuários
-    private final UsuarioRepository usuarioRepository;
+    @Autowired private final UsuarioRepository usuarioRepository;
 
-    // Repositório para operações de persistência de votos (se necessário para lógica futura)
-    private final VotoRepository votoRepository;
+    @Autowired private final VotoRepository votoRepository;
 
     /**
-     * Construtor da classe UsuarioService.
-     * Injeta as dependências necessárias para o serviço.
-     * @param usuarioRepository Repositório de usuários.
-     * @param votoRepository Repositório de votos.
+     * Método para cadastrar um novo usuário no sistema.
+     * @param usuario
+     * @return O usuário cadastrado.
+     * @throws RuntimeException se o email já estiver cadastrado ou se o tipo de usuário for nulo.
+     * @throws TipoUsuarioInvalido se o tipo de usuário for inválido.
      */
-    @Autowired // Anotação para injeção de dependência pelo Spring
-    public UsuarioService(UsuarioRepository usuarioRepository, VotoRepository votoRepository) {
-        this.usuarioRepository = usuarioRepository;
-        this.votoRepository = votoRepository;
-    }
-
-    /**
-     * Cadastra um novo usuário no sistema.
-     * Antes de salvar, verifica se o email já está cadastrado e se o tipo de usuário é válido.
-     * A senha do usuário é codificada antes de ser armazenada no banco de dados.
-     * @param usuario O objeto UsuarioModel a ser cadastrado.
-     * @return O UsuarioModel salvo no banco de dados.
-     * @throws RuntimeException se o email já estiver cadastrado ou o tipo de usuário for nulo.
-     */
-    public UsuarioModel cadastrarUsuario(UsuarioModel usuario) {
-        // Verifica se já existe um usuário com o email fornecido
+    public UsuarioModel cadastrarUsuario(UsuarioModel usuario) { // Parâmetro alterado para UsuarioModel
         if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
             throw new RuntimeException("Email já cadastrado.");
         }
 
-        // Verifica se o tipo de usuário não é nulo
-        if (usuario.getTipoUsuario() == null) {
+        if (usuario.getTipoUsuario() == null) { // Acessando diretamente de UsuarioModel
             throw new TipoUsuarioInvalido("Tipo de usuário não pode ser nulo.");
         }
 
-        // Codifica a senha do usuário antes de salvar
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
     }
 
     /**
-     * Busca um usuário pelo seu ID.
-     * @param id O ID do usuário a ser buscado.
-     * @return Um Optional contendo o UsuarioModel se encontrado, ou um Optional vazio.
+     * Método para buscar um usuário pelo ID.
+     * @param id
+     * @return Um Optional contendo o usuário se encontrado, ou vazio caso contrário.
      * @throws RuntimeException se o usuário não for encontrado.
      */
     public Optional<UsuarioModel> buscarPorId(Long id) {
@@ -73,47 +60,44 @@ public class UsuarioService {
     }
 
     /**
-     * Autentica um usuário com base no email e senha fornecidos.
-     * @param email O email do usuário.
-     * @param senha A senha em texto puro do usuário.
-     * @return O objeto UsuarioModel se a autenticação for bem-sucedida, caso contrário, retorna null.
+     * Método para autenticar um usuário com base no email e senha.
+     * @param email
+     * @param senha
+     * @return O usuário autenticado, ou null se a autenticação falhar.
      */
     public UsuarioModel autenticar(String email, String senha) {
-        // Tenta encontrar o usuário pelo email
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
 
-        // Se o usuário for encontrado e a senha corresponder, retorna o usuário
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
-            // Utiliza o método verifyPassword da classe Password para comparar a senha fornecida
-            // com a senha armazenada (hashed)
+
             if (Password.verifyPassword(senha, usuario.getSenha())) {
                 return usuario;
             }
         }
-        // Retorna null se o usuário não for encontrado ou a senha estiver incorreta
+
         return null;
     }
 
     /**
-     * Verifica se um usuário já votou em uma votação específica.
-     * @param usuarioId O ID do usuário.
-     * @param votacaoId O ID da votação.
+     * Método para verificar se um usuário já votou em uma votação específica.
+     * @param usuarioId ID do usuário a ser verificado.
+     * @param votacaoId ID da votação a ser verificada.
      * @return true se o usuário já votou, false caso contrário.
      */
     public boolean verificarSeUsuarioJaVotou(Long usuarioId, Long votacaoId) {
-        return votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacaoId);
+        return votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacaoId); // Verifica se o voto existe
     }
 
     /**
-     * Atualiza o status de votação de um usuário.
-     * @param usuarioId O ID do usuário.
-     * @param status O novo status de votação (true para já votou, false para ainda não votou).
+     * Método para atualizar o status de voto de um usuário.
+     * @param usuarioId ID do usuário cujo status de voto será atualizado.
+     * @param status Novo status de voto (true se já votou, false caso contrário).
      * @throws RuntimeException se o usuário não for encontrado.
      */
     public void atualizarStatusVoto(Long usuarioId, boolean status) {
         UsuarioModel usuario = this.buscarPorId(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado")); // Verifica se o usuário existe
         usuario.setJaVotou(status);
         usuarioRepository.save(usuario);
     }

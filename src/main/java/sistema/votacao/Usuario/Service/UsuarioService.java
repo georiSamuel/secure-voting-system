@@ -11,6 +11,13 @@ import sistema.votacao.Util.Password;
 
 import java.util.Optional;
 
+/**
+ * Classe responsável por implementar a lógica de negócios relacionada aos usuários do sistema de votação.
+ * @author Horlan
+ * @version 1.0
+ * @since 20/05/2025
+ */
+
 @Data
 @Service
 public class UsuarioService {
@@ -24,12 +31,13 @@ public class UsuarioService {
     @Autowired
     private final VotoRepository votoRepository;
 
-    // @Autowired
-    public UsuarioService(UsuarioRepository usuarioRepository, VotoRepository votoRepository) {
-        this.usuarioRepository = usuarioRepository;
-        this.votoRepository = votoRepository;
-    }
-
+    /**
+     * Método para cadastrar um novo usuário no sistema.
+     * @param usuario
+     * @return O usuário cadastrado.
+     * @throws RuntimeException se o email já estiver cadastrado ou se o tipo de usuário for nulo.
+     * @throws TipoUsuarioInvalido se o tipo de usuário for inválido.
+     */
     public UsuarioModel cadastrarUsuario(UsuarioModel usuario) { // Parâmetro alterado para UsuarioModel
         if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
             throw new RuntimeException("Email já cadastrado.");
@@ -43,12 +51,23 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-
+    /**
+     * Método para buscar um usuário pelo ID.
+     * @param id
+     * @return Um Optional contendo o usuário se encontrado, ou vazio caso contrário.
+     * @throws RuntimeException se o usuário não for encontrado.
+     */
     public Optional<UsuarioModel> buscarPorId(Long id) {
         return Optional.ofNullable(
                 usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario não encontrado")));
     }
 
+    /**
+     * Método para autenticar um usuário com base no email e senha.
+     * @param email
+     * @param senha
+     * @return O usuário autenticado, ou null se a autenticação falhar.
+     */
     public UsuarioModel autenticar(String email, String senha) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
 
@@ -63,10 +82,22 @@ public class UsuarioService {
         return null;
     }
 
+    /**
+     * Método para verificar se um usuário já votou em uma votação específica.
+     * @param usuarioId ID do usuário a ser verificado.
+     * @param votacaoId ID da votação a ser verificada.
+     * @return true se o usuário já votou, false caso contrário.
+     */
     public boolean verificarSeUsuarioJaVotou(Long usuarioId, Long votacaoId) {
         return votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacaoId); // Verifica se o voto existe
     }
 
+    /**
+     * Método para atualizar o status de voto de um usuário.
+     * @param usuarioId ID do usuário cujo status de voto será atualizado.
+     * @param status Novo status de voto (true se já votou, false caso contrário).
+     * @throws RuntimeException se o usuário não for encontrado.
+     */
     public void atualizarStatusVoto(Long usuarioId, boolean status) {
         UsuarioModel usuario = this.buscarPorId(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado")); // Verifica se o usuário existe

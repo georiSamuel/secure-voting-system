@@ -7,10 +7,26 @@ import sistema.votacao.Usuario.Model.UsuarioModel;
 
 import java.util.Optional;
 
+/**
+ * Interface responsável por definir os métodos de acesso aos dados de usuários no banco de dados.
+ * @author Horlan
+ * @version 1.0 
+ * @since 20/05/2025
+ */
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
 
+    /**
+     * Método para encontrar um usuário pelo seu email.
+     * @param email O email do usuário a ser encontrado.
+     * @return Um Optional contendo o usuário se encontrado, ou vazio caso contrário.
+     */
     Optional<UsuarioModel> findByEmail(String email);
 
+    /**
+     * Método para verificar se já existe um usuário com o tipo especificado.
+     * @param tipo O tipo de usuário a ser verificado.
+     * @return true se existir um usuário com o tipo especificado, false caso contrário.
+     */
     boolean existsByTipo(Tipo tipo); // Verifica se já existe um usuário com o tipo especificado, ele vai ser usado
                                      // para verificar se já existe um administrador cadastrado no sistema.
     // Optional<UsuarioModel> findById(Long id); // já existe no JpaRepository,

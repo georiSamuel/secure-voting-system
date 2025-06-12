@@ -14,6 +14,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ *  Classe resposável por criar a entidade de usuário dentro do BD
+ * @author Horlan
+ * @version 1.0
+ * @since 20/05/2025
+ */
+
 @Entity
 @Table(name = "tb_usuario")
 @NoArgsConstructor
@@ -21,9 +28,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class UsuarioModel {
 
-    @Enumerated(EnumType.STRING) // Armazena o enum como String no banco de dados
-    @Column(nullable = false)
-    private TipoUsuario.Tipo tipoUsuario;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -51,8 +55,18 @@ public class UsuarioModel {
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
 
-    @Column(name = "pergunta_seguranca")
-    private String perguntaSeguranca;
+    @Enumerated(EnumType.STRING) // Armazena o enum como String no banco de dados
+    @Column(nullable = false)
+    private TipoUsuario.Tipo tipoUsuario;
+
+    /**
+     * Construtor da classe UsuarioModel
+     * @param nome
+     * @param email
+     * @param senha
+     * @param cpf
+     * @param tipoUsuario
+     */
 
     public UsuarioModel(String nome, String email, String senha, String cpf, TipoUsuario.Tipo tipoUsuario) {
         this.nome = nome;

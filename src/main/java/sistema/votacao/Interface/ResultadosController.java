@@ -150,7 +150,6 @@ public class ResultadosController {
     @FXML
     private void handleVoltarButton() {
         try {
-            // Carrega a tela do admin
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/votacao/Interface/TelaAdmin.fxml")); // Assegure-se que o caminho está correto
             Parent root = loader.load();
 

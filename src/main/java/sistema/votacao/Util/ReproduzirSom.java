@@ -27,6 +27,7 @@ public final class ReproduzirSom {
 
     /**
      * Método utilitário para tocar som de confirmação de voto
+     * @version 1.0
      * @since 10/06/25
      * @param caminhoArquivo
      */

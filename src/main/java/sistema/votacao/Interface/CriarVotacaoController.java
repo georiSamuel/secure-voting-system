@@ -6,8 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import lombok.Data;
 import sistema.votacao.Votacao.Service.VotacaoService;
 
+/**
+ * Classe responsável pela tela da criação de Votação personalizável.
+ *
+ * @author Suelle
+ * @since 12/06/25
+ * @version 1.0
+ */
+@Data
 public class CriarVotacaoController {
     @FXML private TextField campoTitulo;
     @FXML private ComboBox<String> comboTipo;
@@ -18,28 +27,36 @@ public class CriarVotacaoController {
     public void initialize() {
     }
 
-    public void showCriacaoAcademicaScreen(Stage primaryStage, VotacaoService service) {
+    /**
+     * Método responsável pela mudança de tela para tela da criação de votação acadêmica.
+     * @version 1.0
+     * @since 12/06/25
+     * @param primaryStage
+     * @param service
+     */
+    public void abrirTelaCriacaoAcademica(Stage primaryStage, VotacaoService service) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/votacao/Interface/CriacaoAcademica.fxml"));
             Parent root = loader.load();
-
-            // Obtenha o controlador
             CriarAcademicaController controller = loader.getController();
-            // Injete o serviço no controlador
             controller.setVotacaoService(service);
-
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Criar Votação Acadêmica");
             primaryStage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
-            // Lidar com o erro ao carregar a tela
         }
     }
 
-    @FXML
-    private void adicionarItem() {
+    /**
+     * Método responsável por adicionar cada item na lista de itens "votáveis".
+     *
+     * @version 1.0
+     * @since 12/05/25
+     */
+    @FXML private void adicionarItem() {
         String item = campoItem.getText().trim();
         if (!item.isEmpty()) {
             listaItens.getItems().add(item);
@@ -47,27 +64,40 @@ public class CriarVotacaoController {
         }
     }
 
-    @FXML
-    private void criarVotacao() {
+    /**
+     * Método responsável por criar a votação apenas após ao menos um item ser adicionado.
+     *
+     * @version 1.0
+     * @since 12/05/25
+     */
+    @FXML private void criarVotacao() {
         if (listaItens.getItems().isEmpty()) {
-            showAlert("Erro", "Adicione pelo menos um item votável");
+            mostrarAlerta("Erro", "Adicione pelo menos um item votável");
             return;
         }
 
         System.out.println("Criando votação: " + campoTitulo.getText());
-        System.out.println("Itens: " + listaItens.getItems());
     }
 
-    @FXML
-    private void cancelar() {
-        //clear em tudo
+    /**
+     * Método responsável pela ação do botão "Cancelar". Limpa todos os campos
+     *
+     * @version 1.0
+     * @since 12/06/25
+     */
+    @FXML private void cancelar() {
         listaItens.getItems().clear();
         campoTitulo.clear();
         comboTipo.getSelectionModel().clearSelection();
     }
 
-    @FXML
-    private void voltar() {
+    /**
+     * Método responsável pela ação do botão "Voltar". Volta para a tela anterior
+     *
+     * @version 1.0
+     * @since 12/06/25
+     */
+    @FXML private void voltar() {
         try {
             Parent telaadmin = FXMLLoader.load(getClass().getResource("/views/telaadmin.fxml"));
             Scene cenaAtual = telaadmin.getScene();
@@ -81,20 +111,19 @@ public class CriarVotacaoController {
         }
     }
 
-    @FXML 
-    private void mostrarAlerta(String titulo, String mensagem) {
+    /**
+     * Exibe um alerta na tela.
+     * @param titulo Título do alerta
+     * @param mensagem Mensagem do alerta
+     *
+     * @version 1.0
+     * @since 12/06/25
+     */
+    @FXML private void mostrarAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
-        alert.showAndWait();
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
         alert.showAndWait();
     }
 }

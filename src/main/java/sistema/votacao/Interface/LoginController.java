@@ -15,8 +15,12 @@ import java.io.IOException;
 import java.net.URI; // <--- CORREÇÃO: Importa especificamente URI
 import java.util.Objects;
 
-// Removida importação "import java.awt.*;" para evitar conflito com TextField
-
+/**
+ * Classe responsável pela tela de Login do JavaFX.
+ * @author Suelle
+ * @version 1.0
+ * @since 25/06/25
+ */
 @Component // Permite que o Spring gerencie este controlador
 public class LoginController {
 
@@ -34,7 +38,6 @@ public class LoginController {
      * O initialize é um método para que o JavaFx inicialize e configure todos os componentes da interface
      * após a carga do arquivo fxml. Funciona como um "construtor".
      * Pode ser removido se todos os campos da interface já forem definidos no fxml.
-     * @author Suelle
      * @since 22/05/25
      */
     @FXML public void initialize() {
@@ -51,7 +54,6 @@ public class LoginController {
 
     /**
      * Método que implementa a lógica de login. O usuário digita suas informações para fazer login no sistema.
-     * @author Suelle
      * @since 22/05/25
      * @param event O evento de ação que disparou este método.
      */
@@ -75,7 +77,6 @@ public class LoginController {
     /**
      * Método que aciona o evento quando o usuário esqueceu a senha e implementa a lógica da pergunta de segurança
      * para mudar a senha.
-     * @author Suelle
      * @version 1.0
      * @since 22/05/25
      * @param event O evento de ação que disparou este método.
@@ -86,7 +87,6 @@ public class LoginController {
 
     /**
      * Método que será usado para emitir alertas na tela caso o usuário tenha feito algo fora do planejado e não possa prosseguir.
-     * @author Suelle
      * @version 1.0
      * @since 22/05/25
      * @param titulo O título do alerta.
@@ -102,7 +102,6 @@ public class LoginController {
 
     /**
      * Método para abrir o repositório desse projeto no navegador.
-     * @author Suelle
      * @version 1.0
      * @since 22/05/25
      */
@@ -116,7 +115,6 @@ public class LoginController {
 
     /**
      * Método que aciona o botão "cadastre-se aqui" e abre a tela para o usuário se cadastrar.
-     * @author Suelle
      * @version 1.0
      * @since 31/05/25
      * @param actionEvent O evento de ação que disparou este método.

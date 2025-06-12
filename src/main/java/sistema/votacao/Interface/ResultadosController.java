@@ -24,6 +24,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Classe responsável pela tela de Resultados do JavaFX
+ * @author Suelle
+ * @since 26/05/25
+ * @version 1.0
+ */
 public class ResultadosController {
 
     @FXML private ListView<Votacao> votacoesListView;
@@ -42,7 +48,6 @@ public class ResultadosController {
      * @param votacaoService O serviço para operações de votação.
      * @param opcaoVotoService O serviço para operações de opções de voto.
      *
-     * @author Suelle
      * @since 09/06/25
      * @version 1.0
      */
@@ -57,7 +62,6 @@ public class ResultadosController {
      * Método de inicialização do controlador. Chamado automaticamente pelo FXMLLoader.
      * Configura as colunas da tabela e os listeners.
      *
-     * @author Suelle
      * @since 09/06/25
      * @version 1.0
      */
@@ -80,7 +84,6 @@ public class ResultadosController {
      * Carrega e exibe a lista de todas as votações na ListView.
      * Este método é chamado após os serviços serem definidos.
      *
-     * @author Suelle
      * @since 09/06/25
      * @version 1.0
      */
@@ -114,7 +117,6 @@ public class ResultadosController {
      * Atualiza o título da votação selecionada e carrega seus resultados na TableView.
      * @param votacao A votação selecionada.
      *
-     * @author Suelle
      * @since 09/06/25
      * @version 1.0
      */
@@ -142,7 +144,6 @@ public class ResultadosController {
      * Manipula o evento de clique do botão "Voltar".
      * Retorna para a tela do admin (TelaAdminController).
      *
-     * @author Suelle
      * @since 09/06/25
      * @version 1.0
      */

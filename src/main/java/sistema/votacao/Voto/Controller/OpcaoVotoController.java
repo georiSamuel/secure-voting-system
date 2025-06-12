@@ -64,7 +64,7 @@ public class OpcaoVotoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{id}/votar") 
+    @PostMapping("/{id}/votar")
     public ResponseEntity<Void> registrarVoto(
             @PathVariable Long id) {
 

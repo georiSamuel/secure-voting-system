@@ -5,6 +5,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+/**
+ * Classe responsável pela tela do administrador do JavaFX
+ * @author Suelle
+ * @since 26/05/25
+ * @version 1.0
+ */
 public class TelaAdminController {
     @FXML private AnchorPane backgroundTela;
     @FXML private AnchorPane telaBranca;

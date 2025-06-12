@@ -41,17 +41,16 @@ public class CriarAcademicaController {
     private Label mensagemStatusLabel;
     @FXML
     private Label mensagemErroLabel;
-
-    // Dependência do VotacaoService
     private VotacaoService votacaoService;
-
-    // Lista observável para as opções de voto exibidas na ListView
     private ObservableList<String> opcoesDeVoto = FXCollections.observableArrayList();
 
     /**
      * Setter para injetar o VotacaoService.
      * Este método será chamado pelo seu código que carrega o FXML.
+     *
      * @param votacaoService A instância do VotacaoService.
+     * @since 26/05/25
+     * @veersion 1.0
      */
     public void setVotacaoService(VotacaoService votacaoService) {
         this.votacaoService = votacaoService;
@@ -60,6 +59,9 @@ public class CriarAcademicaController {
     /**
      * Método de inicialização do controlador.
      * Chamado automaticamente após o carregamento do FXML.
+     *
+     * @since 26/05/25
+     * @veersion 1.0
      */
     @FXML
     public void initialize() {
@@ -95,14 +97,14 @@ public class CriarAcademicaController {
      * Lida com a ação de criar a votação acadêmica.
      * Coleta todos os dados dos campos, valida e tenta criar a VotacaoAcademica.
      * @param event O evento de clique no botão.
+     * @version 1.0
+     * @since 26/05/25
      */
     @FXML
     private void criarVotacao(ActionEvent event) {
-        // Limpa mensagens anteriores
         mensagemStatusLabel.setText("");
         mensagemErroLabel.setText("");
 
-        // 1. Coletar dados
         String titulo = tituloCampo.getText().trim();
         TipoCargoAcademico cargo = cargoComboBox.getValue();
         LocalDate inicioDate = inicioDatePicker.getValue();
@@ -110,7 +112,6 @@ public class CriarAcademicaController {
         LocalDate fimDate = fimDatePicker.getValue();
         String fimTimeStr = fimTimeField.getText().trim();
 
-        // 2. Validação básica de campos
         if (titulo.isEmpty() || cargo == null || inicioDate == null || inicioTimeStr.isEmpty() ||
                 fimDate == null || fimTimeStr.isEmpty() || opcoesDeVoto.isEmpty()) {
             mensagemErroLabel.setText("Todos os campos e pelo menos uma opção de voto são obrigatórios.");
@@ -121,12 +122,10 @@ public class CriarAcademicaController {
         Timestamp fimTimestamp;
 
         try {
-            // Formatar e combinar data e hora para o Timestamp de início
             LocalTime inicioTime = LocalTime.parse(inicioTimeStr, DateTimeFormatter.ofPattern("HH:mm"));
             LocalDateTime inicioDateTime = LocalDateTime.of(inicioDate, inicioTime);
             inicioTimestamp = Timestamp.valueOf(inicioDateTime);
 
-            // Formatar e combinar data e hora para o Timestamp de fim
             LocalTime fimTime = LocalTime.parse(fimTimeStr, DateTimeFormatter.ofPattern("HH:mm"));
             LocalDateTime fimDateTime = LocalDateTime.of(fimDate, fimTime);
             fimTimestamp = Timestamp.valueOf(fimDateTime);
@@ -139,74 +138,62 @@ public class CriarAcademicaController {
             return;
         }
 
-        // Validação da lógica de datas (também é feita no Service, mas bom para feedback imediato)
         if (inicioTimestamp.after(fimTimestamp)) {
             mensagemErroLabel.setText("A data/hora de início não pode ser posterior à data/hora de fim.");
             return;
         }
 
-        // 3. Criar a lista de OpcaoVoto a partir das Strings na ListView
         List<OpcaoVoto> opcoesParaVotacao = new ArrayList<>();
         for (String descricaoOpcao : opcoesDeVoto) {
             OpcaoVoto opcao = new OpcaoVoto();
             opcao.setDescricao(descricaoOpcao);
-            opcao.setQuantidadeVotos(0L); // Inicializa com 0 votos
-            // Note: A votação (Votacao) da OpcaoVoto será setada ao persistir no Service
+            opcao.setQuantidadeVotos(0L);
             opcoesParaVotacao.add(opcao);
         }
 
-        // 4. Criar a instância de VotacaoAcademica
         VotacaoAcademica novaVotacao = new VotacaoAcademica();
         novaVotacao.setTitulo(titulo);
         novaVotacao.setCargo(cargo);
         novaVotacao.setInicio(inicioTimestamp);
         novaVotacao.setFim(fimTimestamp);
-        // Não defina as opções diretamente aqui, o Service ou a entidade JPA farão isso
-        // ao salvar se houver um relacionamento @OneToMany configurado corretamente com cascade.ALL
 
-        // 5. Chamar o serviço para salvar a votação
         try {
-            // Garante que o serviço foi injetado
             if (votacaoService == null) {
                 mensagemErroLabel.setText("Erro interno: Serviço de votação não disponível.");
                 return;
             }
 
-            // O service.criarVotacao() deve lidar com a persistência das opções também
-            // se o relacionamento @OneToMany tiver CascadeType.ALL configurado
-            // e as opções forem adicionadas à votação antes de salvar.
-            novaVotacao.setOpcoes(opcoesParaVotacao); // Adiciona as opções antes de salvar
+            novaVotacao.setOpcoes(opcoesParaVotacao);
 
             VotacaoAcademica votacaoSalva = (VotacaoAcademica) votacaoService.criarVotacao(novaVotacao);
 
             mensagemStatusLabel.setText("Votação acadêmica criada com sucesso! ID: " + votacaoSalva.getId());
-            // Opcional: Limpar campos após a criação bem-sucedida
             limparCampos();
         } catch (IllegalArgumentException e) {
-            // Captura a exceção da validação do serviço (e.g., data de início > data de fim)
             mensagemErroLabel.setText("Erro ao criar votação: " + e.getMessage());
         } catch (Exception e) {
-            // Captura outras exceções genéricas
             mensagemErroLabel.setText("Ocorreu um erro inesperado: " + e.getMessage());
-            e.printStackTrace(); // Para debug
+            e.printStackTrace();
         }
     }
 
     /**
      * Lida com a ação de voltar para a tela anterior.
-     * (Implementação de navegação dependerá do seu sistema de rotas/gerenciamento de telas).
      * @param event O evento de clique no hyperlink.
+     *
+     * @since 26/05/25
+     * @version 1.0
      */
     @FXML
     private void voltar(ActionEvent event) {
-        // Exemplo: Carregar outra tela FXML ou fechar a janela atual
-        System.out.println("Navegar de volta...");
-        // Você precisaria de um Stage para fechar a janela ou um Scene para mudar a tela
-        // Ex: ((Node)event.getSource()).getScene().getWindow().hide();
+        System.out.println("...");
+        //TODO
     }
 
     /**
      * Limpa todos os campos do formulário após a criação bem-sucedida da votação.
+     * @version 1.0
+     * @since 26/05/25
      */
     private void limparCampos() {
         tituloCampo.clear();

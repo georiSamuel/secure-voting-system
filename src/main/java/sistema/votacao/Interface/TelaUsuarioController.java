@@ -14,6 +14,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.stage.Stage;
 
+/**
+ * Classe responsável pela tela do usuário do JavaFX
+ * @author Suelle
+ * @since 26/05/25
+ * @version 1.0
+ */
 public class TelaUsuarioController {
 
     @FXML private AnchorPane backgroundTela;

@@ -1,14 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="views.TelaDeVotacao"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane fx:id="backgroundCor" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.TeladeVotacaoController">
+    <children>
+        <VBox alignment="TOP_CENTER" layoutX="50.0" layoutY="30.0" prefHeight="540.0" prefWidth="700.0" spacing="20.0"
+              AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="30.0"
+              style="-fx-background-color: white; -fx-background-radius: 10;">
+            <children>
+                <Label text="Realizar Votação" textFill="#2b2b2b">
+                    <font>
+                        <Font name="System Bold" size="30.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Label>
 
+                <HBox alignment="TOP_LEFT" prefHeight="350.0" prefWidth="640.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <VBox prefHeight="350.0" prefWidth="250.0" spacing="10.0" HBox.hgrow="SOMETIMES">
+                            <children>
+                                <Label text="Selecione uma Votação:" textFill="#2b2b2b">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <ListView fx:id="votacoesDisponiveisListView" prefHeight="300.0" prefWidth="250.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-radius: 5;" VBox.vgrow="ALWAYS" />
+                            </children>
+                        </VBox>
+
+                        <VBox prefHeight="350.0" prefWidth="370.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label fx:id="votacaoTituloLabel" text="Detalhes da Votação Selecionada:" textFill="#2b2b2b">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="votacaoDescricaoLabel" text="Escolha uma opção de voto." textFill="#7a7a7a">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                                <VBox fx:id="opcoesVotoContainer" prefHeight="150.0" prefWidth="370.0" spacing="5.0" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+                                    <VBox.margin>
+                                        <Insets top="5.0" />
+                                    </VBox.margin>
+                                </VBox>
+
+                                <Label fx:id="mensagemErroLabel" prefHeight="20.0" prefWidth="370.0" textFill="RED" />
+                            </children>
+                        </VBox>
+                    </children>
+                    <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                    </HBox.margin>
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <Button fx:id="votarButton" mnemonicParsing="false" onAction="#handleVotarButton"
+                                prefHeight="40" prefWidth="150"
+                                style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" text="Votar">
+                            <padding>
+                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                            </padding>
+                        </Button>
+                        <Button fx:id="voltarButton" mnemonicParsing="false" onAction="#handleVoltarButton"
+                                prefHeight="40" prefWidth="150"
+                                style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" text="Voltar">
+                            <padding>
+                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                            </padding>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+        </VBox>
+    </children>
 </AnchorPane>

@@ -6,6 +6,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+/**
+ * Controller que gerencia a tela final confirmando que o usuário completou a votação.
+ *
+ * @author
+ * @version 1.0
+ * @since 02/06/25
+ */
 public class FinalController {
 
     @FXML private Text mensagemSucesso;
@@ -15,10 +22,6 @@ public class FinalController {
     @FXML private Button botaoVoltar;
 
     @FXML public void initialize() {
-    }
-
-    public void setDetalhesVoto(String itemVotado) {
-        detalhesVoto.setText("Você votou em: " + itemVotado);
     }
 
     @FXML private void visualizarResultados() {

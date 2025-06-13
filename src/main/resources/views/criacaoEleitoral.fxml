@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="views.CriacaoEleitoral"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.CriarEleitoralController">
+    <children>
+        <AnchorPane layoutX="200.0" layoutY="71.0" prefHeight="473.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
+            <children>
+                <Label layoutX="30.0" layoutY="20.0" prefWidth="340.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #080808;" text="Criar Nova Votação Eleitoral" textAlignment="CENTER" wrapText="true" />
 
+                <GridPane layoutX="30.0" layoutY="70.0" prefHeight="290.0" prefWidth="340.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="120.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label style="-fx-font-size: 14px;" text="Título:" />
+                        <TextField fx:id="tituloCampo" promptText="Título da Votação" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc; -fx-padding: 5;" GridPane.columnIndex="1" />
+
+                        <Label style="-fx-font-size: 14px;" text="Cargo Eleitoral:" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cargoComboBox" prefWidth="220.0" promptText="Selecione o Cargo" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                        <Label style="-fx-font-size: 14px;" text="Zona Eleitoral:" GridPane.rowIndex="2" />
+                        <TextField fx:id="zonaEleitoralCampo" promptText="Zona Eleitoral" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc; -fx-padding: 5;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                        <Label style="-fx-font-size: 14px;" text="Seção Eleitoral:" GridPane.rowIndex="3" />
+                        <TextField fx:id="secaoEleitoralCampo" promptText="Seção Eleitoral" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc; -fx-padding: 5;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                        <Label style="-fx-font-size: 14px;" text="Voto Obrigatório:" GridPane.rowIndex="4" />
+                        <CheckBox fx:id="votoObrigatorioCheckBox" text="Sim" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                        <Label style="-fx-font-size: 14px;" text="Permite Voto em Branco:" GridPane.rowIndex="5" />
+                        <CheckBox fx:id="permiteVotoEmBrancoCheckBox" text="Sim" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                        <Label style="-fx-font-size: 14px;" text="Início:" GridPane.rowIndex="6" />
+                        <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                            <children>
+                                <DatePicker fx:id="inicioDatePicker" promptText="Data" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc;" />
+                                <TextField fx:id="inicioTimeField" prefWidth="70.0" promptText="HH:MM" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc; -fx-padding: 5;" />
+                            </children>
+                        </HBox>
+
+                        <Label style="-fx-font-size: 14px;" text="Fim:" GridPane.rowIndex="7" />
+                        <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                            <children>
+                                <DatePicker fx:id="fimDatePicker" promptText="Data" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc;" />
+                                <TextField fx:id="fimTimeField" prefWidth="70.0" promptText="HH:MM" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc; -fx-padding: 5;" />
+                            </children>
+                        </HBox>
+
+                        <Label style="-fx-font-size: 14px;" text="Opção:" GridPane.rowIndex="8" />
+                        <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                            <children>
+                                <TextField fx:id="novaOpcaoCampo" prefWidth="140.0" promptText="Adicionar nova opção" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc; -fx-padding: 5;" />
+                                <Button onAction="#adicionarOpcao" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 10;" text="Add" />
+                            </children>
+                        </HBox>
+                    </children>
+                </GridPane>
+
+                <ListView fx:id="opcoesListView" layoutX="30.0" layoutY="370.0" prefHeight="50.0" prefWidth="340.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc;" />
+
+                <HBox layoutX="30.0" layoutY="425.0" spacing="10.0">
+                    <children>
+                        <Button onAction="#criarVotacao" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 15;" text="Criar Votação" />
+                        <Button onAction="#voltar" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 15;" text="Voltar" />
+                    </children>
+                </HBox>
+
+                <Label fx:id="mensagemStatusLabel" layoutX="30.0" layoutY="400.0" style="-fx-font-weight: bold;" textFill="#00a000" />
+                <Label fx:id="mensagemErroLabel" layoutX="30.0" layoutY="420.0" style="-fx-font-weight: bold;" textFill="#dc3545" />
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

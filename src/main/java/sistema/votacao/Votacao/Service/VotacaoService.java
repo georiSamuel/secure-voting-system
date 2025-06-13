@@ -1,5 +1,7 @@
 package sistema.votacao.Votacao.Service;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import sistema.votacao.Votacao.Model.Votacao;
@@ -10,6 +12,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+@Getter
+@Setter
 @Service
 public class VotacaoService {
 

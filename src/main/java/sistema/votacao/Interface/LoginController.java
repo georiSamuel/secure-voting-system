@@ -4,89 +4,101 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene; // Importação correta para Scene
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sistema.votacao.SistemaVotacaoApplication; // Importa a aplicação principal
+import sistema.votacao.SistemaVotacaoApplication;
+import sistema.votacao.Usuario.Model.UsuarioModel;
+import sistema.votacao.Usuario.Model.TipoUsuario;
+import sistema.votacao.Usuario.Service.UsuarioService;
 
-import java.awt.Desktop; // <--- CORREÇÃO: Importa especificamente Desktop
+import java.awt.Desktop;
 import java.io.IOException;
-import java.net.URI; // <--- CORREÇÃO: Importa especificamente URI
+import java.net.URI;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Classe responsável pela tela de Login do JavaFX.
+ *
  * @author Suelle
- * @version 1.0
+ * @version 1.1
  * @since 25/06/25
  */
-@Component // Permite que o Spring gerencie este controlador
+@Component
 public class LoginController {
 
     @FXML private Hyperlink cadastroBotao;
     @FXML private PasswordField senhaCampo;
-    @FXML private TextField usuarioCampo; // Campo de texto para o nome de usuário
-    // Adicionado para completar os FXMLs que aparecem no seu FXML do Login,
-    // caso não estejam já declarados no seu código
-    @FXML private Hyperlink esqueceuSenha;
+    @FXML private TextField usuarioCampo;
     @FXML private Button botaoLogin;
     @FXML private Hyperlink linkGithub;
 
+    @Autowired private UsuarioService usuarioService;
 
     /**
      * O initialize é um método para que o JavaFx inicialize e configure todos os componentes da interface
      * após a carga do arquivo fxml. Funciona como um "construtor".
-     * Pode ser removido se todos os campos da interface já forem definidos no fxml.
+     *
      * @since 22/05/25
+     * @version 1.1
      */
     @FXML public void initialize() {
-        // Se 'cadastroBotao' não for null, configura o onAction
         if (cadastroBotao != null) {
             cadastroBotao.setOnAction(this::abrirCadastro);
         }
-        // Garanta que os outros botões também tenham seus onActions configurados se não estiverem no FXML
-        // Por exemplo, se eles não tiverem onAction direto no FXML (descomente e ajuste se necessário):
-        // if (botaoLogin != null) botaoLogin.setOnAction(this::fazerLogin);
-        // if (esqueceuSenha != null) esqueceuSenha.setOnAction(this::recuperarSenha);
-        // if (linkGithub != null) linkGithub.setOnAction(this::abrirRepositorio);
+
+        if (botaoLogin != null) {
+            botaoLogin.setOnAction(this::fazerLogin);
+        }
+
+        if (linkGithub != null) {
+            linkGithub.setOnAction(this::abrirRepositorio);
+        }
     }
 
     /**
      * Método que implementa a lógica de login. O usuário digita suas informações para fazer login no sistema.
-     * @since 22/05/25
+     * Busca por usuários no banco de dados e redireciona para a tela correta com base no domínio do email.
+     *
+     * @version 1.0
+     * @since 25/06/25
      * @param event O evento de ação que disparou este método.
      */
     @FXML void fazerLogin(ActionEvent event) {
-        String usuario = usuarioCampo.getText();
+        String email = usuarioCampo.getText();
         String senha = senhaCampo.getText();
 
-        // Demonstração básica de como ficaria:
-        if(usuario.isEmpty() || senha.isEmpty()) {
-            mostrarAlerta("Erro", "Preencha todos os campos!");
+        if(email.isEmpty() || senha.isEmpty()) {
+            mostrarAlerta("Erro de Login", "Por favor, preencha todos os campos.");
             return;
         }
 
-        if(usuario.equals("susu") && senha.equals("1234")) {
-            abrirTelaUsuario();
-        } else {
-            mostrarAlerta("Erro", "Usuário ou senha inválidos!");
-        }
-    }
+        try {
+            UsuarioModel usuarioAutenticado = usuarioService.autenticar(email, senha);
 
-    /**
-     * Método que aciona o evento quando o usuário esqueceu a senha e implementa a lógica da pergunta de segurança
-     * para mudar a senha.
-     * @version 1.0
-     * @since 22/05/25
-     * @param event O evento de ação que disparou este método.
-     */
-    @FXML void recuperarSenha(ActionEvent event) {
-        mostrarAlerta("Recuperação", "Em desenvolvimento!");
+            if (usuarioAutenticado != null) {
+                if (usuarioAutenticado.getTipoUsuario() == TipoUsuario.Tipo.ADMIN) {
+                    abrirTelaAdmin();
+                } else if (usuarioAutenticado.getTipoUsuario() == TipoUsuario.Tipo.COMUM) {
+                    abrirTelaUsuario();
+                } else {
+                    mostrarAlerta("Erro de Tipo", "Tipo de usuário não reconhecido.");
+                }
+            } else {
+                mostrarAlerta("Erro de Login", "Email ou senha inválidos. Tente novamente.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Erro de Sistema", "Ocorreu um erro ao tentar fazer login: " + e.getMessage());
+        }
     }
 
     /**
      * Método que será usado para emitir alertas na tela caso o usuário tenha feito algo fora do planejado e não possa prosseguir.
+     *
      * @version 1.0
      * @since 22/05/25
      * @param titulo O título do alerta.
@@ -102,10 +114,12 @@ public class LoginController {
 
     /**
      * Método para abrir o repositório desse projeto no navegador.
+     *
      * @version 1.0
      * @since 22/05/25
+     * @param event O evento de ação que disparou este método (adicionado para compatibilidade com setOnAction).
      */
-    @FXML private void abrirRepositorio() {
+    @FXML private void abrirRepositorio(ActionEvent event) { // Adicionado ActionEvent event
         try {
             Desktop.getDesktop().browse(new URI("https://github.com/georiSamuel/secure-voting-system"));
         } catch (Exception e) {
@@ -115,6 +129,7 @@ public class LoginController {
 
     /**
      * Método que aciona o botão "cadastre-se aqui" e abre a tela para o usuário se cadastrar.
+     *
      * @version 1.0
      * @since 31/05/25
      * @param actionEvent O evento de ação que disparou este método.
@@ -127,6 +142,7 @@ public class LoginController {
             Scene cenaAtual = cadastroBotao.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaDeCadastro));
+            palco.sizeToScene();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -137,27 +153,52 @@ public class LoginController {
         }
     }
 
+    /**
+     * Método para abrir a tela do usuário comum.
+     *
+     * @version 1.0
+     * @since 22/05/25
+     */
     private void abrirTelaUsuario() {
         try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaUsuario.fxml")));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent telaUsuario = loader.load();
-            if (usuarioCampo != null) {
-                Scene cenaAtual = usuarioCampo.getScene();
-                Stage palco = (Stage) cenaAtual.getWindow();
-                palco.setScene(new Scene(telaUsuario));
-                palco.sizeToScene();
-            } else {
-                mostrarAlerta("Erro Interno", "Campo de usuário não foi inicializado corretamente (usuariocampo é null).");
-            }
-
-
-        } catch (IOException e) {
+            Scene cenaAtual = usuarioCampo.getScene();
+            Stage palco = (Stage) cenaAtual.getWindow();
+            palco.setScene(new Scene(telaUsuario));
+            palco.sizeToScene();
+        }
+        catch (IOException e) {
             e.printStackTrace();
             mostrarAlerta("Erro", "Não foi possível carregar a tela do usuário.");
         } catch (Exception e) {
             e.printStackTrace();
             mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do usuário.");
+        }
+    }
+
+    /**
+     * Método para abrir a tela do administrador.
+     *
+     * @version 1.0
+     * @since 22/05/25
+     */
+    private void abrirTelaAdmin() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaadmin.fxml")));
+            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
+            Parent telaAdmin = loader.load();
+            Scene cenaAtual = usuarioCampo.getScene();
+            Stage palco = (Stage) cenaAtual.getWindow();
+            palco.setScene(new Scene(telaAdmin));
+            palco.sizeToScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Erro", "Não foi possível carregar a tela do administrador.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do administrador.");
         }
     }
 }

@@ -17,47 +17,37 @@ import sistema.votacao.Usuario.Model.TipoUsuario;
 import sistema.votacao.Usuario.Model.UsuarioModel;
 import sistema.votacao.Usuario.Service.TipoUsuarioInvalido;
 import sistema.votacao.Usuario.Service.UsuarioService;
-import sistema.votacao.SistemaVotacaoApplication; // Importa a aplicação principal
+import sistema.votacao.SistemaVotacaoApplication;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * Classe responsável pela tela de cadastro de usuários.
+ * Classe responsável pela tela de cadastro dos usuários.
  * Gerencia a interação entre a interface de usuário (cadastro.fxml) e a lógica de negócio
- * para registro de novos usuários, inferindo o tipo de usuário pelo domínio do email.
+ * para registro de novos usuários, inferindo o tipo de usuário pelo domínio do e-mail.
  *
- * @author Suelle
+ * @author Suelle &
  * @version 1.0
  * @since 26/05/25
  */
 @Component
 public class CadastroController {
+    @Autowired private UsuarioService usuarioService;
 
-    // Injeção de dependência do UsuarioService para lidar com a lógica de negócio dos usuários
-    @Autowired
-    private UsuarioService usuarioService;
-
-    // Componentes FXML injetados do arquivo cadastro.fxml
-    @FXML
-    private TextField txtNome;
-    @FXML
-    private TextField txtEmail;
-    @FXML
-    private TextField txtCpf;
-    @FXML
-    private PasswordField pwdSenha;
-    @FXML
-    private PasswordField pwdConfirmarSenha;
-    @FXML
-    private Button btnCadastrar;
-    @FXML
-    private Hyperlink btnVoltarLogin;
+    @FXML private TextField txtNome;
+    @FXML private TextField txtEmail;
+    @FXML private TextField txtCpf;
+    @FXML private PasswordField pwdSenha;
+    @FXML private PasswordField pwdConfirmarSenha;
+    @FXML private Hyperlink btnVoltarLogin;
 
     /**
      * Método de inicialização do controlador, chamado após o carregamento do FXML.
-     * Não há mais necessidade de configurar o ChoiceBox.
+     *
+     * @since 10/06/25
+     * @version 1.0
      */
     @FXML
     public void initialize() {
@@ -69,6 +59,8 @@ public class CadastroController {
      * O tipo de usuário é determinado com base no domínio do email.
      *
      * @param event O evento de ação que disparou este método.
+     * @version 1.0
+     * @since 10/06/25
      */
     @FXML
     private void handleCadastroButton(ActionEvent event) {
@@ -108,12 +100,10 @@ public class CadastroController {
         usuario.setJaVotou(false);
         usuario.setDataCadastro(LocalDateTime.now());
 
-        // service para cadastro aqui:
         try {
-            usuarioService.cadastrarUsuario(usuario); // passando o UsuarioModel
+            usuarioService.cadastrarUsuario(usuario);
             showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Usuário cadastrado com sucesso!");
 
-            // Limpa os campos após o sucesso
             txtNome.clear();
             txtEmail.clear();
             txtCpf.clear();
@@ -135,6 +125,8 @@ public class CadastroController {
      * Manipula o evento de clique do botão "Voltar para Login".
      * Carrega a tela de login (Login.fxml).
      *
+     * @version 1.0
+     * @since 10/06/25
      * @param event O evento de ação que disparou este método.
      */
     @FXML
@@ -156,6 +148,9 @@ public class CadastroController {
     /**
      * Exibe um alerta na tela.
      *
+     *
+     * @version 1.0
+     * @since 10/06/25
      * @param alertType O tipo de alerta (INFORMATION, ERROR, WARNING, etc.).
      * @param title O título do alerta.
      * @param message A mensagem a ser exibida no alerta.

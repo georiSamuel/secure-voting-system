@@ -3,13 +3,22 @@ package sistema.votacao.Interface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import sistema.votacao.Votacao.Model.TipoCargoAcademico;
 import sistema.votacao.Votacao.Model.VotacaoAcademica;
 import sistema.votacao.Voto.Model.OpcaoVoto;
-import sistema.votacao.Votacao.Service.VotacaoService; // Importa o VotacaoService
+import sistema.votacao.Votacao.Service.VotacaoService;
+import sistema.votacao.SistemaVotacaoApplication; // Importa a aplicação principal
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,43 +27,26 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Data
+@Component
 public class CriarAcademicaController {
 
-    @FXML
-    private TextField tituloCampo;
-    @FXML
-    private ComboBox<TipoCargoAcademico> cargoComboBox;
-    @FXML
-    private DatePicker inicioDatePicker;
-    @FXML
-    private TextField inicioTimeField;
-    @FXML
-    private DatePicker fimDatePicker;
-    @FXML
-    private TextField fimTimeField;
-    @FXML
-    private TextField novaOpcaoCampo;
-    @FXML
-    private ListView<String> opcoesListView;
-    @FXML
-    private Label mensagemStatusLabel;
-    @FXML
-    private Label mensagemErroLabel;
+    @FXML private TextField tituloCampo;
+    @FXML private ComboBox<TipoCargoAcademico> cargoComboBox;
+    @FXML private DatePicker inicioDatePicker;
+    @FXML private TextField inicioTimeField;
+    @FXML private DatePicker fimDatePicker;
+    @FXML private TextField fimTimeField;
+    @FXML private TextField novaOpcaoCampo;
+    @FXML private ListView<String> opcoesListView;
+    @FXML private Label mensagemStatusLabel;
+    @FXML private Label mensagemErroLabel;
+
+    @Autowired
     private VotacaoService votacaoService;
     private ObservableList<String> opcoesDeVoto = FXCollections.observableArrayList();
-
-    /**
-     * Setter para injetar o VotacaoService.
-     * Este método será chamado pelo seu código que carrega o FXML.
-     *
-     * @param votacaoService A instância do VotacaoService.
-     * @since 26/05/25
-     * @veersion 1.0
-     */
-    public void setVotacaoService(VotacaoService votacaoService) {
-        this.votacaoService = votacaoService;
-    }
 
     /**
      * Método de inicialização do controlador.
@@ -63,15 +55,11 @@ public class CriarAcademicaController {
      * @since 26/05/25
      * @veersion 1.0
      */
-    @FXML
-    public void initialize() {
-        // Popula o ComboBox com os valores do enum TipoCargoAcademico
+    @FXML public void initialize() {
         cargoComboBox.setItems(FXCollections.observableArrayList(TipoCargoAcademico.values()));
 
-        // Associa a lista observável à ListView
         opcoesListView.setItems(opcoesDeVoto);
 
-        // Limpa as mensagens de status/erro ao iniciar
         mensagemStatusLabel.setText("");
         mensagemErroLabel.setText("");
     }
@@ -80,11 +68,17 @@ public class CriarAcademicaController {
      * Lida com a ação de adicionar uma nova opção de voto.
      * Pega o texto do campo de nova opção e adiciona à lista de opções da ListView.
      * @param event O evento de clique no botão.
+     *
+     * @version 1.0
+     * @since 26/05/25
      */
-    @FXML
-    private void adicionarOpcao(ActionEvent event) {
+    @FXML private void adicionarOpcao(ActionEvent event) {
         String novaOpcao = novaOpcaoCampo.getText().trim();
         if (!novaOpcao.isEmpty()) {
+            if (opcoesDeVoto.contains(novaOpcao)) {
+                showAlert(Alert.AlertType.WARNING, "Opção Duplicada", "Esta opção já foi adicionada.");
+                return;
+            }
             opcoesDeVoto.add(novaOpcao); // Adiciona a opção à lista observável
             novaOpcaoCampo.clear(); // Limpa o campo de texto
             mensagemErroLabel.setText(""); // Limpa qualquer mensagem de erro anterior
@@ -97,11 +91,11 @@ public class CriarAcademicaController {
      * Lida com a ação de criar a votação acadêmica.
      * Coleta todos os dados dos campos, valida e tenta criar a VotacaoAcademica.
      * @param event O evento de clique no botão.
+     *
      * @version 1.0
      * @since 26/05/25
      */
-    @FXML
-    private void criarVotacao(ActionEvent event) {
+    @FXML private void criarVotacao(ActionEvent event) {
         mensagemStatusLabel.setText("");
         mensagemErroLabel.setText("");
 
@@ -178,7 +172,7 @@ public class CriarAcademicaController {
     }
 
     /**
-     * Lida com a ação de voltar para a tela anterior.
+     * Lida com a ação de voltar para a tela anterior (TelaAdminController).
      * @param event O evento de clique no hyperlink.
      *
      * @since 26/05/25
@@ -186,8 +180,18 @@ public class CriarAcademicaController {
      */
     @FXML
     private void voltar(ActionEvent event) {
-        System.out.println("...");
-        //TODO
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaadmin.fxml")));
+            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Tela de Admin");
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de administração.");
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -204,5 +208,22 @@ public class CriarAcademicaController {
         fimTimeField.clear();
         novaOpcaoCampo.clear();
         opcoesDeVoto.clear();
+    }
+
+    /**
+     * Exibe um alerta na tela.
+     * @since 26/05/25
+     * @version 1.0
+     *
+     * @param alertType O tipo de alerta (INFORMATION, ERROR, WARNING, etc.).
+     * @param title O título do alerta.
+     * @param message A mensagem a ser exibida no alerta.
+     */
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

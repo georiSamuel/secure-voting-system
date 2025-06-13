@@ -22,14 +22,11 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Autowired private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private final UsuarioRepository usuarioRepository;
+    @Autowired private final UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private final VotoRepository votoRepository;
+    @Autowired private final VotoRepository votoRepository;
 
     /**
      * Método para cadastrar um novo usuário no sistema.

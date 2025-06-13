@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.stage.Stage;
+import org.springframework.stereotype.Component;
 
 /**
  * Classe responsável pela tela do usuário do JavaFX
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
  * @since 26/05/25
  * @version 1.0
  */
+@Component
 public class TelaUsuarioController {
 
     @FXML private AnchorPane backgroundTela;
@@ -76,7 +78,7 @@ public class TelaUsuarioController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Não foi possível carregar a tela do usuário.");
+            mostrarAlerta("Erro", "Não foi possível desconectar.");
         }
     }
 

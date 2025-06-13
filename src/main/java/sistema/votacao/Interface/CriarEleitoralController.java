@@ -103,7 +103,7 @@ public class CriarEleitoralController {
      * Coleta todos os dados dos campos, valida e tenta criar a VotacaoEleitoral.
      * @param event O evento de clique no botão.
      *
-     * @version 1.0
+     * @version 1.1
      * @since 28/05/25
      */
     @FXML
@@ -122,7 +122,6 @@ public class CriarEleitoralController {
         LocalDate fimDate = fimDatePicker.getValue();
         String fimTimeStr = fimTimeField.getText().trim();
 
-        // Campos obrigatórios
         if (titulo.isEmpty() || cargo == null || zonaEleitoral.isEmpty() || secaoEleitoral.isEmpty() ||
                 inicioDate == null || inicioTimeStr.isEmpty() || fimDate == null || fimTimeStr.isEmpty() ||
                 opcoesDeVoto.isEmpty()) {
@@ -155,14 +154,6 @@ public class CriarEleitoralController {
             return;
         }
 
-        List<OpcaoVoto> opcoesParaVotacao = new ArrayList<>();
-        for (String descricaoOpcao : opcoesDeVoto) {
-            OpcaoVoto opcao = new OpcaoVoto();
-            opcao.setDescricao(descricaoOpcao);
-            opcao.setQuantidadeVotos(0L);
-            opcoesParaVotacao.add(opcao);
-        }
-
         VotacaoEleitoral novaVotacao = new VotacaoEleitoral();
         novaVotacao.setTitulo(titulo);
         novaVotacao.setCargo(cargo);
@@ -172,6 +163,16 @@ public class CriarEleitoralController {
         novaVotacao.setPermiteVotoEmBranco(permiteVotoEmBranco);
         novaVotacao.setInicio(inicioTimestamp);
         novaVotacao.setFim(fimTimestamp);
+
+        // agora associa cada OpcaoVoto com a Votacao
+        List<OpcaoVoto> opcoesParaVotacao = new ArrayList<>();
+        for (String descricaoOpcao : opcoesDeVoto) {
+            OpcaoVoto opcao = new OpcaoVoto();
+            opcao.setDescricao(descricaoOpcao);
+            opcao.setQuantidadeVotos(0L);
+            opcao.setVotacao(novaVotacao);
+            opcoesParaVotacao.add(opcao);
+        }
         novaVotacao.setOpcoes(opcoesParaVotacao);
 
         try {

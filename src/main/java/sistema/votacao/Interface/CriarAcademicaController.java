@@ -137,27 +137,27 @@ public class CriarAcademicaController {
             return;
         }
 
-        List<OpcaoVoto> opcoesParaVotacao = new ArrayList<>();
-        for (String descricaoOpcao : opcoesDeVoto) {
-            OpcaoVoto opcao = new OpcaoVoto();
-            opcao.setDescricao(descricaoOpcao);
-            opcao.setQuantidadeVotos(0L);
-            opcoesParaVotacao.add(opcao);
-        }
-
         VotacaoAcademica novaVotacao = new VotacaoAcademica();
         novaVotacao.setTitulo(titulo);
         novaVotacao.setCargo(cargo);
         novaVotacao.setInicio(inicioTimestamp);
         novaVotacao.setFim(fimTimestamp);
 
+        List<OpcaoVoto> opcoesParaVotacao = new ArrayList<>();
+        for (String descricaoOpcao : opcoesDeVoto) {
+            OpcaoVoto opcao = new OpcaoVoto();
+            opcao.setDescricao(descricaoOpcao);
+            opcao.setQuantidadeVotos(0L);
+            opcao.setVotacao(novaVotacao);
+            opcoesParaVotacao.add(opcao);
+        }
+        novaVotacao.setOpcoes(opcoesParaVotacao); // para definir a lista de opções na votação
+
         try {
             if (votacaoService == null) {
                 mensagemErroLabel.setText("Erro interno: Serviço de votação não disponível.");
                 return;
             }
-
-            novaVotacao.setOpcoes(opcoesParaVotacao);
 
             VotacaoAcademica votacaoSalva = (VotacaoAcademica) votacaoService.criarVotacao(novaVotacao);
 

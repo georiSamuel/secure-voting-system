@@ -7,20 +7,27 @@ import org.springframework.stereotype.Service;
 import sistema.votacao.Votacao.Model.Votacao;
 import sistema.votacao.Votacao.Model.VotacaoPersonalizada;
 import sistema.votacao.Votacao.Repository.VotacaoRepository;
+import sistema.votacao.Voto.Repository.VotoRepository; // Import VotoRepository
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * @author Lethycia
+ */
 @Getter
 @Setter
 @Service
 public class VotacaoService {
 
     private final VotacaoRepository votacaoRepository;
+    private final VotoRepository votoRepository; // Injete VotoRepository aqui
 
-    public VotacaoService(VotacaoRepository votacaoRepository) {
+    public VotacaoService(VotacaoRepository votacaoRepository, VotoRepository votoRepository) { // Atualize o construtor
         this.votacaoRepository = votacaoRepository;
+        this.votoRepository = votoRepository; // Inicialize votoRepository
     }
 
     public Votacao criarVotacao(Votacao votacao) {
@@ -73,4 +80,22 @@ public class VotacaoService {
         return votacaoRepository.save(votacao);
     }
 
+    /**
+     * Gera o resultado para uma votação personalizada.
+     *
+     * @param votacaoId O ID da votação personalizada.
+     * @return Uma string contendo o resultado da votação.
+     */
+    public String gerarResultadoPersonalizado(Long votacaoId) {
+        // Recupera a votação pelo ID
+        Votacao votacao = votacaoRepository.findById(votacaoId)
+                .orElseThrow(() -> new RuntimeException("Votação personalizada não encontrada com o ID: " + votacaoId));
+
+        if (!(votacao instanceof VotacaoPersonalizada)) {
+            throw new IllegalArgumentException("A votação com ID " + votacaoId + " não é do tipo Personalizada.");
+        }
+
+        long totalVotos = votoRepository.countByVotacaoId(votacaoId);
+        return "Resultado da votação personalizada - Total de votos: " + totalVotos;
+    }
 }

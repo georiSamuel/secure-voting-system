@@ -121,7 +121,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>SpringBApplication</mainClass>
+                    <mainClass>SistemaVotacaoBackendApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

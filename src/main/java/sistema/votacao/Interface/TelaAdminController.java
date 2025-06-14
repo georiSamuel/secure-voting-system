@@ -1,4 +1,3 @@
-// sistema/votacao/Interface/TelaAdminController.java
 package sistema.votacao.Interface;
 
 import javafx.event.ActionEvent;
@@ -29,27 +28,31 @@ public class TelaAdminController {
     @FXML private AnchorPane telaBranca;
     @FXML private Text conectadoText;
     @FXML private Text selecioneText;
-    @FXML private MenuButton menuCriarNovaVotacao; // Changed from Button to MenuButton
+    @FXML private MenuButton menuCriarNovaVotacao;
     @FXML private MenuButton menuVotacoesAbertas;
     @FXML private Button botaoAndamento;
     @FXML private Hyperlink desconectar;
 
     @FXML
     public void initialize() {
-        configurarMenuVotacoesAbertas();
     }
 
     /**
-     * Método para configurar as votações abertas (exemplo básico, pode ser preenchido dinamicamente no futuro).
+     * Método para abrir a tela de votação.
      */
-    private void configurarMenuVotacoesAbertas() {
-        menuVotacoesAbertas.getItems().clear();
-
-        // Exemplo de como ficaria
-        MenuItem item1 = new MenuItem("Votação Institucional 2025");
-        MenuItem item2 = new MenuItem("Eleição de Representantes");
-
-        menuVotacoesAbertas.getItems().addAll(item1, item2);
+    @FXML private void abrirTelaVotacao() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/teladeVotacao.fxml")));
+            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
+            Parent root = loader.load();
+            Stage stage = (Stage) botaoAndamento.getScene().getWindow(); // Ou qualquer outro elemento da tela para obter o Stage
+            stage.setScene(new Scene(root));
+            stage.setTitle("Votações Disponíveis");
+            stage.show();
+        } catch (IOException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de votação.");
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -63,7 +66,7 @@ public class TelaAdminController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/criacaoEleitoral.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            Stage stage = (Stage) menuCriarNovaVotacao.getScene().getWindow(); // Use menuCriarNovaVotacao to get the stage
+            Stage stage = (Stage) menuCriarNovaVotacao.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Criar Votação Eleitoral");
             stage.show();
@@ -79,7 +82,7 @@ public class TelaAdminController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/criacaoAcademica.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            Stage stage = (Stage) menuCriarNovaVotacao.getScene().getWindow(); // Use menuCriarNovaVotacao to get the stage
+            Stage stage = (Stage) menuCriarNovaVotacao.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Criar Votação Acadêmica");
             stage.show();
@@ -92,10 +95,10 @@ public class TelaAdminController {
     @FXML
     private void handleCriarPersonalizada(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/criacaoPersonalizada.fxml")));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/criacaoPersonalizavel.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            Stage stage = (Stage) menuCriarNovaVotacao.getScene().getWindow(); // Use menuCriarNovaVotacao to get the stage
+            Stage stage = (Stage) menuCriarNovaVotacao.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Criar Votação Personalizável");
             stage.show();

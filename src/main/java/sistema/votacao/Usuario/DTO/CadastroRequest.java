@@ -21,20 +21,4 @@ public class CadastroRequest {
     private String senha;
     private String cpf;
     private Tipo tipo;
-
-    /**
-     * Construtor para inicializar os campos necessários para o cadastro de um usuário.
-     * @param nome
-     * @param email
-     * @param senha
-     * @param cpf
-     * @param tipo
-     */
-    public CadastroRequest(String nome, String email, String senha, String cpf, Tipo tipo) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.cpf = cpf;
-        this.tipo = tipo;
-    }
 }

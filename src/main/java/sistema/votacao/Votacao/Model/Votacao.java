@@ -6,9 +6,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
 import sistema.votacao.Voto.Model.OpcaoVoto;
 import sistema.votacao.Voto.Model.VotoModel;
 
+@Data
 @Entity
 @Table(name = "tb_votacao")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -29,58 +31,9 @@ public abstract class Votacao {
     @OneToMany(mappedBy = "votacao")
     private List<VotoModel> votos = new ArrayList<>();
 
-    // Métodos abstratos que subclasses implementarão
     public abstract boolean validarVoto(VotoModel voto);
 
     public abstract String gerarResultado();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public Timestamp getInicio() {
-        return inicio;
-    }
-
-    public void setInicio(Timestamp inicio) {
-        this.inicio = inicio;
-    }
-
-    public Timestamp getFim() {
-        return fim;
-    }
-
-    public void setFim(Timestamp fim) {
-        this.fim = fim;
-    }
-
-    public List<OpcaoVoto> getOpcoes() {
-        return opcoes;
-    }
-
-    public List<VotoModel> getVotos() {
-        return votos;
-    }
-
-    public void setOpcoes(List<OpcaoVoto> opcoes) {
-        this.opcoes = opcoes;
-    }
-
-    public void setVotos(List<VotoModel> votos) {
-        this.votos = votos;
-    }
 
     public boolean isAtiva() {
         Timestamp agora = new Timestamp(System.currentTimeMillis());

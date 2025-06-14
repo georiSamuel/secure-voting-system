@@ -43,11 +43,7 @@ public class UsuarioModel {
     private String senha;
 
     @Column(name = "ja_votou")
-    private boolean jaVotou = false; // coloquei isso aqui para o usuario não poder votar mais de uma vez
-
-    @Enumerated(EnumType.STRING) // essa anotação diz ao banco de dados para salvar como um nome literal do
-                                 // enum,como ADMIN E COMUM;
-    private TipoUsuario.Tipo tipo;
+    private boolean jaVotou = false;
 
     @Column(unique = true, nullable = false)
     private String cpf;
@@ -58,22 +54,5 @@ public class UsuarioModel {
     @Enumerated(EnumType.STRING) // Armazena o enum como String no banco de dados
     @Column(nullable = false)
     private TipoUsuario.Tipo tipoUsuario;
-
-    /**
-     * Construtor da classe UsuarioModel
-     * @param nome
-     * @param email
-     * @param senha
-     * @param cpf
-     * @param tipoUsuario
-     */
-
-    public UsuarioModel(String nome, String email, String senha, String cpf, TipoUsuario.Tipo tipoUsuario) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.cpf = cpf;
-        this.tipoUsuario = tipoUsuario;
-    }
 
 }

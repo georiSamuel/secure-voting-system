@@ -1,9 +1,6 @@
-/**
- * VotacaoAcademica.java
- * Esta classe representa uma votação acadêmica no sistema de votação.
- */
 package sistema.votacao.Votacao.Model;
 
+import lombok.Data;
 import sistema.votacao.Voto.Model.OpcaoVoto;
 import sistema.votacao.Voto.Model.VotoModel;
 
@@ -12,26 +9,22 @@ import java.util.stream.Collectors;
 
 import jakarta.persistence.*;
 
+/**
+ * VotacaoAcademica.java
+ * Esta classe representa uma votação acadêmica no sistema de votação.
+ */
+@Data
 @Entity
 @DiscriminatorValue("ACADEMICA")
 public class VotacaoAcademica extends Votacao {
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
     private TipoCargoAcademico cargo;
 
     public VotacaoAcademica() {
         super();
     }
-
-    /**
-     * Construtor para criar uma votação acadêmica com título, cargo, início e fim.
-     *
-     * @param titulo Título da votação
-     * @param cargo  Cargo acadêmico relacionado à votação
-     * @param inicio Data e hora de início da votação
-     * @param fim    Data e hora de término da votação
-     */
 
     @Override
     public boolean validarVoto(VotoModel voto) {
@@ -72,13 +65,10 @@ public class VotacaoAcademica extends Votacao {
 
         List<OpcaoVoto> opcoesOrdenadas = this.getOpcoes().stream()
                 .sorted((a, b) -> {
-                    // Ordena primeiro por quantidade de votos (decrescente)
                     int cmpVotos = b.getQuantidadeVotos().compareTo(a.getQuantidadeVotos());
                     if (cmpVotos != 0)
                         return cmpVotos;
 
-                    // Em caso de empate, ordena por idade (decrescente - candidato mais velho
-                    // primeiro)
                     return Integer.compare(b.getIdadeCandidato(), a.getIdadeCandidato());
                 })
                 .collect(Collectors.toList());
@@ -88,7 +78,6 @@ public class VotacaoAcademica extends Votacao {
                 op.getQuantidadeVotos(),
                 op.getIdadeCandidato())));
 
-        // Verificação de empate
         if (opcoesOrdenadas.size() >= 2) {
             OpcaoVoto primeiro = opcoesOrdenadas.get(0);
             OpcaoVoto segundo = opcoesOrdenadas.get(1);
@@ -107,7 +96,6 @@ public class VotacaoAcademica extends Votacao {
         return r.toString();
     }
 
-    // Getters e Setters
     public TipoCargoAcademico getCargo() {
         return cargo;
     }

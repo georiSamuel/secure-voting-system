@@ -13,13 +13,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.event.ActionEvent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.VBox; // Importe VBox
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sistema.votacao.Votacao.Model.Votacao;
-import sistema.votacao.Votacao.Model.VotacaoAcademica;
-import sistema.votacao.Votacao.Model.VotacaoEleitoral;
 import sistema.votacao.Votacao.Service.VotacaoService;
 import sistema.votacao.Voto.DTO.VotoRequestDTO;
 import sistema.votacao.Voto.Model.OpcaoVoto;
@@ -101,17 +99,7 @@ public class TeladeVotacaoController {
             opcoesAtuais = opcaoVotoService.buscarOpcoesPorVotacao(votacao.getId());
             if (opcoesAtuais != null && !opcoesAtuais.isEmpty()) {
                 for (OpcaoVoto opcao : opcoesAtuais) {
-                    String displayText = opcao.getDescricao();
-                    // Check the type of votacao and append cargo if applicable
-                    if (votacao instanceof VotacaoAcademica) {
-                        VotacaoAcademica academica = (VotacaoAcademica) votacao;
-                        displayText += " (" + academica.getCargo().name().replace("_", " ") + ")";
-                    } else if (votacao instanceof VotacaoEleitoral) {
-                        VotacaoEleitoral eleitoral = (VotacaoEleitoral) votacao;
-                        displayText += " (" + eleitoral.getCargo().getDescricao() + ")";
-                    }
-
-                    RadioButton radioButton = new RadioButton(displayText);
+                    RadioButton radioButton = new RadioButton(opcao.getDescricao());
                     radioButton.setUserData(opcao.getId());
                     radioButton.setToggleGroup(opcoesVotoGroup);
                     opcoesVotoContainer.getChildren().add(radioButton);
@@ -187,7 +175,8 @@ public class TeladeVotacaoController {
     }
 
 
-    @FXML private void handleVoltarButton(ActionEvent event) {
+    @FXML
+    private void handleVoltarButton(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml")));
             Parent root = loader.load();

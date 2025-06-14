@@ -1,16 +1,17 @@
 package sistema.votacao.Votacao.Model;
 
+import lombok.Data;
 import sistema.votacao.Voto.Model.OpcaoVoto;
 import sistema.votacao.Voto.Model.VotoModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-
+@Data
 @Entity
 @DiscriminatorValue("ELEITORAL")
 public class VotacaoEleitoral extends Votacao {
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
     private TipoCargoEleitoral cargo;
 
     @NotBlank(message = "Zona eleitoral é obrigatória")
@@ -105,52 +106,4 @@ public class VotacaoEleitoral extends Votacao {
         return resultado.toString();
     }
 
-    // Getters e Setters
-    public String getZonaEleitoral() {
-        return zonaEleitoral;
-    }
-
-    public void setZonaEleitoral(String zonaEleitoral) {
-        this.zonaEleitoral = zonaEleitoral;
-    }
-
-    public String getSecaoEleitoral() {
-        return secaoEleitoral;
-    }
-
-    public void setSecaoEleitoral(String secaoEleitoral) {
-        this.secaoEleitoral = secaoEleitoral;
-    }
-
-    public boolean isVotoObrigatorio() {
-        return votoObrigatorio;
-    }
-
-    public void setVotoObrigatorio(boolean votoObrigatorio) {
-        this.votoObrigatorio = votoObrigatorio;
-    }
-
-    public boolean isPermiteVotoEmBranco() {
-        return permiteVotoEmBranco;
-    }
-
-    public void setPermiteVotoEmBranco(boolean permiteVotoEmBranco) {
-        this.permiteVotoEmBranco = permiteVotoEmBranco;
-    }
-
-    public boolean isVotoSegundoTurno() {
-        return votoSegundoTurno;
-    }
-
-    public void setVotoSegundoTurno(boolean votoSegundoTurno) {
-        this.votoSegundoTurno = votoSegundoTurno;
-    }
-
-    public TipoCargoEleitoral getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(TipoCargoEleitoral cargo) {
-        this.cargo = cargo;
-    }
 }

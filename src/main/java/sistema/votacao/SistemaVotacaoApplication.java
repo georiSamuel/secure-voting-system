@@ -29,7 +29,7 @@ public class SistemaVotacaoApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaDeVotacao.fxml")));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/login.fxml")));
         loader.setControllerFactory(springContext::getBean);
 
         Parent root = loader.load();

@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * Interface responsável por definir os métodos de acesso aos dados de usuários no banco de dados.
  * @author Horlan
- * @version 1.0 
+ * @version 1.0
  * @since 20/05/2025
  */
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
@@ -24,11 +24,12 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
 
     /**
      * Método para verificar se já existe um usuário com o tipo especificado.
+     * O nome do método foi atualizado para corresponder ao nome da propriedade 'tipoUsuario' em UsuarioModel.
      * @param tipo O tipo de usuário a ser verificado.
      * @return true se existir um usuário com o tipo especificado, false caso contrário.
      */
-    boolean existsByTipo(Tipo tipo); // Verifica se já existe um usuário com o tipo especificado, ele vai ser usado
-                                     // para verificar se já existe um administrador cadastrado no sistema.
+    boolean existsByTipoUsuario(Tipo tipo);
+
     // Optional<UsuarioModel> findById(Long id); // já existe no JpaRepository,
     // adicionei para apresentar o código completo
 }

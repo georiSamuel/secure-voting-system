@@ -1,12 +1,11 @@
-package sistema.votacao.Voto.Service;
-
-import sistema.votacao.Votacao.Model.Votacao;
-import sistema.votacao.Votacao.Repository.VotacaoRepository;
-import sistema.votacao.Voto.Model.OpcaoVoto;
-import sistema.votacao.Voto.Repository.OpcaoVotoRepository;
+package sistema.votacao.OpcaoVoto.Service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
+import sistema.votacao.OpcaoVoto.Repository.OpcaoVotoRepository;
+import sistema.votacao.Votacao.Model.Votacao;
+import sistema.votacao.Votacao.Repository.VotacaoRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,7 @@ public class OpcaoVotoService {
     private final VotacaoRepository votacaoRepository;
 
     public OpcaoVotoService(OpcaoVotoRepository opcaoVotoRepository,
-            VotacaoRepository votacaoRepository) {
+                            VotacaoRepository votacaoRepository) {
         this.opcaoVotoRepository = opcaoVotoRepository;
         this.votacaoRepository = votacaoRepository;
     }
@@ -53,7 +52,7 @@ public class OpcaoVotoService {
         return opcaoVotoRepository.findByVotacaoId(votacaoId);
     }
 
-    // MUDANÇA AQUI (GEORIS)
+    // MUDANÇA AQUI [GEORIS]
     @Transactional
     public OpcaoVoto incrementarVotos(Long opcaoId) {
         // 1. BUSCAR: Carrega a entidade. O @Convert descriptografa o valor aqui.

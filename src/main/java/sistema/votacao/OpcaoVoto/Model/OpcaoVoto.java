@@ -1,9 +1,10 @@
-package sistema.votacao.Voto.Model;
+package sistema.votacao.OpcaoVoto.Model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import sistema.votacao.Util.VoteCountEncryptor; // IMPORTAR O CONVERSOR
+import sistema.votacao.Util.VoteCountEncryptor;
 import sistema.votacao.Votacao.Model.Votacao;
+import sistema.votacao.Voto.Model.VotoModel;
 
 import java.util.ArrayList;
 import java.util.List;

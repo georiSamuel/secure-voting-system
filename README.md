@@ -15,11 +15,11 @@ Este projeto é um sistema de votação desenvolvido na linguagem **Java**, visa
 
 
 ### **Backend & Core**
-| Tecnologia | Versão | Propósito |
-|------------|--------|-----------|
-| **Java** | 21+ | Linguagem principal |
-| **Spring Boot** | 3.x | Framework web e injeção de dependência |
-| **Lombok** | Latest | Redução de boilerplate code |
+| Tecnologia | Versão | Propósito                                       |
+|------------|--------|-------------------------------------------------|
+| **Java** | 21+ | Linguagem principal                             |
+| **Spring Boot** | 3.x | Backend e injeção de dependência                |
+| **Lombok** | Latest | Redução de boilerplate (código repetitivo) code |
 
 ### **Banco de Dados**
 | Tecnologia | Propósito |

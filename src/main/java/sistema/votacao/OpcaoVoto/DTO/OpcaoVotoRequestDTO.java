@@ -1,4 +1,4 @@
-package sistema.votacao.Voto.DTO;
+package sistema.votacao.OpcaoVoto.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

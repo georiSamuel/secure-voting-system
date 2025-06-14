@@ -1,7 +1,7 @@
-package sistema.votacao.Voto.DTO;
+package sistema.votacao.OpcaoVoto.DTO;
 
-import sistema.votacao.Voto.Model.OpcaoVoto;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OpcaoVotoResponseDTO {

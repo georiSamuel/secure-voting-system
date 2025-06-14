@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
 import sistema.votacao.Usuario.Model.UsuarioModel;
 import sistema.votacao.Votacao.Model.Votacao;
 

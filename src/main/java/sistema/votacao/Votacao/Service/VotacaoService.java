@@ -72,8 +72,7 @@ public class VotacaoService {
     }
 
     public VotacaoPersonalizada criarVotacaoPersonalizada(VotacaoPersonalizada votacao) {
-        // como a votação é personalizada ela pode ter regras específicas, como permitir
-        // voto múltiplo
+        // como a votação é personalizada ela pode ter regras específicas, como permitir voto múltiplo
         if (votacao.getInicio().after(votacao.getFim())) {
             throw new IllegalArgumentException("Data de início deve ser antes da data de fim");
         } // exemplo de regra específica

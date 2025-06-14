@@ -238,12 +238,12 @@ public class ResultadosController {
 
             Stage stage = (Stage) voltarButton.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Tela de Administração");
+            stage.setTitle("Área de Administração");
             stage.show();
 
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de administração    .");
-            System.err.println("Erro ao carregar a tela de Administração: " + e.getMessage()); // Mantenha para depuração
+            System.err.println("Erro ao carregar a tela de administração: " + e.getMessage()); // Mantenha para depuração
             e.printStackTrace();
         }
     }

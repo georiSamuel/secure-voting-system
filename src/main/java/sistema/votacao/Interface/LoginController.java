@@ -121,12 +121,49 @@ public class LoginController {
      */
     @FXML private void abrirRepositorio(ActionEvent event) { // Adicionado ActionEvent event
         try {
-            Desktop.getDesktop().browse(new URI("https://github.com/georiSamuel/secure-voting-system"));
+            // Verifica se o Desktop é suportado antes de tentar usar
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+
+                // Verifica se a ação BROWSE é suportada
+                if (desktop.isSupported(Desktop.Action.BROWSE)) {
+                    desktop.browse(new URI("https://github.com/georiSamuel/secure-voting-system"));
+                } else {
+                    // Fallback: mostrar URL para o usuário copiar
+                    mostrarAlerta("Link do Repositório",
+                            "Não foi possível abrir o navegador automaticamente.\n" +
+                                    "Acesse manualmente: https://github.com/georiSamuel/secure-voting-system");
+                }
+            } else {
+                // Desktop não suportado - usar comando do sistema
+                String os = System.getProperty("os.name").toLowerCase();
+                String url = "https://github.com/georiSamuel/secure-voting-system";
+
+                if (os.contains("win")) {
+                    // Windows
+                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
+                } else if (os.contains("mac")) {
+                    // macOS
+                    Runtime.getRuntime().exec("open " + url);
+                } else if (os.contains("nix") || os.contains("nux")) {
+                    // Linux
+                    Runtime.getRuntime().exec("xdg-open " + url);
+                } else {
+                    // Sistema não reconhecido - mostrar URL
+                    mostrarAlerta("Link do Repositório",
+                            "Sistema não suportado para abrir URLs automaticamente.\n" +
+                                    "Acesse manualmente: " + url);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            // Em caso de qualquer erro, mostrar o link para o usuário
+            mostrarAlerta("Erro ao Abrir Link",
+                    "Não foi possível abrir o navegador.\n" +
+                            "Acesse manualmente: https://github.com/georiSamuel/secure-voting-system\n\n" +
+                            "Erro: " + e.getMessage());
         }
     }
-
     /**
      * Método que aciona o botão "cadastre-se aqui" e abre a tela para o usuário se cadastrar.
      *

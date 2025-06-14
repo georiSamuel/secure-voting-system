@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component; // Adicionado para autowire em 
 /**
  * Classe responsável pela tela da criação de Votação personalizável.
  *
- * @author Suelle
+ * @author Suelle & Lethycia
  * @since 12/06/25
  * @version 1.0
  */
@@ -42,11 +42,9 @@ public class CriarVotacaoController {
     @FXML private DatePicker fimDatePicker;
     @FXML private TextField fimTimeField;
 
-    @Autowired
-    private VotacaoService votacaoService;
+    @Autowired private VotacaoService votacaoService;
 
-    @FXML
-    public void initialize() {
+    @FXML public void initialize() {
     }
 
     /**
@@ -151,15 +149,15 @@ public class CriarVotacaoController {
     }
 
     /**
+     * Método que cria uma instância de {@link VotacaoPersonalizada} com o título, horário de início, fim e associa
+     * ela a uma lista de opções de votos a partir dos itens da lista visível.
      *
-     *
-     * @param titulo
-     * @param inicioTimestamp
-     * @param fimTimestamp
-     * @return
+     * @param titulo o título da votação
+     * @param inicioTimestamp o horário de início da votação
+     * @param fimTimestamp o horário de término da votação
+     * @return a nova instância de {@link VotacaoPersonalizada} preenchida com título, horários e opções de voto
      */
-    @NotNull
-    private VotacaoPersonalizada getVotacaoPersonalizada(String titulo, Timestamp inicioTimestamp, Timestamp fimTimestamp) {
+    @NotNull private VotacaoPersonalizada getVotacaoPersonalizada(String titulo, Timestamp inicioTimestamp, Timestamp fimTimestamp) {
         VotacaoPersonalizada novaVotacao = new VotacaoPersonalizada();
         novaVotacao.setTitulo(titulo);
         novaVotacao.setInicio(inicioTimestamp);

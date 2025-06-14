@@ -54,17 +54,6 @@
 
                 <ListView fx:id="opcoesListView" layoutX="105.0" layoutY="420.0" prefHeight="80.0" prefWidth="340.0" styleClass="list-view" />
 
-                <Label fx:id="mensagemStatusLabel" layoutX="21.0" layoutY="55.0" prefHeight="20.0" prefWidth="473.0" textFill="#4CAF50">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Label>
-                <Label fx:id="mensagemErroLabel" alignment="CENTER" layoutX="24.0" layoutY="55.0" prefHeight="20.0" prefWidth="503.0" textFill="#F44336">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Label>
-
                 <Button layoutX="120.0" layoutY="512.0" mnemonicParsing="false" onAction="#criarVotacao" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-menu-primario" text="Criar Votação" />
                 <Button layoutX="295.0" layoutY="512.0" mnemonicParsing="false" onAction="#voltar" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-menu-cancel" text="Voltar" />
             </children>

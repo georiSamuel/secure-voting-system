@@ -19,7 +19,7 @@ import jakarta.persistence.*;
 public class VotacaoAcademica extends Votacao {
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
+    @Column(nullable = true, length = 50, columnDefinition = "VARCHAR(50)")
     private TipoCargoAcademico cargo;
 
     public VotacaoAcademica() {
@@ -101,9 +101,6 @@ public class VotacaoAcademica extends Votacao {
         return this.cargo != null ? this.cargo.name() : "Cargo Acadêmico Não Definido"; // Retorna o nome do enum como string
     }
 
-    public TipoCargoAcademico getCargo() {
-        return cargo;
-    }
 
     public void setCargo(TipoCargoAcademico cargo) {
         this.cargo = cargo;

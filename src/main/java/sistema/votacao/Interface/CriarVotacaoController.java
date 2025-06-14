@@ -35,7 +35,6 @@ import org.springframework.stereotype.Component; // Adicionado para autowire em 
 @Component
 public class CriarVotacaoController {
     @FXML private TextField campoTitulo;
-    @FXML private ComboBox<String> comboTipo;
     @FXML private TextField campoItem;
     @FXML private ListView<String> listaItens;
     @FXML private DatePicker inicioDatePicker;
@@ -186,8 +185,6 @@ public class CriarVotacaoController {
      */
     @FXML private void cancelar() {
         listaItens.getItems().clear();
-        campoTitulo.clear();
-        comboTipo.getSelectionModel().clearSelection();
         campoItem.clear();
         inicioDatePicker.setValue(null);
         inicioTimeField.clear();

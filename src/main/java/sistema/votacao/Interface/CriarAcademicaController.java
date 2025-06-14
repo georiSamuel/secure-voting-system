@@ -48,8 +48,9 @@ public class CriarAcademicaController {
     @FXML private TextField fimTimeField;
     @FXML private TextField novaOpcaoCampo;
     @FXML private ListView<String> opcoesListView;
-    @FXML private Label mensagemStatusLabel;
-    @FXML private Label mensagemErroLabel;
+    // --- LABELS DE MENSAGEM REMOVIDAS ---
+    // @FXML private Label mensagemStatusLabel; // REMOVIDO
+    // @FXML private Label mensagemErroLabel;   // REMOVIDO
 
     @Autowired
     private VotacaoService votacaoService;
@@ -67,8 +68,9 @@ public class CriarAcademicaController {
 
         opcoesListView.setItems(opcoesDeVoto);
 
-        mensagemStatusLabel.setText("");
-        mensagemErroLabel.setText("");
+        // --- LINHAS DE LIMPEZA DE LABELS REMOVIDAS ---
+        // mensagemStatusLabel.setText(""); // REMOVIDO
+        // mensagemErroLabel.setText("");   // REMOVIDO
     }
 
     /**
@@ -88,9 +90,11 @@ public class CriarAcademicaController {
             }
             opcoesDeVoto.add(novaOpcao); // Adiciona a opção à lista observável
             novaOpcaoCampo.clear(); // Limpa o campo de texto
-            mensagemErroLabel.setText(""); // Limpa qualquer mensagem de erro anterior
+            // --- LINHA DE LIMPEZA DE LABEL DE ERRO REMOVIDA ---
+            // mensagemErroLabel.setText(""); // REMOVIDO
         } else {
-            mensagemErroLabel.setText("Por favor, digite uma opção de voto.");
+            // Usa showAlert para feedback direto ao usuário
+            showAlert(Alert.AlertType.ERROR, "Erro", "Por favor, digite uma opção de voto.");
         }
     }
 
@@ -103,8 +107,6 @@ public class CriarAcademicaController {
      * @since 26/05/25
      */
     @FXML private void criarVotacao(ActionEvent event) {
-        mensagemStatusLabel.setText("");
-        mensagemErroLabel.setText("");
 
         String titulo = tituloCampo.getText().trim();
         TipoCargoAcademico cargo = cargoComboBox.getValue();
@@ -115,7 +117,7 @@ public class CriarAcademicaController {
 
         if (titulo.isEmpty() || cargo == null || inicioDate == null || inicioTimeStr.isEmpty() ||
                 fimDate == null || fimTimeStr.isEmpty() || opcoesDeVoto.isEmpty()) {
-            mensagemErroLabel.setText("Todos os campos e pelo menos uma opção de voto são obrigatórios.");
+            showAlert(Alert.AlertType.ERROR, "Erro de Validação", "Todos os campos e pelo menos uma opção de voto são obrigatórios.");
             return;
         }
 
@@ -132,15 +134,17 @@ public class CriarAcademicaController {
             fimTimestamp = Timestamp.valueOf(fimDateTime);
 
         } catch (DateTimeParseException e) {
-            mensagemErroLabel.setText("Formato de hora inválido. Use HH:MM. Erro: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erro de Data/Hora", "Formato de hora inválido. Use HH:MM. Erro: " + e.getMessage());
+            e.printStackTrace(); // Mantenha para depuração no console
             return;
         } catch (Exception e) {
-            mensagemErroLabel.setText("Erro ao processar data/hora: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erro ao Processar Data", "Ocorreu um erro inesperado ao processar data/hora: " + e.getMessage());
+            e.printStackTrace(); // Mantenha para depuração no console
             return;
         }
 
         if (inicioTimestamp.after(fimTimestamp)) {
-            mensagemErroLabel.setText("A data/hora de início não pode ser posterior à data/hora de fim.");
+            showAlert(Alert.AlertType.WARNING, "Erro de Período", "A data/hora de início não pode ser posterior à data/hora de fim.");
             return;
         }
 
@@ -162,19 +166,20 @@ public class CriarAcademicaController {
 
         try {
             if (votacaoService == null) {
-                mensagemErroLabel.setText("Erro interno: Serviço de votação não disponível.");
+                showAlert(Alert.AlertType.ERROR, "Erro Interno", "Erro interno: Serviço de votação não disponível.");
                 return;
             }
 
             VotacaoAcademica votacaoSalva = (VotacaoAcademica) votacaoService.criarVotacao(novaVotacao);
 
-            mensagemStatusLabel.setText("Votação acadêmica criada com sucesso! ID: " + votacaoSalva.getId());
+            showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Votação acadêmica criada com sucesso! ID: " + votacaoSalva.getId());
             limparCampos();
         } catch (IllegalArgumentException e) {
-            mensagemErroLabel.setText("Erro ao criar votação: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erro ao Criar Votação", e.getMessage());
+            e.printStackTrace(); // Mantenha para depuração no console
         } catch (Exception e) {
-            mensagemErroLabel.setText("Ocorreu um erro inesperado: " + e.getMessage());
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erro Inesperado", "Ocorreu um erro inesperado: " + e.getMessage());
+            e.printStackTrace(); // Mantenha para depuração no console
         }
     }
 
@@ -195,7 +200,9 @@ public class CriarAcademicaController {
             stage.setScene(new Scene(root));
             stage.setTitle("Tela de Admin");
             stage.show();
-        } catch (IOException e) {
+        }
+        // Este catch já estava usando showAlert, então não muda
+        catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de administração.");
             e.printStackTrace();
         }
@@ -215,6 +222,7 @@ public class CriarAcademicaController {
         fimTimeField.clear();
         novaOpcaoCampo.clear();
         opcoesDeVoto.clear();
+
     }
 
     /**

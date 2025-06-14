@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 public class VotacaoEleitoral extends Votacao {
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
+    @Column(nullable = true, length = 50, columnDefinition = "VARCHAR(50)")
     private TipoCargoEleitoral cargo;
 
     @NotBlank(message = "Zona eleitoral é obrigatória")

@@ -51,8 +51,7 @@ public class CriarEleitoralController {
     @FXML private TextField fimTimeField;
     @FXML private TextField novaOpcaoCampo;
     @FXML private ListView<String> opcoesListView;
-    @FXML private Label mensagemStatusLabel;
-    @FXML private Label mensagemErroLabel;
+
 
     @Autowired
     private VotacaoService votacaoService;
@@ -70,8 +69,6 @@ public class CriarEleitoralController {
 
         opcoesListView.setItems(opcoesDeVoto);
 
-        mensagemStatusLabel.setText("");
-        mensagemErroLabel.setText("");
 
         votoObrigatorioCheckBox.setSelected(true);
         permiteVotoEmBrancoCheckBox.setSelected(true);
@@ -88,13 +85,15 @@ public class CriarEleitoralController {
         if (!novaOpcao.isEmpty()) {
             if (opcoesDeVoto.contains(novaOpcao)) {
                 showAlert(Alert.AlertType.WARNING, "Opção Duplicada", "Esta opção já foi adicionada.");
+                // Nao limpa mensagemErroLabel aqui, pois o alerta já informa.
                 return;
             }
             opcoesDeVoto.add(novaOpcao);
             novaOpcaoCampo.clear();
-            mensagemErroLabel.setText("");
         } else {
-            mensagemErroLabel.setText("Por favor, digite uma opção de voto.");
+            // Usa showAlert para feedback direto ao usuário, em vez de apenas mensagemErroLabel.setText
+            showAlert(Alert.AlertType.ERROR, "Erro", "Por favor, digite uma opção de voto.");
+            // mensagemErroLabel.setText("Por favor, digite uma opção de voto."); // Comentado, pois o alerta já informa
         }
     }
 
@@ -108,8 +107,6 @@ public class CriarEleitoralController {
      */
     @FXML
     private void criarVotacao(ActionEvent event) {
-        mensagemStatusLabel.setText("");
-        mensagemErroLabel.setText("");
 
         String titulo = tituloCampo.getText().trim();
         TipoCargoEleitoral cargo = cargoComboBox.getValue();
@@ -125,7 +122,8 @@ public class CriarEleitoralController {
         if (titulo.isEmpty() || cargo == null || zonaEleitoral.isEmpty() || secaoEleitoral.isEmpty() ||
                 inicioDate == null || inicioTimeStr.isEmpty() || fimDate == null || fimTimeStr.isEmpty() ||
                 opcoesDeVoto.isEmpty()) {
-            mensagemErroLabel.setText("Todos os campos e pelo menos uma opção de voto são obrigatórios.");
+            showAlert(Alert.AlertType.ERROR, "Erro de Validação", "Todos os campos e pelo menos uma opção de voto são obrigatórios.");
+            // mensagemErroLabel.setText("Todos os campos e pelo menos uma opção de voto são obrigatórios."); // Comentado
             return;
         }
 
@@ -142,15 +140,20 @@ public class CriarEleitoralController {
             fimTimestamp = Timestamp.valueOf(fimDateTime);
 
         } catch (DateTimeParseException e) {
-            mensagemErroLabel.setText("Formato de hora inválido. Use HH:MM. Erro: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erro de Data/Hora", "Formato de hora inválido. Use HH:MM. Erro: " + e.getMessage());
+            // mensagemErroLabel.setText("Formato de hora inválido. Use HH:MM. Erro: " + e.getMessage()); // Comentado
+            e.printStackTrace(); // Mantenha para depuração no console
             return;
         } catch (Exception e) {
-            mensagemErroLabel.setText("Erro ao processar data/hora: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erro ao Processar Data", "Ocorreu um erro ao processar data/hora: " + e.getMessage());
+            // mensagemErroLabel.setText("Erro ao processar data/hora: " + e.getMessage()); // Comentado
+            e.printStackTrace(); // Mantenha para depuração no console
             return;
         }
 
         if (inicioTimestamp.after(fimTimestamp)) {
-            mensagemErroLabel.setText("A data/hora de início não pode ser posterior à data/hora de fim.");
+            showAlert(Alert.AlertType.WARNING, "Erro de Período", "A data/hora de início não pode ser posterior à data/hora de fim.");
+            // mensagemErroLabel.setText("A data/hora de início não pode ser posterior à data/hora de fim."); // Comentado
             return;
         }
 
@@ -178,13 +181,17 @@ public class CriarEleitoralController {
         try {
             VotacaoEleitoral votacaoSalva = (VotacaoEleitoral) votacaoService.criarVotacao(novaVotacao);
 
-            mensagemStatusLabel.setText("Votação eleitoral criada com sucesso! ID: " + votacaoSalva.getId());
-            limparCampos();
+            showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Votação eleitoral criada com sucesso! ID: " + votacaoSalva.getId());
+            // mensagemStatusLabel.setText("Votação eleitoral criada com sucesso! ID: " + votacaoSalva.getId()); // Comentado
+            limparCampos(); // Limpa os campos após o sucesso
         } catch (IllegalArgumentException e) {
-            mensagemErroLabel.setText("Erro ao criar votação: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erro ao Criar Votação", e.getMessage());
+            // mensagemErroLabel.setText("Erro ao criar votação: " + e.getMessage()); // Comentado
+            e.printStackTrace(); // Mantenha para depuração no console
         } catch (Exception e) {
-            mensagemErroLabel.setText("Ocorreu um erro inesperado: " + e.getMessage());
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erro Inesperado", "Ocorreu um erro inesperado: " + e.getMessage());
+            // mensagemErroLabel.setText("Ocorreu um erro inesperado: " + e.getMessage()); // Comentado
+            e.printStackTrace(); // Mantenha para depuração no console
         }
     }
 
@@ -205,6 +212,7 @@ public class CriarEleitoralController {
             stage.setTitle("Tela de Admin");
             stage.show();
         } catch (IOException e) {
+            // Este alerta já estava usando showAlert, então não muda
             showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de administração.");
             e.printStackTrace();
         }
@@ -229,6 +237,7 @@ public class CriarEleitoralController {
         fimTimeField.clear();
         novaOpcaoCampo.clear();
         opcoesDeVoto.clear();
+
     }
 
     /**

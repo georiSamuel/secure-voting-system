@@ -151,6 +151,14 @@ public class CriarVotacaoController {
         }
     }
 
+    /**
+     *
+     *
+     * @param titulo
+     * @param inicioTimestamp
+     * @param fimTimestamp
+     * @return
+     */
     @NotNull
     private VotacaoPersonalizada getVotacaoPersonalizada(String titulo, Timestamp inicioTimestamp, Timestamp fimTimestamp) {
         VotacaoPersonalizada novaVotacao = new VotacaoPersonalizada();

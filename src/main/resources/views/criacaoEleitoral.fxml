@@ -2,14 +2,18 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.CriarEleitoralController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.CriarEleitoralController">
     <children>
-        <AnchorPane layoutX="200.0" layoutY="71.0" prefHeight="473.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
+        <AnchorPane layoutX="114.0" layoutY="64.0" prefHeight="483.0" prefWidth="572.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
             <children>
-                <Label layoutX="30.0" layoutY="20.0" prefWidth="340.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #080808;" text="Criar Nova Votação Eleitoral" textAlignment="CENTER" wrapText="true" />
+                <Label layoutX="106.0" layoutY="14.0" prefHeight="45.0" prefWidth="360.0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #080808;" text="Criar Votação Eleitoral" wrapText="true">
+               <font>
+                  <Font size="1.0" />
+               </font></Label>
 
-                <GridPane layoutX="30.0" layoutY="70.0" prefHeight="290.0" prefWidth="340.0">
+                <GridPane layoutX="116.0" layoutY="84.0" prefHeight="290.0" prefWidth="340.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="120.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
@@ -70,17 +74,17 @@
                     </children>
                 </GridPane>
 
-                <ListView fx:id="opcoesListView" layoutX="30.0" layoutY="370.0" prefHeight="50.0" prefWidth="340.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc;" />
+                <ListView fx:id="opcoesListView" layoutX="116.0" layoutY="384.0" prefHeight="50.0" prefWidth="340.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc;" />
 
-                <HBox layoutX="30.0" layoutY="425.0" spacing="10.0">
+                <HBox layoutX="116.0" layoutY="439.0" spacing="10.0">
                     <children>
                         <Button onAction="#criarVotacao" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 15;" text="Criar Votação" />
                         <Button onAction="#voltar" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 15;" text="Voltar" />
                     </children>
                 </HBox>
 
-                <Label fx:id="mensagemStatusLabel" layoutX="30.0" layoutY="400.0" style="-fx-font-weight: bold;" textFill="#00a000" />
-                <Label fx:id="mensagemErroLabel" layoutX="30.0" layoutY="420.0" style="-fx-font-weight: bold;" textFill="#dc3545" />
+                <Label fx:id="mensagemStatusLabel" layoutX="5.0" layoutY="52.0" prefHeight="18.0" prefWidth="512.0" style="-fx-font-weight: bold;" textFill="#00a000" />
+                <Label fx:id="mensagemErroLabel" alignment="CENTER" layoutX="14.0" layoutY="52.0" prefHeight="18.0" prefWidth="545.0" style="-fx-font-weight: bold;" textFill="#dc3545" />
             </children>
         </AnchorPane>
     </children>

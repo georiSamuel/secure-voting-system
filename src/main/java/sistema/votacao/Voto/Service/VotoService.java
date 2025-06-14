@@ -113,7 +113,7 @@ public class VotoService {
             opcaoVotoService.incrementarVotos(dto.getOpcaoVotoId());
 
             // Tocando som após operação de voto realizado
-            ReproduzirSom.tocarBeepUrna("Assets/audioUrna.wav");
+            ReproduzirSom.tocarBeepUrna(ReproduzirSom.AUDIO_URNA_PATH);
 
             // 5. Retornar a resposta (sem o campo 'votoCriptografado')
             return new VotoResponseDTO(

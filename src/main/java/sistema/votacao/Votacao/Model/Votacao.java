@@ -35,6 +35,9 @@ public abstract class Votacao {
 
     public abstract String gerarResultado();
 
+
+    public abstract String getDescricaoCargo(); // Método para resolver problema de enum's sendo sobrescritos ou mal interpretados devido à forma como o mapeamento JPA está lidando com a herança e a coluna de cargo único.
+
     public boolean isAtiva() {
         Timestamp agora = new Timestamp(System.currentTimeMillis());
         return inicio.before(agora) && fim.after(agora);

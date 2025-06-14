@@ -25,13 +25,13 @@ import java.io.IOException;
 public final class ReproduzirSom {
 
 
+    public static final String AUDIO_URNA_PATH = "Assets/audioUrna.wav";
     /**
      * Método utilitário para tocar som de confirmação de voto
      * @version 1.0
      * @since 10/06/25
      * @param caminhoArquivo
      */
-
     public static void tocarBeepUrna(String caminhoArquivo) {
         try {
 

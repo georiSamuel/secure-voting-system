@@ -21,6 +21,13 @@ public class VotacaoPersonalizada extends Votacao {
         return "Resultado da votação personalizada: Utilize o serviço de votação para obter o total de votos.";
     }
 
+    @Override
+    public String getDescricaoCargo() {
+        // Votações personalizadas não têm um "cargo" como acadêmicas ou eleitorais.
+        // Você pode retornar uma string vazia, "N/A", "Não Aplicável", ou uma descrição genérica.
+        return "Não Aplicável"; // Ou "" ou "Votação Personalizada"
+    }
+
     // Getters e Setters
     public boolean isPermiteVotoMultiplo() {
         return permiteVotoMultiplo;

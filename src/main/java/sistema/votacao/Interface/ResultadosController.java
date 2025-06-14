@@ -135,7 +135,7 @@ public class ResultadosController {
      * @version 1.0
      */
     private void handleVotacaoSelection(Votacao votacao) {
-        votacaoTituloLabel.setText("Resultados para: " + votacao.getTitulo());
+        votacaoTituloLabel.setText("Resultados para: " + votacao.getTitulo() + " (Cargo: " + votacao.getDescricaoCargo() + ")");
 
         if (opcaoVotoService != null) {
             try {

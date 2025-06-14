@@ -96,6 +96,11 @@ public class VotacaoAcademica extends Votacao {
         return r.toString();
     }
 
+    @Override
+    public String getDescricaoCargo() {
+        return this.cargo != null ? this.cargo.name() : "Cargo Acadêmico Não Definido"; // Retorna o nome do enum como string
+    }
+
     public TipoCargoAcademico getCargo() {
         return cargo;
     }

@@ -51,16 +51,6 @@ public class OpcaoVoto {
         }
         this.quantidadeVotos++;
     }
-
-    // A anotação @Data do Lombok já cria os getters e setters,
-    // então estes métodos manuais para idadeCandidato são redundantes, mas não causam problema.
-    public Integer getIdadeCandidato() {
-        return idadeCandidato;
-    }
-
-    public void setIdadeCandidato(Integer idadeCandidato) {
-        this.idadeCandidato = idadeCandidato;
-    }
 }
 
 

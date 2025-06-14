@@ -106,4 +106,9 @@ public class VotacaoEleitoral extends Votacao {
         return resultado.toString();
     }
 
+    @Override
+    public String getDescricaoCargo() {
+        return this.cargo != null ? this.cargo.getDescricao() : "Cargo Eleitoral Não Definido"; // Usa o método getDescricao do enum TipoCargoEleitoral
+    }
+
 }

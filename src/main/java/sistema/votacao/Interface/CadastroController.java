@@ -20,6 +20,7 @@ import sistema.votacao.Usuario.Service.UsuarioService;
 import sistema.votacao.SistemaVotacaoApplication;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -98,7 +99,7 @@ public class CadastroController {
         usuario.setSenha(senha);
         usuario.setTipoUsuario(tipoUsuario);
         usuario.setJaVotou(false);
-        usuario.setDataCadastro(LocalDateTime.now());
+        usuario.setDataCadastro(LocalDate.now());
 
         try {
             usuarioService.cadastrarUsuario(usuario);

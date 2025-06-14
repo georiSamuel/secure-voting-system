@@ -43,11 +43,9 @@ public class CriarVotacaoController {
     @FXML private DatePicker fimDatePicker;
     @FXML private TextField fimTimeField;
 
-    @Autowired
-    private VotacaoService votacaoService;
+    @Autowired private VotacaoService votacaoService;
 
-    @FXML
-    public void initialize() {
+    @FXML public void initialize() {
     }
 
     /**
@@ -160,8 +158,7 @@ public class CriarVotacaoController {
      * @param fimTimestamp o horário de término da votação
      * @return a nova instância de {@link VotacaoPersonalizada} preenchida com título, horários e opções de voto
      */
-    @NotNull
-    private VotacaoPersonalizada getVotacaoPersonalizada(String titulo, Timestamp inicioTimestamp, Timestamp fimTimestamp) {
+    @NotNull private VotacaoPersonalizada getVotacaoPersonalizada(String titulo, Timestamp inicioTimestamp, Timestamp fimTimestamp) {
         VotacaoPersonalizada novaVotacao = new VotacaoPersonalizada();
         novaVotacao.setTitulo(titulo);
         novaVotacao.setInicio(inicioTimestamp);

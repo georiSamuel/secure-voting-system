@@ -28,7 +28,7 @@ import java.util.Objects;
  * Gerencia a interação entre a interface de usuário (cadastro.fxml) e a lógica de negócio
  * para registro de novos usuários, inferindo o tipo de usuário pelo domínio do e-mail.
  *
- * @author Suelle &
+ * @author Suelle & Horlan
  * @version 1.0
  * @since 26/05/25
  */
@@ -70,7 +70,6 @@ public class CadastroController {
         String senha = pwdSenha.getText();
         String confirmarSenha = pwdConfirmarSenha.getText();
 
-        // Validação básica
         if (nome.isEmpty() || email.isEmpty() || cpf.isEmpty() || senha.isEmpty() || confirmarSenha.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Erro de Cadastro", "Por favor, preencha todos os campos.");
             return;

@@ -38,6 +38,8 @@ public class LoginController {
 
     @Autowired private UsuarioService usuarioService;
 
+    private static UsuarioModel usuarioLogado;
+
     /**
      * O initialize é um método para que o JavaFx inicialize e configure todos os componentes da interface
      * após a carga do arquivo fxml. Funciona como um "construtor".
@@ -80,6 +82,8 @@ public class LoginController {
             UsuarioModel usuarioAutenticado = usuarioService.autenticar(email, senha);
 
             if (usuarioAutenticado != null) {
+                usuarioLogado = usuarioAutenticado;
+
                 if (usuarioAutenticado.getTipoUsuario() == TipoUsuario.Tipo.ADMIN) {
                     abrirTelaAdmin();
                 } else if (usuarioAutenticado.getTipoUsuario() == TipoUsuario.Tipo.COMUM) {
@@ -119,45 +123,26 @@ public class LoginController {
      * @since 22/05/25
      * @param event O evento de ação que disparou este método (adicionado para compatibilidade com setOnAction).
      */
-    @FXML private void abrirRepositorio(ActionEvent event) { // Adicionado ActionEvent event
+    @FXML private void abrirRepositorio(ActionEvent event) {
         try {
-            // Verifica se o Desktop é suportado antes de tentar usar
             if (Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();
 
-                // Verifica se a ação BROWSE é suportada
                 if (desktop.isSupported(Desktop.Action.BROWSE)) {
                     desktop.browse(new URI("https://github.com/georiSamuel/secure-voting-system"));
                 } else {
-                    // Fallback: mostrar URL para o usuário copiar
                     mostrarAlerta("Link do Repositório",
                             "Não foi possível abrir o navegador automaticamente.\n" +
                                     "Acesse manualmente: https://github.com/georiSamuel/secure-voting-system");
                 }
             } else {
-                // Desktop não suportado - usar comando do sistema
-                String os = System.getProperty("os.name").toLowerCase();
                 String url = "https://github.com/georiSamuel/secure-voting-system";
+                mostrarAlerta("Link do Repositório", "Sistema não suportado para abrir URLs automaticamente.\n" +
+                                "Acesse manualmente: " + url);
 
-                if (os.contains("win")) {
-                    // Windows
-                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
-                } else if (os.contains("mac")) {
-                    // macOS
-                    Runtime.getRuntime().exec("open " + url);
-                } else if (os.contains("nix") || os.contains("nux")) {
-                    // Linux
-                    Runtime.getRuntime().exec("xdg-open " + url);
-                } else {
-                    // Sistema não reconhecido - mostrar URL
-                    mostrarAlerta("Link do Repositório",
-                            "Sistema não suportado para abrir URLs automaticamente.\n" +
-                                    "Acesse manualmente: " + url);
-                }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            // Em caso de qualquer erro, mostrar o link para o usuário
             mostrarAlerta("Erro ao Abrir Link",
                     "Não foi possível abrir o navegador.\n" +
                             "Acesse manualmente: https://github.com/georiSamuel/secure-voting-system\n\n" +
@@ -201,6 +186,9 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent telaUsuario = loader.load();
+            TelaUsuarioController telaUsuarioController = loader.getController();
+            telaUsuarioController.setUsuarioLogadoId(usuarioLogado.getId());
+
             Scene cenaAtual = usuarioCampo.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaUsuario));
@@ -226,6 +214,9 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaadmin.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent telaAdmin = loader.load();
+            TelaAdminController telaAdminController = loader.getController();
+            telaAdminController.setUsuarioLogadoId(usuarioLogado.getId()); // Passa o ID do usuário logado
+
             Scene cenaAtual = usuarioCampo.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaAdmin));
@@ -237,5 +228,10 @@ public class LoginController {
             e.printStackTrace();
             mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do administrador.");
         }
+    }
+
+    // Método estático para obter o usuário logado (opcional, dependendo de como outros controllers acessam)
+    public static UsuarioModel getUsuarioLogado() {
+        return usuarioLogado;
     }
 }

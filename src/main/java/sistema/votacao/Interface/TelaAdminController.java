@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import sistema.votacao.SistemaVotacaoApplication;
 
@@ -22,12 +23,20 @@ import java.util.Objects;
  * @version 1.1
  * @since 26/05/25
  */
+@Data
 @Component
 public class TelaAdminController {
     @FXML private MenuButton menuCriarNovaVotacao;
     @FXML private Button botaoResultados;
     @FXML private Hyperlink desconectar;
     @FXML private Button botaoVotar;
+
+    private Long usuarioLogadoId; // Adicionar este campo
+
+    // Método setter para o usuarioLogadoId
+    public void setUsuarioLogadoId(Long id) {
+        this.usuarioLogadoId = id;
+    }
 
     @FXML public void initialize() {
     }
@@ -43,6 +52,8 @@ public class TelaAdminController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/teladeVotacao.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent root = loader.load();
+            TeladeVotacaoController teladeVotacaoController = loader.getController();
+            teladeVotacaoController.setUsuarioLogadoId(usuarioLogadoId); // Passa o ID do usuário
             Stage stage = (Stage) botaoVotar.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Votações Disponíveis");

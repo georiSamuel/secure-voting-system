@@ -69,7 +69,6 @@ public class ResultadosController {
         this.votacaoService = votacaoService;
         this.opcaoVotoService = opcaoVotoService;
         this.votoService = votoService;
-        // agora inicializa a lista de votações
         initializeVotacoesList();
     }
 
@@ -221,15 +220,14 @@ public class ResultadosController {
      */
     @FXML private void handleVoltarButton() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/votacao/Interface/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/telaAdmin.fxml"));
             Parent root = loader.load();
-
             Stage stage = (Stage) voltarButton.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Tela de Administração");
+            stage.setTitle("Tela do Admin");
 
         } catch (IOException e) {
-            System.err.println("Erro ao carregar a tela de administração: " + e.getMessage());
+            System.err.println("Erro ao carregar a tela do Admin: " + e.getMessage());
             e.printStackTrace();
         }
     }

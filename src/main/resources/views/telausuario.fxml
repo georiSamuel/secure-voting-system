@@ -17,15 +17,11 @@
                   <Font size="14.0" />
                </font></Text>
 
-                <MenuButton fx:id="menuVotacoesAbertas" layoutX="105.0" layoutY="229.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="190.0" style="-fx-background-color: #8276e2;" styleClass="botao-menu" text="Votações em aberto">
-                    <items>
-                        <MenuItem mnemonicParsing="false" styleClass="menu-item" text="todo" />
-                        <MenuItem mnemonicParsing="false" styleClass="menu-item" text="todo" />
-                    </items>
+                <Button fx:id="botaoVotar" layoutX="105.0" layoutY="229.0" mnemonicParsing="false" onAction="#abrirTelaVotacao" prefHeight="46.0" prefWidth="190.0" style="-fx-background-color: #5B50C0; -fx-text-fill: white;" styleClass="botao-menu" text="Abrir tela de votações">
                <font>
-                  <Font size="15.0" />
-               </font>
-                </MenuButton>
+                  <Font size="16.0" />
+               </font></Button>
+
                 <Hyperlink fx:id="desconectar" layoutX="163.0" layoutY="422.0" onAction="#desconectar" styleClass="link-desconectar" text="Desconectar" />
             <Text layoutX="130.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" />
 

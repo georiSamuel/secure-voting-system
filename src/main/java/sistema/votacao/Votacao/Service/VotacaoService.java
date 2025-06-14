@@ -12,6 +12,7 @@ import sistema.votacao.Voto.Repository.VotoRepository; // Import VotoRepository
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 /**
@@ -55,6 +56,21 @@ public class VotacaoService {
     public List<Votacao> buscarVotacoesAtivas() {
         Timestamp agora = new Timestamp(System.currentTimeMillis());
         return votacaoRepository.findByInicioBeforeAndFimAfter(agora, agora);
+    }
+
+    /**
+     * Busca votações ativas nas quais o usuário ainda não votou.
+     *
+     * @param usuarioId O ID do usuário para verificar.
+     * @return Uma lista de votações ativas que o usuário ainda não votou.
+     * @since 14/06/25
+     * @version 1.0
+     */
+    public List<Votacao> buscarVotacoesAtivasNaoVotadasPeloUsuario(Long usuarioId) {
+        List<Votacao> votacoesAtivas = buscarVotacoesAtivas();
+        return votacoesAtivas.stream()
+                .filter(votacao -> !votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacao.getId()))
+                .collect(Collectors.toList());
     }
 
     public Votacao encerrarVotacao(Long id) {

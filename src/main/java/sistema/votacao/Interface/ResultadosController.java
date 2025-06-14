@@ -24,6 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Classe responsável pela tela de Resultados do JavaFX
+ *
  * @author Suelle
  * @since 26/05/25
  * @version 1.0
@@ -37,7 +38,6 @@ public class ResultadosController {
     @FXML private TableColumn<OpcaoVoto, Long> votosColumn;
     @FXML private Button voltarButton;
 
-    // --- NOVOS COMPONENTES ADICIONADOS ---
     /**
      * Botão que dispara a verificação de integridade dos votos.
      */

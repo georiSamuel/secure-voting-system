@@ -29,6 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Classe responsável pela tela de Criar Votação Acadêmica do JavaFx.
+ *
+ * @author Suelle
+ * @since 26/05/25
+ * @version 1.0
+ */
 @Data
 @Component
 public class CriarAcademicaController {

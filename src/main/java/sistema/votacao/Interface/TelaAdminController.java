@@ -38,7 +38,10 @@ public class TelaAdminController {
     }
 
     /**
-     * Método para abrir a tela de votação.
+     * Lida com a ação de clicar no botão para abrir a tela de votação.
+     *
+     * @since 13/06/25
+     * @version 1.0
      */
     @FXML private void abrirTelaVotacao() {
         try {
@@ -58,6 +61,9 @@ public class TelaAdminController {
     /**
      * Lida com a ação de clicar no botão "Criar Nova Votação".
      * Redireciona para a tela de escolha do tipo de votação.
+     *
+     * @since 13/06/25
+     * @version 1.1
      * @param event O evento de ação que disparou este método.
      */
     @FXML
@@ -144,6 +150,8 @@ public class TelaAdminController {
 
     /**
      * Método que desconecta o usuário e volta para a tela inicial (de login).
+     * @since 13/06/25
+     * @version 1.0
      * @param event O evento de ação que disparou este método.
      */
     @FXML
@@ -164,6 +172,8 @@ public class TelaAdminController {
     /**
      * Método que será usado para emitir alertas na tela caso o usuário tenha feito algo fora do planejado e não possa prosseguir.
      *
+     * @since 13/06/25
+     * @version 1.0
      * @param alertType O tipo de alerta (INFORMATION, ERROR, WARNING, etc.).
      * @param title O título do alerta.
      * @param message A mensagem a ser exibida no alerta.

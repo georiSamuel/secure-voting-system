@@ -14,12 +14,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
+import sistema.votacao.SistemaVotacaoApplication; // Importe a classe principal da aplicação
 
 /**
  * Classe responsável pela tela do usuário do JavaFX
  * @author Suelle
  * @since 26/05/25
- * @version 1.0
+ * @version 1.6
  */
 @Component
 public class TelaUsuarioController {
@@ -70,11 +71,17 @@ public class TelaUsuarioController {
      */
     @FXML private void desconectar() {
         try {
-        Parent telaLogin = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-        Scene cenaAtual = desconectar.getScene();
-        Stage palco = (Stage) cenaAtual.getWindow();
-        palco.setScene(new Scene(telaLogin));
-        palco.sizeToScene();
+            // É preicso criar um novo FXMLLoader se não dá erro
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+            // Configurando o ControllerFactory para que o Spring injete as dependências
+            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
+
+            Parent telaLogin = loader.load(); // Carregue a tela de login
+
+            Scene cenaAtual = desconectar.getScene();
+            Stage palco = (Stage) cenaAtual.getWindow();
+            palco.setScene(new Scene(telaLogin));
+            palco.sizeToScene();
 
         } catch (Exception e) {
             e.printStackTrace();

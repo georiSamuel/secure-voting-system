@@ -38,7 +38,7 @@ public class TelaAdminController {
      */
     @FXML private void abrirTelaVotacao() {
         try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/teladeVotacao.fxml")));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaDeVotacao.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent root = loader.load();
             Stage stage = (Stage) botaoVotar.getScene().getWindow();

@@ -109,7 +109,11 @@ public class TelaAdminController {
     }
 
     /**
-     * Abre a tela de resultados
+     * Abre a tela de resultados e injeta todos os serviços necessários no seu controlador,
+     * incluindo o VotoService para a verificação de integridade.
+     *
+     * @since 14/06/2025
+     * @version 1.1
      */
     @FXML
     private void abrirTelaResultados() {
@@ -119,9 +123,13 @@ public class TelaAdminController {
             Parent root = loader.load();
 
             ResultadosController controller = loader.getController();
+
+            // --- ALTERAÇÃO NECESSÁRIA AQUI ---
+            // Adicionado o VotoService na chamada para o controller de resultados.
             controller.setServices(
                     SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.Votacao.Service.VotacaoService.class),
-                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.Voto.Service.OpcaoVotoService.class)
+                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.Voto.Service.OpcaoVotoService.class),
+                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.Voto.Service.VotoService.class)
             );
 
             Stage stage = (Stage) botaoAndamento.getScene().getWindow();

@@ -6,23 +6,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sistema.votacao.Votacao.Model.Votacao;
 import sistema.votacao.Votacao.Service.VotacaoService;
 import sistema.votacao.Voto.Model.OpcaoVoto;
+import sistema.votacao.Voto.Model.VotoModel;
 import sistema.votacao.Voto.Service.OpcaoVotoService;
+import sistema.votacao.Voto.Service.VotoService;
 
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Classe responsável pela tela de Resultados do JavaFX
@@ -39,21 +37,36 @@ public class ResultadosController {
     @FXML private TableColumn<OpcaoVoto, Long> votosColumn;
     @FXML private Button voltarButton;
 
+    // --- NOVOS COMPONENTES ADICIONADOS ---
+    /**
+     * Botão que dispara a verificação de integridade dos votos.
+     */
+    @FXML private Button verificarIntegridadeButton;
+
+    /**
+     * Label para exibir o status da verificação de integridade.
+     */
+    @FXML private Label integridadeStatusLabel;
+
     private VotacaoService votacaoService;
     private OpcaoVotoService opcaoVotoService;
+    private VotoService votoService;
 
     /**
      * Define os serviços necessários para o controlador.
      * Este método é usado para injetar as dependências (serviços) no controller.
      * @param votacaoService O serviço para operações de votação.
      * @param opcaoVotoService O serviço para operações de opções de voto.
+     * @param votoService O serviço para operações de voto, incluindo a verificação de integridade.
      *
-     * @since 09/06/25
-     * @version 1.0
+     * @author eu
+     * @since 14/06/2025
+     * @version 1.1
      */
-    public void setServices(VotacaoService votacaoService, OpcaoVotoService opcaoVotoService) {
+    public void setServices(VotacaoService votacaoService, OpcaoVotoService opcaoVotoService, VotoService votoService) {
         this.votacaoService = votacaoService;
         this.opcaoVotoService = opcaoVotoService;
+        this.votoService = votoService;
         // agora inicializa a lista de votações
         initializeVotacoesList();
     }
@@ -75,6 +88,7 @@ public class ResultadosController {
         votacoesListView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     if (newValue != null) {
+                        integridadeStatusLabel.setText(""); // Limpa o status ao selecionar nova votação
                         handleVotacaoSelection(newValue);
                     }
                 });
@@ -125,7 +139,7 @@ public class ResultadosController {
 
         if (opcaoVotoService != null) {
             try {
-                // busca as opções de voto para a votação q foi selecionada
+                // busca as opções de voto para a votação que foi selecionada
                 List<OpcaoVoto> opcoesDaVotacao = opcaoVotoService.buscarOpcoesPorVotacao(votacao.getId());
 
                 // ordena as opções pela quantidade de votos em ordem decrescente
@@ -137,6 +151,62 @@ public class ResultadosController {
             } catch (Exception e) {
                 System.err.println("Erro ao carregar opções de voto para a votação " + votacao.getId() + ": " + e.getMessage());
             }
+        }
+    }
+
+    /**
+     * Acionado pelo botão "Verificar Integridade". Este método busca todos os votos
+     * da votação selecionada e verifica a integridade de cada um usando o serviço de voto.
+     * Atualiza o label 'integridadeStatusLabel' com o resultado da verificação.
+     *
+     * @since 14/06/2025
+     * @version 1.0
+     */
+    @FXML
+    private void handleVerificarIntegridade() {
+        Votacao votacaoSelecionada = votacoesListView.getSelectionModel().getSelectedItem();
+
+        if (votacaoSelecionada == null) {
+            integridadeStatusLabel.setText("Por favor, selecione uma votação primeiro.");
+            integridadeStatusLabel.setTextFill(Color.PURPLE);
+            return;
+        }
+
+        integridadeStatusLabel.setText("Verificando... por favor, aguarde.");
+        integridadeStatusLabel.setTextFill(Color.PURPLE);
+
+        try {
+            List<VotoModel> votos = votoService.buscarVotosPorVotacao(votacaoSelecionada.getId());
+
+            if (votos.isEmpty()) {
+                integridadeStatusLabel.setText("Nenhum voto registrado para esta votação.");
+                integridadeStatusLabel.setTextFill(Color.PURPLE);
+                return;
+            }
+
+            AtomicInteger votosAdulterados = new AtomicInteger(0);
+            votos.forEach(voto -> {
+                try {
+                    if (!votoService.verificarIntegridadeVoto(voto.getId())) {
+                        votosAdulterados.incrementAndGet();
+                    }
+                } catch (Exception e) {
+                    votosAdulterados.incrementAndGet();
+                }
+            });
+
+            if (votosAdulterados.get() == 0) {
+                integridadeStatusLabel.setText(String.format("Verificação concluída: %d votos analisados. Todos íntegros!", votos.size()));
+                integridadeStatusLabel.setTextFill(Color.PURPLE);
+            } else {
+                integridadeStatusLabel.setText(String.format("ALERTA: %d de %d votos foram ADULTERADOS!", votosAdulterados.get(), votos.size()));
+                integridadeStatusLabel.setTextFill(Color.RED);
+            }
+
+        } catch (Exception e) {
+            integridadeStatusLabel.setText("Erro ao realizar a verificação de integridade.");
+            integridadeStatusLabel.setTextFill(Color.RED);
+            e.printStackTrace();
         }
     }
 

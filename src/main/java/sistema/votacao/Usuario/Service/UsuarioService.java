@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import sistema.votacao.Usuario.Model.UsuarioModel;
 import sistema.votacao.Usuario.Repository.UsuarioRepository;
 import sistema.votacao.Voto.Repository.VotoRepository;
-import sistema.votacao.Util.Password;
 
 import java.util.Optional;
 
@@ -22,7 +21,7 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
-    @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired private PasswordEncoder passwordEncoder; // Estou inicializando o Bean referenciadno a interface que o BCrypt implementa (Polimorfismo!)
 
     @Autowired private final UsuarioRepository usuarioRepository;
 
@@ -70,15 +69,13 @@ public class UsuarioService {
 
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
-
-            if (Password.verifyPassword(senha, usuario.getSenha())) {
+            // Use o passwordEncoder injetado para verificar
+            if (passwordEncoder.matches(senha, usuario.getSenha())) {
                 return usuario;
             }
         }
-
         return null;
     }
-
     /**
      * Método para verificar se um usuário já votou em uma votação específica.
      * @param usuarioId ID do usuário a ser verificado.

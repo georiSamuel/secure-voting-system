@@ -1,89 +1,99 @@
 package sistema.votacao.Util;
 
-// Classe para criptografar chave privada com criptografia simétrica baseada em senha (AES-GCM)
-// TODO: Vou criar uma nova senha para o admin descriptografar a chave privada com a chave simétrica??
-
 import javax.crypto.*;
-import javax.crypto.spec.*;
-import java.security.*;
-import java.security.spec.KeySpec;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.util.Base64;
+import javax.crypto.spec.GCMParameterSpec;
+import java.nio.ByteBuffer;
+import java.security.SecureRandom;
 
+
+
+/**
+ * Classe utilitária para operações de criptografia AES (Advanced Encryption Standard).
+ *
+ * <p>Esta classe fornece métodos estáticos para criptografar e descriptografar dados
+ * usando o algoritmo AES. Utiliza o modo GCM (Galois/Counter Mode) para garantir
+ * confidencialidade e autenticidade dos dados.</p>
+ *
+ * <p>O AES-GCM é um dos padrões mais modernos e seguros para criptografia simétrica autenticada.</p>
+ *
+ * <h3>Configuração de criptografia:</h3>
+ * <ul>
+ * <li><strong>Algoritmo:</strong> AES (Advanced Encryption Standard)</li>
+ * <li><strong>Modo:</strong> GCM (Galois/Counter Mode)</li>
+ * <li><strong>Padding:</strong> NoPadding (GCM não requer padding)</li>
+ * <li><strong>Formato:</strong> "AES/GCM/NoPadding"</li>
+ * <li><strong>Tamanho do IV (Vetor de Inicialização):</strong> 12 bytes (96 bits)</li>
+ * <li><strong>Tamanho da Tag de Autenticação:</strong> 16 bytes (128 bits)</li>
+ * </ul>
+ *
+ *
+ * @author Georis
+ * @version 3.0
+ * @since 10/05/2025
+ *
+ * @see javax.crypto.Cipher
+ * @see javax.crypto.SecretKey
+ * @see GCMParameterSpec
+ */
 public class AES {
-    private static final int SALT_LENGTH = 32;
-    private static final int IV_LENGTH = 12;
-    private static final int ITERATIONS = 100022;
 
+    private static final String ENCRYPTION_ALGORITHM = "AES/GCM/NoPadding";
+    private static final int IV_LENGTH_BYTES = 12; // 96 bits é o recomendado para GCM
+    private static final int AUTH_TAG_LENGTH_BITS = 128; // Tamanho padrão da tag de autenticação
 
-    // Gera salt criptograficamente seguro que será armazenado no BD
-    public static byte[] generateSalt() {
-        byte[] salt = new byte[SALT_LENGTH];
-        new SecureRandom().nextBytes(salt);
-        return salt;
+    /**
+     * Criptografa dados usando uma SecretKey. O Vetor de Inicialização (IV) é gerado e adicionado ao início do resultado.
+     * @param data Os dados em bytes a serem criptografados.
+     * @param key A chave secreta a ser usada.
+     * @return Os dados criptografados, formatados como [IV + ciphertext].
+     * @throws Exception se ocorrer um erro durante a criptografia.
+     */
+    public static byte[] encryptWithKey(byte[] data, SecretKey key) throws Exception {
+        if (data == null || key == null) {
+            throw new IllegalArgumentException("Os dados e a chave não podem ser nulos.");
+        }
+
+        byte[] iv = new byte[IV_LENGTH_BYTES];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(iv);
+
+        Cipher cipher = Cipher.getInstance(ENCRYPTION_ALGORITHM);
+        GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(AUTH_TAG_LENGTH_BITS, iv);
+        cipher.init(Cipher.ENCRYPT_MODE, key, gcmParameterSpec);
+
+        byte[] cipherText = cipher.doFinal(data);
+
+        // Concatena o IV com o texto cifrado para que possa ser usado na descriptografia
+        ByteBuffer byteBuffer = ByteBuffer.allocate(iv.length + cipherText.length);
+        byteBuffer.put(iv);
+        byteBuffer.put(cipherText);
+        return byteBuffer.array();
     }
 
-    // Gera a chave AES a partir da senha e salt usando PBKDF2
-    public static SecretKey getKeyFromPassword(String password, byte[] salt)
-            throws Exception {
+    /**
+     * Descriptografa dados usando uma SecretKey. O IV é extraído do início dos dados recebidos.
+     * @param encryptedData Os dados criptografados no formato [IV + ciphertext].
+     * @param key A chave secreta a ser usada.
+     * @return Os dados descriptografados.
+     * @throws Exception se ocorrer um erro durante a descriptografia.
+     */
+    public static byte[] decryptWithKey(byte[] encryptedData, SecretKey key) throws Exception {
+        if (encryptedData == null || key == null) {
+            throw new IllegalArgumentException("Os dados criptografados e a chave não podem ser nulos.");
+        }
 
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, ITERATIONS, 256);
-        return new SecretKeySpec(factory.generateSecret(spec)
-                .getEncoded(), "AES");
+        // Extrai o IV e o texto cifrado do array de bytes
+        ByteBuffer byteBuffer = ByteBuffer.wrap(encryptedData);
+        byte[] iv = new byte[IV_LENGTH_BYTES];
+        byteBuffer.get(iv);
+
+        byte[] cipherText = new byte[byteBuffer.remaining()];
+        byteBuffer.get(cipherText);
+
+        Cipher cipher = Cipher.getInstance(ENCRYPTION_ALGORITHM);
+        GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(AUTH_TAG_LENGTH_BITS, iv);
+        cipher.init(Cipher.DECRYPT_MODE, key, gcmParameterSpec);
+
+        return cipher.doFinal(cipherText);
     }
-
-    // Gera um IV aleatório de 12 bytes (96 bits) para GCM
-    public static byte[] generateIv() {
-        byte[] iv = new byte[IV_LENGTH];
-        new SecureRandom().nextBytes(iv);
-        return iv;
-    }
-
-    // Criptografa os bytes da chave privada, concatena IV + ciphertext e retorna em Base64
-    public static String encryptPrivateKey(byte[] privateKeyBytes, SecretKey key) throws Exception {
-        byte[] iv = generateIv();
-        GCMParameterSpec gcmSpec = new GCMParameterSpec(128, iv);
-
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-        cipher.init(Cipher.ENCRYPT_MODE, key, gcmSpec);
-
-        byte[] cipherText = cipher.doFinal(privateKeyBytes);
-
-        // Concatena IV + ciphertext para guardar IV em Base64
-        byte[] encryptedIvAndText = new byte[iv.length + cipherText.length];
-        System.arraycopy(iv, 0, encryptedIvAndText, 0, iv.length);
-        System.arraycopy(cipherText, 0, encryptedIvAndText, iv.length, cipherText.length);
-
-        // Codifica em Base64 para armazenamento/transmissão
-        return Base64.getEncoder().encodeToString(encryptedIvAndText);
-    }
-
-    // Recebe Base64 com IV + ciphertext, separa e descriptografa, retornando o objeto PrivateKey
-    public static PrivateKey decryptPrivateKey(String base64CipherKey, SecretKey key) throws Exception {
-        byte[] decoded = Base64.getDecoder().decode(base64CipherKey);
-
-        // Extrai IV (12 bytes)
-        byte[] iv = new byte[12];
-        System.arraycopy(decoded, 0, iv, 0, iv.length);
-
-        // Extrai só a parte criptografada da chave
-        int cipherKeyLength = decoded.length - iv.length;
-        byte[] cipherText = new byte[cipherKeyLength];
-        System.arraycopy(decoded, iv.length, cipherText, 0, cipherKeyLength);
-
-        GCMParameterSpec gcmSpec = new GCMParameterSpec(128, iv);
-
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-        cipher.init(Cipher.DECRYPT_MODE, key, gcmSpec);
-
-        byte[] privateKeyBytes = cipher.doFinal(cipherText);
-
-        // Converte os bytes descriptografados para objeto PrivateKey
-        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA"); // Mesmo algoritmo usado na geração
-
-        return keyFactory.generatePrivate(keySpec);
-    }
-
 }

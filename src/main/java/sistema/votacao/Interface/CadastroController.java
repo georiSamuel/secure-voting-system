@@ -49,8 +49,7 @@ public class CadastroController {
      * @since 10/06/25
      * @version 1.0
      */
-    @FXML
-    public void initialize() {
+    @FXML public void initialize() {
     }
 
     /**
@@ -62,8 +61,7 @@ public class CadastroController {
      * @version 1.0
      * @since 10/06/25
      */
-    @FXML
-    private void handleCadastroButton(ActionEvent event) {
+    @FXML private void handleCadastroButton(ActionEvent event) {
         String nome = txtNome.getText();
         String email = txtEmail.getText();
         String cpf = txtCpf.getText();
@@ -128,8 +126,7 @@ public class CadastroController {
      * @since 10/06/25
      * @param event O evento de ação que disparou este método.
      */
-    @FXML
-    private void handleVoltarLoginButton(ActionEvent event) {
+    @FXML private void handleVoltarLoginButton(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/login.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
@@ -154,7 +151,7 @@ public class CadastroController {
      * @param title O título do alerta.
      * @param message A mensagem a ser exibida no alerta.
      */
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
+    @FXML private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

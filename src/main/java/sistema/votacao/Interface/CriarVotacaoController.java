@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component; // Adicionado para autowire em 
 /**
  * Classe responsável pela tela da criação de Votação personalizável.
  *
- * @author Suelle & Lethycia
+ * @author Suelle & Lethycia & Georis
  * @since 12/06/25
  * @version 1.0
  */
@@ -45,29 +45,6 @@ public class CriarVotacaoController {
     @Autowired private VotacaoService votacaoService;
 
     @FXML public void initialize() {
-    }
-
-    /**
-     * Método responsável pela mudança de tela para tela da criação de votação acadêmica.
-     * @version 1.0
-     * @since 12/06/25
-     * @param primaryStage
-     * @param service
-     */
-    public void abrirTelaCriacaoAcademica(Stage primaryStage, VotacaoService service) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/votacao/Interface/CriacaoAcademica.fxml"));
-            Parent root = loader.load();
-            CriarAcademicaController controller = loader.getController();
-            controller.setVotacaoService(service);
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("Criar Votação Acadêmica");
-            primaryStage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**

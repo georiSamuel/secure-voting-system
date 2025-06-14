@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.springframework.stereotype.Component;
 import sistema.votacao.Votacao.Model.Votacao;
 import sistema.votacao.Votacao.Service.VotacaoService;
 import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
@@ -29,6 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @since 26/05/25
  * @version 1.0
  */
+@Component
 public class ResultadosController {
 
     @FXML private ListView<Votacao> votacoesListView;
@@ -217,10 +219,9 @@ public class ResultadosController {
      * @since 09/06/25
      * @version 1.0
      */
-    @FXML
-    private void handleVoltarButton() {
+    @FXML private void handleVoltarButton() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/votacao/Interface/TelaAdmin.fxml")); // Assegure-se que o caminho está correto
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/votacao/Interface/login.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) voltarButton.getScene().getWindow();

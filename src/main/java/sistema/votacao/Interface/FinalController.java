@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -20,6 +21,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 02/06/25
  */
+@Component
 public class FinalController {
 
     @FXML private Text mensagemSucesso;

@@ -32,7 +32,7 @@ import java.util.Objects;
  * Controller para a tela de criação de votações eleitorais.
  * Gerencia a interação entre a interface de usuário (CriacaoEleitoral.fxml) e a lógica para registro de novas votações eleitorais.
  *
- * @author Suelle
+ * @author Suelle & Georis
  * @version 1.0
  * @since 12/06/2025
  */
@@ -53,8 +53,7 @@ public class CriarEleitoralController {
     @FXML private ListView<String> opcoesListView;
 
 
-    @Autowired
-    private VotacaoService votacaoService;
+    @Autowired private VotacaoService votacaoService;
     private ObservableList<String> opcoesDeVoto = FXCollections.observableArrayList();
 
     /**
@@ -63,12 +62,10 @@ public class CriarEleitoralController {
      * @version 1.0
      * @since 26/05/25
      */
-    @FXML
-    public void initialize() {
+    @FXML public void initialize() {
         cargoComboBox.setItems(FXCollections.observableArrayList(TipoCargoEleitoral.values()));
 
         opcoesListView.setItems(opcoesDeVoto);
-
 
         votoObrigatorioCheckBox.setSelected(true);
         permiteVotoEmBrancoCheckBox.setSelected(true);
@@ -85,15 +82,12 @@ public class CriarEleitoralController {
         if (!novaOpcao.isEmpty()) {
             if (opcoesDeVoto.contains(novaOpcao)) {
                 showAlert(Alert.AlertType.WARNING, "Opção Duplicada", "Esta opção já foi adicionada.");
-                // Nao limpa mensagemErroLabel aqui, pois o alerta já informa.
                 return;
             }
             opcoesDeVoto.add(novaOpcao);
             novaOpcaoCampo.clear();
         } else {
-            // Usa showAlert para feedback direto ao usuário, em vez de apenas mensagemErroLabel.setText
             showAlert(Alert.AlertType.ERROR, "Erro", "Por favor, digite uma opção de voto.");
-            // mensagemErroLabel.setText("Por favor, digite uma opção de voto."); // Comentado, pois o alerta já informa
         }
     }
 
@@ -105,8 +99,7 @@ public class CriarEleitoralController {
      * @version 1.1
      * @since 28/05/25
      */
-    @FXML
-    private void criarVotacao(ActionEvent event) {
+    @FXML private void criarVotacao(ActionEvent event) {
 
         String titulo = tituloCampo.getText().trim();
         TipoCargoEleitoral cargo = cargoComboBox.getValue();
@@ -123,7 +116,6 @@ public class CriarEleitoralController {
                 inicioDate == null || inicioTimeStr.isEmpty() || fimDate == null || fimTimeStr.isEmpty() ||
                 opcoesDeVoto.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Erro de Validação", "Todos os campos e pelo menos uma opção de voto são obrigatórios.");
-            // mensagemErroLabel.setText("Todos os campos e pelo menos uma opção de voto são obrigatórios."); // Comentado
             return;
         }
 
@@ -141,19 +133,16 @@ public class CriarEleitoralController {
 
         } catch (DateTimeParseException e) {
             showAlert(Alert.AlertType.ERROR, "Erro de Data/Hora", "Formato de hora inválido. Use HH:MM. Erro: " + e.getMessage());
-            // mensagemErroLabel.setText("Formato de hora inválido. Use HH:MM. Erro: " + e.getMessage()); // Comentado
-            e.printStackTrace(); // Mantenha para depuração no console
+            e.printStackTrace();
             return;
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erro ao Processar Data", "Ocorreu um erro ao processar data/hora: " + e.getMessage());
-            // mensagemErroLabel.setText("Erro ao processar data/hora: " + e.getMessage()); // Comentado
-            e.printStackTrace(); // Mantenha para depuração no console
+            e.printStackTrace();
             return;
         }
 
         if (inicioTimestamp.after(fimTimestamp)) {
             showAlert(Alert.AlertType.WARNING, "Erro de Período", "A data/hora de início não pode ser posterior à data/hora de fim.");
-            // mensagemErroLabel.setText("A data/hora de início não pode ser posterior à data/hora de fim."); // Comentado
             return;
         }
 
@@ -167,7 +156,6 @@ public class CriarEleitoralController {
         novaVotacao.setInicio(inicioTimestamp);
         novaVotacao.setFim(fimTimestamp);
 
-        // agora associa cada OpcaoVoto com a Votacao
         List<OpcaoVoto> opcoesParaVotacao = new ArrayList<>();
         for (String descricaoOpcao : opcoesDeVoto) {
             OpcaoVoto opcao = new OpcaoVoto();
@@ -182,27 +170,24 @@ public class CriarEleitoralController {
             VotacaoEleitoral votacaoSalva = (VotacaoEleitoral) votacaoService.criarVotacao(novaVotacao);
 
             showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Votação eleitoral criada com sucesso! ID: " + votacaoSalva.getId());
-            // mensagemStatusLabel.setText("Votação eleitoral criada com sucesso! ID: " + votacaoSalva.getId()); // Comentado
-            limparCampos(); // Limpa os campos após o sucesso
+            limparCampos();
         } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Erro ao Criar Votação", e.getMessage());
-            // mensagemErroLabel.setText("Erro ao criar votação: " + e.getMessage()); // Comentado
-            e.printStackTrace(); // Mantenha para depuração no console
+            e.printStackTrace();
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erro Inesperado", "Ocorreu um erro inesperado: " + e.getMessage());
-            // mensagemErroLabel.setText("Ocorreu um erro inesperado: " + e.getMessage()); // Comentado
-            e.printStackTrace(); // Mantenha para depuração no console
+            e.printStackTrace();
         }
     }
 
     /**
      * Lida com a ação de voltar para a tela anterior (TelaAdminController).
+     *
      * @param event O evento de clique no botão.
      * @version 1.0
      * @since 28/05/25
      */
-    @FXML
-    private void voltar(ActionEvent event) {
+    @FXML private void voltar(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaadmin.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
@@ -212,7 +197,6 @@ public class CriarEleitoralController {
             stage.setTitle("Tela de Admin");
             stage.show();
         } catch (IOException e) {
-            // Este alerta já estava usando showAlert, então não muda
             showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de administração.");
             e.printStackTrace();
         }
@@ -249,7 +233,7 @@ public class CriarEleitoralController {
      * @version 1.0
      * @since 28/05/25
      */
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
+    @FXML private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

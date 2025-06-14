@@ -48,9 +48,6 @@ public class CriarAcademicaController {
     @FXML private TextField fimTimeField;
     @FXML private TextField novaOpcaoCampo;
     @FXML private ListView<String> opcoesListView;
-    // --- LABELS DE MENSAGEM REMOVIDAS ---
-    // @FXML private Label mensagemStatusLabel; // REMOVIDO
-    // @FXML private Label mensagemErroLabel;   // REMOVIDO
 
     @Autowired
     private VotacaoService votacaoService;
@@ -67,10 +64,6 @@ public class CriarAcademicaController {
         cargoComboBox.setItems(FXCollections.observableArrayList(TipoCargoAcademico.values()));
 
         opcoesListView.setItems(opcoesDeVoto);
-
-        // --- LINHAS DE LIMPEZA DE LABELS REMOVIDAS ---
-        // mensagemStatusLabel.setText(""); // REMOVIDO
-        // mensagemErroLabel.setText("");   // REMOVIDO
     }
 
     /**
@@ -190,8 +183,7 @@ public class CriarAcademicaController {
      * @since 26/05/25
      * @version 1.0
      */
-    @FXML
-    private void voltar(ActionEvent event) {
+    @FXML private void voltar(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaadmin.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
@@ -234,7 +226,7 @@ public class CriarAcademicaController {
      * @param title O título do alerta.
      * @param message A mensagem a ser exibida no alerta.
      */
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
+    @FXML private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

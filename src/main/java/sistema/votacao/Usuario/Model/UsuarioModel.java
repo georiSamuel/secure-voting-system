@@ -1,6 +1,6 @@
 package sistema.votacao.Usuario.Model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,7 +49,7 @@ public class UsuarioModel {
     private String cpf;
 
     @Column(name = "data_cadastro")
-    private LocalDateTime dataCadastro;
+    private LocalDate dataCadastro;
 
     @Enumerated(EnumType.STRING) // Armazena o enum como String no banco de dados
     @Column(nullable = false)

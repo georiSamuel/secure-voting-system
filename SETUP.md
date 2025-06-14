@@ -161,7 +161,7 @@ Ao trabalhar com JavaFX em projetos Maven em qualquer IDE, você pode enfrentar 
 
 ### Opção 2: Plugin JavaFX Maven
 
-**Status**: Testado, não funcionou adequadament
+**Status**: Testado, não funcionou adequadamente
 
 Configuração no `pom.xml`:
 
@@ -182,7 +182,7 @@ Configuração no `pom.xml`:
 
 **Problemas identificados**:
 
-- As dependências continuam a não serem configuradas automaticamente
+- As dependências continuam não configuradas automaticamente
 
 ### Opção 3: JDK com JavaFX Incluso
 

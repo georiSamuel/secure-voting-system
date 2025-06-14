@@ -51,8 +51,13 @@ public class TeladeVotacaoController {
     private Votacao votacaoSelecionada;
     private List<OpcaoVoto> opcoesAtuais;
 
-    @FXML
-    public void initialize() {
+    /**
+     * Método de inicialização do controller. Chamado automaticamente pelo FXMLLoader após o carregamento do FXML.
+     *
+     * @since 13/05/25
+     * @version 1.0
+     */
+    @FXML public void initialize() {
         opcoesVotoGroup = new ToggleGroup();
 
         if (votacaoService != null) {
@@ -67,7 +72,14 @@ public class TeladeVotacaoController {
                 });
     }
 
-    private void initializeVotacoesList() {
+    /**
+     * Inicializa a lista de votações disponíveis na {@link #votacoesDisponiveisListView}.
+     * Busca as votações ativas através do {@link VotacaoService} e exibe na tela
+     *
+     * @since 13/06/25
+     * @version 1.0
+     */
+    @FXML private void initializeVotacoesList() {
         try {
             List<Votacao> ativas = votacaoService.buscarVotacoesAtivas();
             votacoesAbertas.setAll(ativas);
@@ -86,7 +98,15 @@ public class TeladeVotacaoController {
         }
     }
 
-    private void handleVotacaoSelection(Votacao votacao) {
+    /**
+     * Manipula a seleção de uma votação na {@link #votacoesDisponiveisListView}.
+     * Atualiza os labels com o título da votação e carrega as opções de voto dinamicamente.
+     *
+     * @param votacao A votação selecionada.
+     * @since 13/06/25
+     * @version 1.0
+     */
+    @FXML private void handleVotacaoSelection(Votacao votacao) {
         votacaoSelecionada = votacao;
         votacaoTituloLabel.setText(votacao.getTitulo());
         votacaoDescricaoLabel.setText("Escolha uma opção de voto para: " + votacao.getTitulo());
@@ -113,8 +133,16 @@ public class TeladeVotacaoController {
         }
     }
 
-    @FXML
-    private void handleVotarButton(ActionEvent event) {
+    /**
+     * Manipula o clique do botão "Votar".
+     * Verifica se uma votação e uma opção de voto foram selecionadas,
+     * e então tenta registrar o voto do usuário. Após o voto, atualiza a lista de votações
+     *
+     * @param event O evento de ação que disparou este método.
+     * @since 13/06/25
+     * @version 1.0
+     */
+    @FXML private void handleVotarButton(ActionEvent event) {
         if (votacaoSelecionada == null) {
             showAlert(Alert.AlertType.WARNING, "Erro de Voto", "Por favor, selecione uma votação.");
             return;
@@ -174,9 +202,14 @@ public class TeladeVotacaoController {
         }
     }
 
-
-    @FXML
-    private void handleVoltarButton(ActionEvent event) {
+    /**
+     * Manipula o clique do botão "Voltar", redirecionando o usuário para a tela de usuário.
+     *
+     * @param event O evento de ação que disparou este método.
+     * @since 13/06/25
+     * @version 1.0
+     */
+    @FXML private void handleVoltarButton(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml")));
             Parent root = loader.load();
@@ -190,7 +223,16 @@ public class TeladeVotacaoController {
         }
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
+    /**
+     * Exibe um alerta pop-up com o tipo, título e mensagem especificados.
+     *
+     * @param alertType O tipo de alerta (e.g., INFORMATION, WARNING, ERROR).
+     * @param title     O título do pop-up do alerta.
+     * @param message   A mensagem a ser exibida no corpo do alerta.
+     * @since 13/06/25
+     * @version 1.0
+     */
+    @FXML private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

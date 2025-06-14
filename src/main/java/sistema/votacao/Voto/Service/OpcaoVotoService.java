@@ -53,11 +53,19 @@ public class OpcaoVotoService {
         return opcaoVotoRepository.findByVotacaoId(votacaoId);
     }
 
+    // MUDANÇA AQUI (GEORIS)
     @Transactional
     public OpcaoVoto incrementarVotos(Long opcaoId) {
-        opcaoVotoRepository.incrementarVotos(opcaoId);
-        return buscarPorId(opcaoId);
+        // 1. BUSCAR: Carrega a entidade. O @Convert descriptografa o valor aqui.
+        OpcaoVoto opcao = buscarPorId(opcaoId);
+
+        // 2. MODIFICAR: Incrementa o valor em memória.
+        opcao.incrementarVotos();
+
+        // 3. SALVAR: Persiste a entidade. O @Convert criptografa o novo valor aqui.
+        return opcaoVotoRepository.save(opcao);
     }
+    // --- FIM DA ALTERAÇÃO ---
 
     @Transactional(readOnly = true)
     public OpcaoVoto buscarPorId(Long id) {

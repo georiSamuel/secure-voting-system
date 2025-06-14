@@ -6,6 +6,5 @@ public record VotoResponseDTO(
     Long id,
     Long idUsuario,
     Long idVotacao,
-    String votoCriptografado,
     LocalDateTime dataVoto
 ) {}

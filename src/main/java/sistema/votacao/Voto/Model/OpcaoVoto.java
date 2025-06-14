@@ -20,7 +20,7 @@ public class OpcaoVoto {
     @Column(nullable = false, length = 100)
     private String descricao;
 
-    // A MUDANÇA É AQUI:
+    // A MUDANÇA AQUI (Georis):
     @Convert(converter = VoteCountEncryptor.class) // INDICA QUAL CONVERSOR USAR
     @Lob // RECOMENDADO PARA CAMPOS DE DADOS GRANDES (COMO BYTES CRIPTOGRAFADOS)
     @Column(name = "quantidade_votos", nullable = false)

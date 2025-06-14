@@ -5,7 +5,6 @@ import jakarta.persistence.Converter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
@@ -30,19 +29,17 @@ import java.util.Base64;
  * </pre>
  *
  * @author Georis
- * @version 1.0
+ * @version 1.1
  * @since 13/06/2025
  * @see KeyGenerator
+ * @see AES
  */
-
 @Converter
 @Component
 public class VoteCountEncryptor implements AttributeConverter<Long, byte[]> {
 
-    private static final String AES = "AES";
     private final SecretKey masterKey;
-    private final Cipher cipher;
-
+    // O campo 'cipher' foi removido, pois a lógica agora está centralizada na classe AES.
 
     /**
      * Construtor que inicializa o encriptador com a chave secreta configurada.
@@ -51,14 +48,13 @@ public class VoteCountEncryptor implements AttributeConverter<Long, byte[]> {
      * propriedade {@code voting.app.aes-key} no application.properties.</p>
      *
      * @param secret chave secreta em formato Base64 injetada pelo Spring através da assinatura @Value que
-     *                  serve para injetar valores de configuração diretamente em campos de um componente gerenciado pelo Spring
-     * @throws Exception se houver erro na inicialização da criptografia
+     * serve para injetar valores de configuração diretamente em campos de um componente gerenciado pelo Spring
      * @throws IllegalArgumentException se a chave for inválida
      */
-    public VoteCountEncryptor(@Value("${voting.app.aes-key}") String secret) throws Exception {
+    public VoteCountEncryptor(@Value("${voting.app.aes-key}") String secret) {
+        // A inicialização do Cipher foi removida daqui.
         byte[] decodedKey = Base64.getDecoder().decode(secret);
-        this.masterKey = new SecretKeySpec(decodedKey, AES);
-        this.cipher = Cipher.getInstance(AES);
+        this.masterKey = new SecretKeySpec(decodedKey, "AES");
     }
 
 
@@ -75,15 +71,14 @@ public class VoteCountEncryptor implements AttributeConverter<Long, byte[]> {
      */
     @Override
     public byte[] convertToDatabaseColumn(Long attribute) {
-        // Criptografa o Long para salvar no banco como byte[]
         if (attribute == null) {
             return null;
         }
         try {
-            cipher.init(Cipher.ENCRYPT_MODE, masterKey);
             ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
             buffer.putLong(attribute);
-            return cipher.doFinal(buffer.array());
+            // LÓGICA ALTERADA: Delega a criptografia para a classe AES
+            return AES.encryptWithKey(buffer.array(), masterKey);
         } catch (Exception e) {
             throw new IllegalStateException("Não foi possível criptografar a contagem de votos.", e);
         }
@@ -100,15 +95,15 @@ public class VoteCountEncryptor implements AttributeConverter<Long, byte[]> {
      * @return número de votos descriptografado, ou 0L se dbData for null
      * @throws IllegalStateException se ocorrer erro durante a descriptografia
      */
+
     @Override
     public Long convertToEntityAttribute(byte[] dbData) {
-
         if (dbData == null) {
             return 0L;
         }
         try {
-            cipher.init(Cipher.DECRYPT_MODE, masterKey);
-            byte[] decryptedBytes = cipher.doFinal(dbData);
+            // LÓGICA ALTERADA: Delega a descriptografia para a classe AES
+            byte[] decryptedBytes = AES.decryptWithKey(dbData, masterKey);
             ByteBuffer buffer = ByteBuffer.wrap(decryptedBytes);
             return buffer.getLong();
         } catch (Exception e) {

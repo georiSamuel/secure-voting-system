@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sistema.votacao.Votacao.Model.TipoCargoAcademico;
 import sistema.votacao.Votacao.Model.VotacaoAcademica;
-import sistema.votacao.Voto.Model.OpcaoVoto;
+import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
 import sistema.votacao.Votacao.Service.VotacaoService;
 import sistema.votacao.SistemaVotacaoApplication; // Importa a aplicação principal
 import javafx.stage.Stage;

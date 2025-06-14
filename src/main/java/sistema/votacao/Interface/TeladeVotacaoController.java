@@ -20,8 +20,8 @@ import org.springframework.stereotype.Component;
 import sistema.votacao.Votacao.Model.Votacao;
 import sistema.votacao.Votacao.Service.VotacaoService;
 import sistema.votacao.Voto.DTO.VotoRequestDTO;
-import sistema.votacao.Voto.Model.OpcaoVoto;
-import sistema.votacao.Voto.Service.OpcaoVotoService;
+import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
+import sistema.votacao.OpcaoVoto.Service.OpcaoVotoService;
 import sistema.votacao.Voto.Service.VotoService;
 import sistema.votacao.Usuario.Service.UsuarioService;
 

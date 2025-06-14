@@ -134,7 +134,7 @@ public class TelaAdminController {
             // Adicionado o VotoService na chamada para o controller de resultados.
             controller.setServices(
                     SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.Votacao.Service.VotacaoService.class),
-                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.Voto.Service.OpcaoVotoService.class),
+                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.OpcaoVoto.Service.OpcaoVotoService.class),
                     SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.Voto.Service.VotoService.class)
             );
 

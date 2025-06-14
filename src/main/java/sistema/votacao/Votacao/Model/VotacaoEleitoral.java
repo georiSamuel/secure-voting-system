@@ -1,7 +1,7 @@
 package sistema.votacao.Votacao.Model;
 
 import lombok.Data;
-import sistema.votacao.Voto.Model.OpcaoVoto;
+import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
 import sistema.votacao.Voto.Model.VotoModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

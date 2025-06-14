@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
-import sistema.votacao.Voto.Model.OpcaoVoto;
+import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
 import sistema.votacao.Voto.Model.VotoModel;
 
 @Data

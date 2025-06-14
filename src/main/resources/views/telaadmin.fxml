@@ -2,10 +2,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="backgroundTela" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" stylesheets="@/css/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.TelaAdminController">
+<AnchorPane fx:id="backgroundTela" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" stylesheets="@/css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.TelaAdminController">
     <children>
         <AnchorPane fx:id="telaBranca" layoutX="200.0" layoutY="71.0" prefHeight="457.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" styleClass="painel-principal">
             <children>
@@ -17,7 +16,7 @@
 
                 <Text fx:id="selecioneText" layoutX="133.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-subtitulo" text="Selecione uma opção:" />
 
-                <MenuButton fx:id="menuCriarNovaVotacao" layoutX="104.0" layoutY="182.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="190.0" styleClass="botao-menu" text="Criar uma votação">
+                <MenuButton fx:id="menuCriarNovaVotacao" layoutX="104.0" layoutY="182.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="190.0" style="-fx-background-color: #5B50C0; -fx-text-fill: white;" styleClass="botao-menu" text="Criar uma votação" textFill="WHITE">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#handleCriarEleitoral" text="Criar Votação Eleitoral" />
                         <MenuItem mnemonicParsing="false" onAction="#handleCriarAcademica" text="Criar Votação Acadêmica" />
@@ -25,14 +24,9 @@
                     </items>
                 </MenuButton>
 
-                <MenuButton fx:id="menuVotacoesAbertas" layoutX="105.0" layoutY="260.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="190.0" styleClass="botao-menu" text="Votações em aberto">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Votação Institucional 2025" />
-                        <MenuItem mnemonicParsing="false" text="Eleição de Representantes" />
-                    </items>
-                </MenuButton>
+                <Button fx:id="botaoVotar" layoutX="105.0" layoutY="339.0" mnemonicParsing="false" onAction="#abrirTelaVotacao" prefHeight="46.0" prefWidth="190.0" style="-fx-background-color: #5B50C0;" styleClass="botao-menu" text="Abrir tela de votações" />
 
-                <Button fx:id="botaoAndamento" layoutX="105.0" layoutY="339.0" mnemonicParsing="false" onAction="#abrirTelaResultados" prefHeight="46.0" prefWidth="190.0" styleClass="botao-menu" text="Acompanhar andamento" />
+                <Button fx:id="botaoAndamento" layoutX="104.0" layoutY="260.0" mnemonicParsing="false" onAction="#abrirTelaResultados" prefHeight="46.0" prefWidth="190.0" style="-fx-background-color: #5B50C0; -fx-text-fill: white;" styleClass="botao-menu" text="Acompanhar andamento" />
 
                 <Hyperlink fx:id="desconectar" layoutX="163.0" layoutY="422.0" onAction="#desconectar" styleClass="link-desconectar" text="Desconectar" />
             </children>

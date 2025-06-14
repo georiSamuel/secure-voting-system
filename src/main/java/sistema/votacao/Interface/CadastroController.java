@@ -21,7 +21,6 @@ import sistema.votacao.SistemaVotacaoApplication;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**

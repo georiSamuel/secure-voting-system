@@ -22,7 +22,7 @@ import sistema.votacao.Usuario.Service.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Optional; // retorna uma coisa ou outra;eu
 
 /**
@@ -52,7 +52,7 @@ public class UsuarioController {
         usuario.setEmail(cadastroRequest.getEmail());
         usuario.setSenha(cadastroRequest.getSenha());
         usuario.setJaVotou(false); // Valor padrão
-        usuario.setDataCadastro(LocalDateTime.now());
+        usuario.setDataCadastro(LocalDate.now());
 
         if (cadastroRequest.getTipo() != null) {
             usuario.setTipoUsuario(cadastroRequest.getTipo());

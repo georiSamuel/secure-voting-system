@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import sistema.votacao.Usuario.Model.UsuarioModel;
 import sistema.votacao.Usuario.Repository.UsuarioRepository;
 import sistema.votacao.Voto.Repository.VotoRepository;
-import sistema.votacao.Voto.Service.VotoService;
 
 import java.util.Optional;
 
@@ -26,7 +25,7 @@ public class UsuarioService {
 
     @Autowired private final UsuarioRepository usuarioRepository;
 
-    @Autowired private VotoService votoService;
+    @Autowired private final VotoRepository votoRepository;
 
     /**
      * Método para cadastrar um novo usuário no sistema.
@@ -85,6 +84,6 @@ public class UsuarioService {
      * @return true se o usuário já votou, false caso contrário.
      */
     public boolean verificarSeUsuarioJaVotou(Long usuarioId, Long votacaoId) {
-        return votoService.usuarioJaVotou(usuarioId, votacaoId); // Verifica se o voto existe
+        return votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacaoId); // Verifica se o voto existe
     }
 }

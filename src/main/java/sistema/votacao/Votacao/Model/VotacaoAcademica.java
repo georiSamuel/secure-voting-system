@@ -1,12 +1,7 @@
 package sistema.votacao.Votacao.Model;
 
 import lombok.Data;
-import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
 import sistema.votacao.Voto.Model.VotoModel;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 import jakarta.persistence.*;
 
 /**
@@ -41,61 +36,6 @@ public class VotacaoAcademica extends Votacao {
 
         return true;
     }
-
-    /**
-     * Gera o resultado da votação acadêmica, incluindo total de votos, votos
-     * válidos,
-     * votos em branco e a lista de opções com suas respectivas quantidades de
-     * votos.
-     *
-     * @return String formatada com o resultado da votação
-     */
-    @Override
-    public String gerarResultado() {
-        long total = this.getVotos().size();
-        long validos = this.getOpcoes().stream().mapToLong(OpcaoVoto::getQuantidadeVotos).sum();
-        long brancos = total - validos;
-
-        StringBuilder r = new StringBuilder();
-        r.append("Resultado da Votação Acadêmica: ").append(this.getTitulo()).append("\n");
-        r.append("Cargo: ").append(this.cargo).append("\n");
-        r.append("Total de votos: ").append(total).append("\n");
-        r.append("Votos válidos: ").append(validos).append("\n");
-        r.append("Votos em branco: ").append(brancos).append("\n\n");
-
-        List<OpcaoVoto> opcoesOrdenadas = this.getOpcoes().stream()
-                .sorted((a, b) -> {
-                    int cmpVotos = b.getQuantidadeVotos().compareTo(a.getQuantidadeVotos());
-                    if (cmpVotos != 0)
-                        return cmpVotos;
-
-                    return Integer.compare(b.getIdadeCandidato(), a.getIdadeCandidato());
-                })
-                .collect(Collectors.toList());
-
-        opcoesOrdenadas.forEach(op -> r.append(String.format("- %s: %d votos (Idade: %d)\n",
-                op.getDescricao(),
-                op.getQuantidadeVotos(),
-                op.getIdadeCandidato())));
-
-        if (opcoesOrdenadas.size() >= 2) {
-            OpcaoVoto primeiro = opcoesOrdenadas.get(0);
-            OpcaoVoto segundo = opcoesOrdenadas.get(1);
-
-            if (primeiro.getQuantidadeVotos() == segundo.getQuantidadeVotos()) {
-                r.append("\nEMPATE DETECTADO!\n");
-                r.append("Critério de desempate: candidato mais velho\n");
-                r.append(String.format("Vencedor: %s (Idade: %d)\n",
-                        primeiro.getDescricao(),
-                        primeiro.getIdadeCandidato()));
-            } else {
-                r.append("\nVencedor: ").append(primeiro.getDescricao()).append("\n");
-            }
-        }
-
-        return r.toString();
-    }
-
     @Override
     public String getDescricaoCargo() {
         return this.cargo != null ? this.cargo.name() : "Cargo Acadêmico Não Definido"; // Retorna o nome do enum como string

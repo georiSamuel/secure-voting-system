@@ -28,9 +28,6 @@ public class OpcaoVoto {
     private Long quantidadeVotos = 0L;
     // FIM DA MUDANÇA
 
-    @Column(name = "idade_candidato")
-    private Integer idadeCandidato;
-
     @ManyToOne
     @JoinColumn(name = "votacao_id", nullable = false)
     private Votacao votacao;

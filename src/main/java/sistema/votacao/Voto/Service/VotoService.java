@@ -21,7 +21,14 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
- * Serviço responsável pela lógica de negócio relacionada ao registro e consulta de votos.
+ * Serviço responsável pela lógica de negócio relacionada ao registro e consulta
+ * de votos.
+ * Fornece métodos para criar, buscar, deletar votos e registrar votos com
+ * segurança usando HMAC.
+ * 
+ * @author Lethycia
+ * @version 1.0
+ * @since 26/05/25
  */
 @Service
 public class VotoService {
@@ -36,7 +43,7 @@ public class VotoService {
     private String hmacSecret;
 
     public VotoService(VotoRepository votoRepository, UsuarioService usuarioService, VotacaoService votacaoService,
-                       OpcaoVotoService opcaoVotoService) {
+            OpcaoVotoService opcaoVotoService) {
         this.votoRepository = votoRepository;
         this.usuarioService = usuarioService;
         this.votacaoService = votacaoService;
@@ -96,13 +103,16 @@ public class VotoService {
             voto.setUsuario(usuario);
             voto.setDataHoraVoto(LocalDateTime.now());
 
-            /*  Trunca o tempo para microssegundos ANTES de definir no objeto e usar no HMAC. Isso é necessário porque A maioria dos bancos de dados,
-            incluindo o MySQL, não armazena a precisão total de nanossegundos sendo que o HAMC PRECISA do valor exato para realizar a verivicação por hash
-            */
+            /*
+             * Trunca o tempo para microssegundos ANTES de definir no objeto e usar no HMAC.
+             * Isso é necessário porque A maioria dos bancos de dados,
+             * incluindo o MySQL, não armazena a precisão total de nanossegundos sendo que o
+             * HAMC PRECISA do valor exato para realizar a verivicação por hash
+             */
             LocalDateTime timestampTruncado = LocalDateTime.now().truncatedTo(ChronoUnit.MICROS);
             voto.setDataHoraVoto(timestampTruncado);
 
-            //Passos de geração de hash com chave secreta HMAC:
+            // Passos de geração de hash com chave secreta HMAC:
 
             // 1. Criar a string com os dados do voto para gerar o selo de integridade
             String dadosParaAutenticar = String.format("usuarioId:%d;votacaoId:%d;opcaoId:%d;timestamp:%s",
@@ -147,21 +157,23 @@ public class VotoService {
         return votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacaoId);
     }
 
-
     /**
      * Verifica a integridade de um registro de voto comparando seu HMAC armazenado
      * com um HMAC recém-calculado a partir dos dados do voto.
      *
      * @param votoId O ID do voto a ser verificado.
-     * @return true se o voto for íntegro (o selo corresponde), false caso contrário.
-     * @throws Exception se ocorrer um erro durante o processo (ex: voto não encontrado).
+     * @return true se o voto for íntegro (o selo corresponde), false caso
+     *         contrário.
+     * @throws Exception se ocorrer um erro durante o processo (ex: voto não
+     *                   encontrado).
      */
     @Transactional(readOnly = true)
     public boolean verificarIntegridadeVoto(Long votoId) throws Exception {
         // 1. Buscar o voto no banco de dados
         VotoModel voto = buscarPorId(votoId);
 
-        // Apenas para garantir, mesmo que a leitura do banco já deva vir truncada, é uma boa prática re-truncar para garantir consistência total.
+        // Apenas para garantir, mesmo que a leitura do banco já deva vir truncada, é
+        // uma boa prática re-truncar para garantir consistência total.
         LocalDateTime timestampVerificacao = voto.getDataHoraVoto().truncatedTo(ChronoUnit.MICROS);
 
         // 2. Reconstruir a string de dados original EXATAMENTE como foi criada

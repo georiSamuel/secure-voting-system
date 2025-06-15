@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import sistema.votacao.Votacao.Model.Votacao;
@@ -42,13 +41,9 @@ public class ResultadosController {
 
     /**
      * Botão que dispara a verificação de integridade dos votos.
+     * Mantenho a declaração, embora a lógica para exibir o status mude para um Alert.
      */
     @FXML private Button verificarIntegridadeButton;
-
-    /**
-     * Label para exibir o status da verificação de integridade.
-     */
-    @FXML private Label integridadeStatusLabel;
 
     private VotacaoService votacaoService;
     private OpcaoVotoService opcaoVotoService;
@@ -69,6 +64,7 @@ public class ResultadosController {
         this.votacaoService = votacaoService;
         this.opcaoVotoService = opcaoVotoService;
         this.votoService = votoService;
+        // agora inicializa a lista de votações
         initializeVotacoesList();
     }
 
@@ -81,9 +77,11 @@ public class ResultadosController {
      */
     @FXML
     public void initialize() {
+        // Configura as colunas da TableView para mapear as propriedades de OpcaoVoto
         opcaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         votosColumn.setCellValueFactory(new PropertyValueFactory<>("quantidadeVotos"));
 
+        // Adiciona um listener para a seleção de itens na ListView de votações
         votacoesListView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     if (newValue != null) {
@@ -102,10 +100,12 @@ public class ResultadosController {
     private void initializeVotacoesList() {
         if (votacaoService != null) {
             try {
+                // Busca todas as votações e adiciona na ListView
                 List<Votacao> todasVotacoes = votacaoService.buscarTodasVotacoes();
                 ObservableList<Votacao> observableVotacoes = FXCollections.observableArrayList(todasVotacoes);
                 votacoesListView.setItems(observableVotacoes);
 
+                // Define como os objetos Votacao são exibidos na List (só o título)
                 votacoesListView.setCellFactory(lv -> new javafx.scene.control.ListCell<Votacao>() {
                     @Override
                     protected void updateItem(Votacao votacao, boolean empty) {
@@ -115,6 +115,7 @@ public class ResultadosController {
                 });
 
             } catch (Exception e) {
+                // Exibe alerta visual em caso de erro ao carregar votações
                 showAlert(Alert.AlertType.ERROR, "Erro de Carregamento", "Não foi possível carregar as votações disponíveis: " + e.getMessage());
                 System.err.println("Erro ao carregar votações: " + e.getMessage()); // Mantenha para depuração no console
                 e.printStackTrace();
@@ -131,9 +132,22 @@ public class ResultadosController {
      * @version 1.0
      */
     private void handleVotacaoSelection(Votacao votacao) {
+        // Usa getDescricaoCargo() para exibir o cargo (que pode ser "Não Aplicável" para personalizada)
+        // Atualiza o título da votação selecionada
         votacaoTituloLabel.setText("Resultados para: " + votacao.getTitulo() + " (Cargo: " + votacao.getDescricaoCargo() + ")");
 
-        if (opcaoVotoService != null) {
+        // Verifica se a votação está ativa
+        if (!votacao.isAtiva()) {
+            resultadosTableView.setItems(FXCollections.emptyObservableList());
+            Label placeholderLabel = new Label("Esta votação não está ativa ou já foi encerrada.");
+            placeholderLabel.setStyle("-fx-text-fill: gray; -fx-font-size: 14px; -fx-alignment: CENTER;");
+            resultadosTableView.setPlaceholder(placeholderLabel);
+            return;
+        } else {
+            // Se a votação está ativa, remove qualquer mensagem de placeholder de votação inativa
+            resultadosTableView.setPlaceholder(null);
+        }
+
             try {
                 // busca as opções de voto para a votação que foi selecionada
                 List<OpcaoVoto> opcoesDaVotacao = opcaoVotoService.buscarOpcoesPorVotacao(votacao.getId());
@@ -144,14 +158,24 @@ public class ResultadosController {
                 ObservableList<OpcaoVoto> observableResultados = FXCollections.observableArrayList(opcoesDaVotacao);
                 resultadosTableView.setItems(observableResultados);
 
+                // Se não houver votos para uma votação ativa, exibe uma mensagem específica
+                if (opcoesDaVotacao.isEmpty()) {
+                    Label noResultsLabel = new Label("Nenhum voto registrado para esta votação ativa.");
+                    noResultsLabel.setStyle("-fx-text-fill: gray; -fx-font-size: 14px; -fx-alignment: CENTER;");
+                    resultadosTableView.setPlaceholder(noResultsLabel);
+                }
+
             } catch (Exception e) {
                 // Exibe alerta visual em caso de erro ao carregar opções de voto
                 showAlert(Alert.AlertType.ERROR, "Erro de Carregamento", "Erro ao carregar opções de voto para a votação " + votacao.getId() + ": " + e.getMessage());
-                System.err.println("Erro ao carregar opções de voto para a votação " + votacao.getId() + ": " + e.getMessage()); // Mantenha para depuração
+                System.err.println("Erro ao carregar opções de voto para a votação " + votacao.getId() + ": " + e.getMessage());
                 e.printStackTrace();
+                // Em caso de erro, remove qualquer placeholder e exibe um alerta
+                resultadosTableView.setPlaceholder(null);
             }
         }
-    }
+
+
 
     /**
      * Acionado pelo botão "Verificar Integridade". Este método busca todos os votos
@@ -223,23 +247,25 @@ public class ResultadosController {
 
     /**
      * Manipula o evento de clique do botão "Voltar".
-     * Retorna para a tela do admin (TelaAdminController).
+     * Retorna para a tela de admin.
      *
      * @since 09/06/25
      * @version 1.0
      */
     @FXML private void handleVoltarButton() {
         try {
+            // Volta para a tela de admin, que é o ponto de entrada principal
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/telaadmin.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) voltarButton.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Área de Administração");
+            stage.setTitle("Tela de Admin");
             stage.show();
 
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de administração    .");
+            System.err.println("Erro ao carregar a tela de administração: " + e.getMessage()); // Mantenha para depuração
             e.printStackTrace();
         }
     }
@@ -257,7 +283,7 @@ public class ResultadosController {
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
-        alert.setHeaderText(null);
+        alert.setHeaderText(null); // Opcional: pode ser usado para um cabeçalho mais detalhado
         alert.setContentText(message);
         alert.showAndWait();
     }

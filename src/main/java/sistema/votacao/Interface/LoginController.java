@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sistema.votacao.SistemaVotacaoApplication;
@@ -18,7 +17,6 @@ import sistema.votacao.Usuario.Service.UsuarioService;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -29,7 +27,6 @@ import java.util.Optional;
  * @version 1.1
  * @since 25/06/25
  */
-@Data
 @Component
 public class LoginController {
 
@@ -40,8 +37,6 @@ public class LoginController {
     @FXML private Hyperlink linkGithub;
 
     @Autowired private UsuarioService usuarioService;
-
-    private static UsuarioModel usuarioLogado;
 
     /**
      * O initialize é um método para que o JavaFx inicialize e configure todos os componentes da interface
@@ -81,19 +76,10 @@ public class LoginController {
             return;
         }
 
-        // Adiciona uma verificação para garantir que o serviço de usuário não seja nulo
-        if (usuarioService == null) {
-            mostrarAlerta("Erro de Configuração", "O serviço de usuário não foi inicializado corretamente. " +
-                    "Verifique a configuração do Spring ou as anotações na classe UsuarioService.");
-            return;
-        }
-
         try {
             UsuarioModel usuarioAutenticado = usuarioService.autenticar(email, senha);
 
             if (usuarioAutenticado != null) {
-                usuarioLogado = usuarioAutenticado;
-
                 if (usuarioAutenticado.getTipoUsuario() == TipoUsuario.Tipo.ADMIN) {
                     abrirTelaAdmin();
                 } else if (usuarioAutenticado.getTipoUsuario() == TipoUsuario.Tipo.COMUM) {
@@ -133,33 +119,51 @@ public class LoginController {
      * @since 22/05/25
      * @param event O evento de ação que disparou este método (adicionado para compatibilidade com setOnAction).
      */
-    @FXML private void abrirRepositorio(ActionEvent event) {
+    @FXML private void abrirRepositorio(ActionEvent event) { // Adicionado ActionEvent event
         try {
+            // Verifica se o Desktop é suportado antes de tentar usar
             if (Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();
 
+                // Verifica se a ação BROWSE é suportada
                 if (desktop.isSupported(Desktop.Action.BROWSE)) {
                     desktop.browse(new URI("https://github.com/georiSamuel/secure-voting-system"));
                 } else {
+                    // Fallback: mostrar URL para o usuário copiar
                     mostrarAlerta("Link do Repositório",
                             "Não foi possível abrir o navegador automaticamente.\n" +
                                     "Acesse manualmente: https://github.com/georiSamuel/secure-voting-system");
                 }
             } else {
+                // Desktop não suportado - usar comando do sistema
+                String os = System.getProperty("os.name").toLowerCase();
                 String url = "https://github.com/georiSamuel/secure-voting-system";
-                mostrarAlerta("Link do Repositório", "Sistema não suportado para abrir URLs automaticamente.\n" +
-                        "Acesse manualmente: " + url);
 
+                if (os.contains("win")) {
+                    // Windows
+                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
+                } else if (os.contains("mac")) {
+                    // macOS
+                    Runtime.getRuntime().exec("open " + url);
+                } else if (os.contains("nix") || os.contains("nux")) {
+                    // Linux
+                    Runtime.getRuntime().exec("xdg-open " + url);
+                } else {
+                    // Sistema não reconhecido - mostrar URL
+                    mostrarAlerta("Link do Repositório",
+                            "Sistema não suportado para abrir URLs automaticamente.\n" +
+                                    "Acesse manualmente: " + url);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
+            // Em caso de qualquer erro, mostrar o link para o usuário
             mostrarAlerta("Erro ao Abrir Link",
                     "Não foi possível abrir o navegador.\n" +
                             "Acesse manualmente: https://github.com/georiSamuel/secure-voting-system\n\n" +
                             "Erro: " + e.getMessage());
         }
     }
-
     /**
      * Método que aciona o botão "cadastre-se aqui" e abre a tela para o usuário se cadastrar.
      *
@@ -179,38 +183,37 @@ public class LoginController {
 
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Não foi possível carregar a tela de cadastro: " + e.getMessage()); // Adicionado o erro
+            mostrarAlerta("Erro", "Não foi possível carregar a tela de cadastro.");
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela de cadastro: " + e.getMessage()); // Adicionado o erro
+            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela de cadastro.");
         }
     }
 
     /**
      * Método para abrir a tela do usuário comum.
      *
-     * @version 1.2
+     * @version 1.0
      * @since 22/05/25
      */
-    @FXML private void abrirTelaUsuario() {
-            try {
-                URL telaUsuarioFxmlUrl = Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml"));
-                Parent telaUsuario = FXMLLoader.load(telaUsuarioFxmlUrl); // Carregamento simplificado
-
-                Scene cenaAtual = usuarioCampo.getScene();
-                Stage palco = (Stage) cenaAtual.getWindow();
-                palco.setScene(new Scene(telaUsuario));
-                palco.setTitle("Área de Usuário");
-                palco.sizeToScene();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-                mostrarAlerta("Erro de Carregamento", "Não foi possível carregar a tela do usuário. Verifique se 'telausuario.fxml' está no caminho correto e sem erros de sintaxe.");
-            } catch (Exception e) {
-                e.printStackTrace();
-                mostrarAlerta("Erro Inesperado", "Ocorreu um erro inesperado ao abrir a tela do usuário: " + e.getMessage());
-            }
+    private void abrirTelaUsuario() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml")));
+            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
+            Parent telaUsuario = loader.load();
+            Scene cenaAtual = usuarioCampo.getScene();
+            Stage palco = (Stage) cenaAtual.getWindow();
+            palco.setScene(new Scene(telaUsuario));
+            palco.sizeToScene();
         }
+        catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Erro", "Não foi possível carregar a tela do usuário.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do usuário.");
+        }
+    }
 
     /**
      * Método para abrir a tela do administrador.
@@ -218,28 +221,22 @@ public class LoginController {
      * @version 1.0
      * @since 22/05/25
      */
-    @FXML private void abrirTelaAdmin() {
+    private void abrirTelaAdmin() {
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaadmin.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent telaAdmin = loader.load();
-            TelaAdminController telaAdminController = loader.getController();
-            telaAdminController.setUsuarioLogadoId(usuarioLogado.getId());
-
             Scene cenaAtual = usuarioCampo.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaAdmin));
-            palco.setTitle("Área de Administração");
+            palco.setTitle("Tela de Admin");
             palco.sizeToScene();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Não foi possível carregar a tela do administrador: " + e.getMessage());
-        }
-        catch (Exception e) {
+            mostrarAlerta("Erro", "Não foi possível carregar a tela do administrador.");
+        } catch (Exception e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do administrador: " + e.getMessage());
+            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do administrador.");
         }
     }
-
 }

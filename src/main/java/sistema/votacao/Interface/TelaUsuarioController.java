@@ -4,31 +4,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.MenuItem;
 import javafx.scene.text.Text;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.stage.Stage;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sistema.votacao.SistemaVotacaoApplication;
-import sistema.votacao.Votacao.Service.VotacaoService;
-import sistema.votacao.Votacao.Model.Votacao;
-import javafx.event.ActionEvent;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import sistema.votacao.SistemaVotacaoApplication; // Importe a classe principal da aplicação
 
 /**
  * Classe responsável pela tela do usuário do JavaFX
  * @author Suelle
  * @since 26/05/25
- * @version 1.7 (Atualizado para incluir a funcionalidade do botão Votar e correção de FXML)
+ * @version 1.6
  */
-@Data
 @Component
 public class TelaUsuarioController {
 
@@ -38,95 +31,53 @@ public class TelaUsuarioController {
     @FXML private Text selecioneText;
     @FXML private MenuButton menuVotacoesAbertas;
     @FXML private Hyperlink desconectar;
-    @FXML private Button botaoVotar;
-
-    @Autowired
-    private VotacaoService votacaoService;
 
     private ObservableList<MenuItem> votacoesAbertas = FXCollections.observableArrayList();
 
-    private Long usuarioLogadoId;
-
-    /**
-     * Define o ID do usuário logado neste controller.
-     * Este método é crucial para que as votações possam ser buscadas corretamente para o usuário específico.
-     * @param usuarioId O ID do usuário que está logado.
-     */
-    public void setUsuarioLogadoId(Long usuarioId) {
-        this.usuarioLogadoId = usuarioId;
-    }
-
-    /**
-     * Método de inicialização do controlador. Chamado automaticamente pelo FXMLLoader após o carregamento do FXML.
-     * Configura os event handlers para os botões e itens de menu.
-     */
     @FXML public void initialize() {
-
-        if (botaoVotar != null) {
-            botaoVotar.setOnAction(this::handleAbrirTelaVotacao);
-        }
+        configurarMenuVotacoes();
     }
 
-    /**
-     * Manipula o clique no botão "Votar" ou no item de menu para abrir a tela de votação.
-     * Realiza uma checagem para verificar se há votações ativas nas quais o usuário ainda não votou.
-     * Se houver, navega para a tela de votação; caso contrário, exibe um alerta.
-     *
-     * @param event O evento de ação que disparou este método (pode ser de um MenuItem ou Button).
-     * @since 14/06/25
-     * @version 1.0 (Lógica aprimorada e reutilizada para o botão Votar)
+    /** Método para configurar o botão que mostra todas as votações abertas no momento
+     * @author Suelle
+     * @version 1
+     * @since 28/05
      */
-    @FXML private void handleAbrirTelaVotacao(ActionEvent event) {
-        try {
-            if (usuarioLogadoId == null) {
-                mostrarAlerta("Erro", "ID do usuário não definido. Por favor, faça login novamente.");
-                return;
-            }
+    private void configurarMenuVotacoes() {
+        //exemplo basico pra mostrar como funciona, apenas
+        MenuItem votacao1 = new MenuItem("Votação Institucional");
+        votacao1.setOnAction(e -> abrirVotacao("Institucional"));
 
-            List<Votacao> votacoesDisponiveis = votacaoService.buscarVotacoesAtivasNaoVotadasPeloUsuario(usuarioLogadoId);
+        MenuItem votacao2 = new MenuItem("Votação de Projetos");
+        votacao2.setOnAction(e -> abrirVotacao("Projetos"));
 
-            if (votacoesDisponiveis == null || votacoesDisponiveis.isEmpty()) {
-                mostrarAlerta("Votações", "Você já votou em todas as votações disponíveis ou não há votações ativas no momento.");
-                return;
-            }
-
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaDeVotacao.fxml")));
-            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
-            Parent root = loader.load();
-
-            TeladeVotacaoController teladeVotacaoController = loader.getController();
-            teladeVotacaoController.setUsuarioLogadoId(usuarioLogadoId);
-
-            Stage stage;
-            if (event.getSource() instanceof MenuItem) {
-                stage = (Stage) ((MenuItem)event.getSource()).getParentPopup().getOwnerWindow();
-            } else {
-                stage = (Stage) ((javafx.scene.Node)event.getSource()).getScene().getWindow();
-            }
-
-            stage.setScene(new Scene(root));
-            stage.setTitle("Tela de Votação");
-            stage.show();
-
-        } catch (IOException e) {
-            mostrarAlerta("Erro de Navegação", "Não foi possível carregar a tela de votação.");
-            e.printStackTrace();
-        } catch (Exception e) {
-            mostrarAlerta("Erro", "Ocorreu um erro ao verificar ou carregar as votações: " + e.getMessage());
-            e.printStackTrace();
-        }
+        menuVotacoesAbertas.getItems().setAll(votacao1, votacao2);
     }
 
+    /** Método para configurar o botão que mostra todas as votações existentes
+     * @author Suelle
+     * @version 1
+     * @since 28/05
+     */
+    private void abrirVotacao(String tipoVotacao) {
+        System.out.println("Abrindo votação: " + tipoVotacao);
+        // ir para a tela de votação
+    }
 
-    /**
-     * Método para o usuário retornar à tela de login.
+    /** Método para o usuário retornar à tela de login.
      * @author Suelle
      * @version 1
      * @since 28/05
      */
     @FXML private void desconectar() {
         try {
-            Parent telaLogin = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
+            // É preicso criar um novo FXMLLoader se não dá erro
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+            // Configurando o ControllerFactory para que o Spring injete as dependências
+            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
+
+            Parent telaLogin = loader.load(); // Carregue a tela de login
+
             Scene cenaAtual = desconectar.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaLogin));
@@ -139,14 +90,11 @@ public class TelaUsuarioController {
     }
 
     /**
-     * Método utilitário que será usado para emitir alertas na tela caso o usuário tenha feito algo
-     * fora do planejado e não possa prosseguir, ou para informar sucesso.
-     *
+     * Método que será usado para emitir alertas na tela caso o usuário tenha feito algo fora do planejado e não possa prosseguir.
      * @author Suelle
      * @version 1.0
      * @since 22/05/25
-     * @param erro O título do alerta.
-     * @param mensagem A mensagem a ser exibida no alerta.
+     * @param erro, @param mensagem
      */
     private void mostrarAlerta(String erro, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -154,5 +102,14 @@ public class TelaUsuarioController {
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
         alert.showAndWait();
+    }
+
+    /** Método para atualizar dinamicamente todos os itens do menu de votações abertas
+     * @author Suelle
+     * @version 1
+     * @since 28/05
+     */
+    public void atualizarVotacoesAbertas(ObservableList<MenuItem> novasVotacoes) {
+        menuVotacoesAbertas.getItems().setAll(novasVotacoes);
     }
 }

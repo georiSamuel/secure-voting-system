@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.CriarEleitoralController">
     <children>
-        <AnchorPane layoutX="114.0" layoutY="64.0" prefHeight="483.0" prefWidth="572.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
+        <AnchorPane layoutX="114.0" layoutY="59.0" prefHeight="483.0" prefWidth="572.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
             <children>
                 <Label layoutX="106.0" layoutY="14.0" prefHeight="45.0" prefWidth="360.0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #080808;" text="Criar Votação Eleitoral" wrapText="true">
                <font>

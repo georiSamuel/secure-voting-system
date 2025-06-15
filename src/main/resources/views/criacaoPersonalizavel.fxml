@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="backgroundTela" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" stylesheets="@/css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.CriarVotacaoController">
     <children>
-        <AnchorPane fx:id="telaBranca" layoutX="200.0" layoutY="71.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" styleClass="painel-principal">
+        <AnchorPane fx:id="telaBranca" layoutX="165.0" layoutY="50.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" styleClass="painel-principal">
             <children>
                 <Text fx:id="tituloText" fill="#080808" layoutX="-6.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-titulo" text="Criar Votação Personalizada" textAlignment="CENTER" wrappingWidth="476.0">
                     <font>

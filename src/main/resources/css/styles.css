@@ -40,7 +40,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 1);
 }
 
-/* Estilo para o link de desconectar */
+/* Estilo para o link de desconectar */c
 .link-desconectar {
     -fx-text-fill: #c0392b;
     -fx-underline: true;

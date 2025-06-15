@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 import sistema.votacao.SistemaVotacaoApplication;
 
@@ -21,20 +20,12 @@ import java.util.Objects;
  * @version 1.1
  * @since 26/05/25
  */
-@Data
 @Component
 public class TelaAdminController {
     @FXML private MenuButton menuCriarNovaVotacao;
     @FXML private Button botaoResultados;
     @FXML private Hyperlink desconectar;
     @FXML private Button botaoVotar;
-
-    private Long usuarioLogadoId; // Adicionar este campo
-
-    // Método setter para o usuarioLogadoId
-    public void setUsuarioLogadoId(Long id) {
-        this.usuarioLogadoId = id;
-    }
 
     @FXML public void initialize() {
     }
@@ -50,8 +41,6 @@ public class TelaAdminController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaDeVotacao.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            TeladeVotacaoController teladeVotacaoController = loader.getController();
-            teladeVotacaoController.setUsuarioLogadoId(usuarioLogadoId); // Passa o ID do usuário
             Stage stage = (Stage) botaoVotar.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Votações Disponíveis");
@@ -123,7 +112,7 @@ public class TelaAdminController {
             Parent root = loader.load();
             Stage stage = (Stage) menuCriarNovaVotacao.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Criar Votação Personalizável");
+            stage.setTitle("Criar Votação Personalizada");
             stage.show();
         } catch (IOException e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de criação de votação personalizável.");

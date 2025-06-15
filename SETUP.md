@@ -1,3 +1,81 @@
+# Configuração de segurança
+
+Por padrão, a aplicação vem com as chaves secretas necessárias (AES e HMAC) 
+no arquivo `application.properties`, porém, obviamente essa é uma alternativa sem nenhuma segurança real 
+e escolhia apenas para fins de teste
+
+Para uma segurança robusta, definiremos as chaves como *variáveis de ambiente*. Basicamente, 
+você remove as chaves do arquivo application.properties e as define no ambiente onde a aplicação é executada.
+
+Obs: Variáveis de ambiente são "configurações globais", ou seja, são valores definidos no sistema operacional (sem conexão externa) e que os programas podem ler quando precisam de informações importantes, 
+especialmente senhas e configurações.
+
+---
+
+## Definindo variáveis de ambiente
+
+Esta é a abordagem mais comum e segura para injetar segredos em uma aplicação sem codificá-los. O Spring Boot lê automaticamente as variáveis de ambiente e as mapeia para as propriedades correspondentes.
+
+**Vantagens:**
+* **Seguro:** As chaves não ficam no seu código-fonte.
+* **Padrão da Indústria:** É uma prática padrão para aplicações em contêineres (Docker) e em nuvem.
+* **Sem Alteração de Código:** O Spring Boot resolve isso para você. A anotação `@Value("${voting.app.aes-key}")` já busca essa propriedade, e o Spring a encontrará no ambiente.
+
+### Passo inicial
+
+1.  **Remova as chaves** do seu arquivo `src/main/resources/application.properties`:
+    ```properties
+    # Chave mestra para criptografia dos votos.
+    # VOTING_APP_AES_KEY=tXtc0Vr1WUAa1LWfp+R+MqMp8pTG/GgoZLlbL0olhf4=  <-- REMOVA ESTA LINHA
+
+    # Chave secreta para a INTEGRIDADE dos registros de voto (usada pelo HmacUtil).
+    # vVOTING_APP_HMAC_SECRET=ww20TF0sv/eqsqoFbK66AONctaBlwTI92VREYpjiny4= <-- REMOVA ESTA LINHA
+    
+
+### Se estiver executando o projeto no Terminal
+
+    
+2.  **Defina as variáveis de ambiente** no seu sistema operacional antes de executar a aplicação:
+    * **Linux/macOS:**
+        ```bash
+        export VOTING_APP_AES_KEY="chave_aes_gerada_pelo_KeyGenerator"
+        export VOTING_APP_HMAC_SECRET="chave_hmac_gerada_pelo_KeyGenerator="
+        ```
+    * **Windows (Command Prompt):**
+        ```cmd
+        set VOTING_APP_AES_KEY="chave_aes_gerada_pelo_KeyGenerator"
+        set VOTING_APP_HMAC_SECRET="chave_hmac_gerada_pelo_KeyGenerator"
+        ```
+    * **Windows (PowerShell):**
+        ```powershell
+        $env:VOTING_APP_AES_KEY="chave_aes_gerada_pelo_KeyGenerator"
+        $env:VOTING_APP_HMAC_SECRET="chave_hmac_gerada_pelo_KeyGenerator"
+        ```
+
+
+### Se estiver executando o projeto numa IDE
+
+Você precisa definir a variável de ambiente diretamente na configuração de execução (Run Configuration) da sua IDE. 
+Isso garante que a variável estará presente quando a IDE a aplicação.
+
+**Passos (geralmente similares em todas as IDEs):**
+
+1.  Vá em **Run (Executar)** -> **Edit Configurations...** (ou Run/Debug Configurations).
+2.  Selecione a configuração de execução da sua `SistemaVotacaoApplication`.
+3.  Encontre a seção chamada **Environment variables** (Variáveis de Ambiente).
+4.  Clique para adicionar (geralmente um ícone `+` ou um botão "Edit").
+5.  Adicione as duas chaves que você removeu do `application.properties`:
+
+| Nome da Variável | Valor                                 |
+| :--- |:--------------------------------------|
+| `VOTING_APP_AES_KEY` | `chave_aes_gerada_pelo_KeyGenerator`  |
+| `VOTING_APP_HMAC_SECRET` | `chave_hmac_gerada_pelo_KeyGenerator` |
+
+
+---
+
+---
+
 # Configuração MySQL
 
 ## Pré-requisitos

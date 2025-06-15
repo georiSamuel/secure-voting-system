@@ -50,6 +50,8 @@ public class TeladeVotacaoController {
     @FXML private VBox opcoesVotoContainer;
     @FXML private ToggleGroup opcoesVotoGroup;
 
+    @Setter private boolean previousScreenIsAdmin = false;
+
     @Autowired private VotacaoService votacaoService;
     @Autowired private OpcaoVotoService opcaoVotoService;
     @Autowired private VotoService votoService;

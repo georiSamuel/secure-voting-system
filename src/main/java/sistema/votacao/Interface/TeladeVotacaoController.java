@@ -7,12 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox; // Importe VBox
 import javafx.stage.Stage;
@@ -32,6 +27,7 @@ import sistema.votacao.Usuario.Service.UsuarioService;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Controller responsável pela tela de votação.
@@ -156,7 +152,8 @@ public class TeladeVotacaoController {
      * @since 13/06/25
      * @version 1.0
      */
-    @FXML private void handleVotarButton(ActionEvent event) {
+    @FXML
+    private void handleVotarButton(ActionEvent event) {
         if (votacaoSelecionada == null) {
             showAlert(Alert.AlertType.WARNING, "Erro de Voto", "Por favor, selecione uma votação.");
             return;
@@ -168,16 +165,16 @@ public class TeladeVotacaoController {
             return;
         }
 
-        Long opcaoVotoId = (Long) selectedRadioButton.getUserData();
-
-        if (this.usuarioLogadoId == null) {
+        if (this.usuarioLogado == null) {
             showAlert(Alert.AlertType.ERROR, "Erro de Autenticação", "Não foi possível identificar o usuário. Tente fazer login novamente.");
             return;
         }
-        Long usuarioId = this.usuarioLogadoId;
+
+        Long usuarioId = this.usuarioLogado.getId();
+        Long opcaoVotoId = (Long) selectedRadioButton.getUserData();
 
         VotoRequestDTO votoRequestDTO = new VotoRequestDTO();
-        votoRequestDTO.setUsuarioId(usuarioLogadoId);
+        votoRequestDTO.setUsuarioId(usuarioId);
         votoRequestDTO.setVotacaoId(votacaoSelecionada.getId());
         votoRequestDTO.setOpcaoVotoId(opcaoVotoId);
 
@@ -190,29 +187,39 @@ public class TeladeVotacaoController {
             votoService.registrarVoto(votoRequestDTO);
             showAlert(Alert.AlertType.INFORMATION, "Voto Registrado", "Seu voto foi registrado com sucesso!");
 
-            initializeVotacoesList();
-            votacaoTituloLabel.setText("Selecione uma votação.");
-            votacaoDescricaoLabel.setText("");
-            opcoesVotoContainer.getChildren().clear();
-            opcoesVotoGroup.selectToggle(null);
+            Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationDialog.setTitle("Votação Concluída");
+            confirmationDialog.setHeaderText("O que você gostaria de fazer agora?");
+            confirmationDialog.setContentText("Escolha sua opção.");
 
-            try {
-                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/final.fxml")));
-                Parent root = loader.load();
-                Stage stage = (Stage) votarButton.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Voto Confirmado");
-                stage.show();
-            } catch (IOException e) {
-                showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela final.");
-                e.printStackTrace();
+            ButtonType buttonTypeContinuar = new ButtonType("Continuar Votando");
+            ButtonType buttonTypeFinalizar = new ButtonType("Finalizar Sessão");
+
+            confirmationDialog.getButtonTypes().setAll(buttonTypeContinuar, buttonTypeFinalizar);
+
+            Optional<ButtonType> result = confirmationDialog.showAndWait();
+            if (result.isPresent() && result.get() == buttonTypeFinalizar) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/final.fxml")));
+                    Parent root = loader.load();
+                    Stage stage = (Stage) votarButton.getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Voto Confirmado");
+                    stage.show();
+
+                } catch (IOException e) {
+                    showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela final.");
+                    e.printStackTrace();
+
+                }
+            } else {
+                initializeVotacoesList();
+                votacaoTituloLabel.setText("Selecione uma votação.");
+                votacaoDescricaoLabel.setText("");
+                opcoesVotoContainer.getChildren().clear();
+                opcoesVotoGroup.selectToggle(null);
             }
 
-
-        } catch (IllegalStateException e) {
-            showAlert(Alert.AlertType.ERROR, "Erro ao Votar", e.getMessage());
-        } catch (RuntimeException e) {
-            showAlert(Alert.AlertType.ERROR, "Erro ao Votar", e.getMessage());
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erro Inesperado", "Ocorreu um erro inesperado ao registrar o voto: " + e.getMessage());
             e.printStackTrace();

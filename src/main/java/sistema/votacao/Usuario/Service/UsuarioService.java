@@ -70,7 +70,6 @@ public class UsuarioService {
 
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
-            // Use o passwordEncoder injetado para verificar
             if (passwordEncoder.matches(senha, usuario.getSenha())) {
                 return usuario;
             }

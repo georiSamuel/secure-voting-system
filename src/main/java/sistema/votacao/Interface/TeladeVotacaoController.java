@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -18,6 +19,8 @@ import javafx.stage.Stage;
 import lombok.Setter; // Setter para setpreviousScreenIsAdmin
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import sistema.votacao.Usuario.Model.TipoUsuario;
+import sistema.votacao.Usuario.Model.UsuarioModel;
 import sistema.votacao.Votacao.Model.Votacao;
 import sistema.votacao.Votacao.Service.VotacaoService;
 import sistema.votacao.Voto.DTO.VotoRequestDTO;
@@ -56,10 +59,9 @@ public class TeladeVotacaoController {
     @Autowired private OpcaoVotoService opcaoVotoService;
     @Autowired private VotoService votoService;
     @Autowired private UsuarioService usuarioService;
+    private UsuarioModel usuarioLogado;
 
-    @Setter
-    private Long usuarioLogadoId;
-
+    @Setter private Long usuarioLogadoId;
 
     private ObservableList<Votacao> votacoesAbertas = FXCollections.observableArrayList();
     private Votacao votacaoSelecionada;
@@ -72,6 +74,7 @@ public class TeladeVotacaoController {
      * @version 1.0
      */
     @FXML public void initialize() {
+        this.usuarioLogado = LoginController.getUsuarioLogado();
         opcoesVotoGroup = new ToggleGroup();
 
         if (votacaoService != null) {
@@ -228,30 +231,25 @@ public class TeladeVotacaoController {
      */
     @FXML private void handleVoltarButton(ActionEvent event) {
         try {
-            FXMLLoader loader;
-            String title;
-            String viewPath;
+            String fxmlPath;
 
-            if (previousScreenIsAdmin) {
-                viewPath = "/views/telaadmin.fxml";
-                title = "Tela de Admin";
+            if (usuarioLogado != null && usuarioLogado.getTipoUsuario() == TipoUsuario.Tipo.ADMIN) {
+                fxmlPath = "/views/telaadmin.fxml";
             } else {
-                viewPath = "/views/telausuario.fxml";
-                title = "Tela do Usuário";
+                fxmlPath = "/views/telausuario.fxml";
             }
 
-            loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(viewPath)));
-            Parent root = loader.load(); // No need for setControllerFactory here if the target controllers are already Spring Components and loaded via FXML
-
-            Stage stage = (Stage) voltarButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle(title);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela anterior.");
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR,"Erro", "Não foi possível voltar para a tela anterior.");
         }
     }
+
     /**
      * Exibe um alerta pop-up com o tipo, título e mensagem especificados.
      *

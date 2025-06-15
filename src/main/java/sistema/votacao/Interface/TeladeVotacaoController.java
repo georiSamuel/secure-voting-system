@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Controller responsável pela tela de votação
+ * Controller responsável pela tela de votação.
  *
  * @author Suelle & Georis
  * @since 26/05/25
@@ -49,11 +49,7 @@ public class TeladeVotacaoController {
     @FXML private Button votarButton;
     @FXML private Button voltarButton;
     @FXML private VBox opcoesVotoContainer;
-
-    @Setter
-    private boolean previousScreenIsAdmin = false;
-
-    private ToggleGroup opcoesVotoGroup;
+    @FXML private ToggleGroup opcoesVotoGroup;
 
     @Autowired private VotacaoService votacaoService;
     @Autowired private OpcaoVotoService opcaoVotoService;

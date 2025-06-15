@@ -59,6 +59,15 @@ public class UsuarioService {
     }
 
     /**
+     * Método para buscar um usuário pelo email.
+     * @param email O email do usuário a ser buscado.
+     * @return Um Optional contendo o usuário se encontrado, ou vazio caso contrário.
+     */
+    public Optional<UsuarioModel> buscarPorEmail(String email) {
+        return usuarioRepository.findByEmail(email);
+    }
+
+    /**
      * Método para autenticar um usuário com base no email e senha.
      * @param email
      * @param senha
@@ -85,5 +94,4 @@ public class UsuarioService {
     public boolean verificarSeUsuarioJaVotou(Long usuarioId, Long votacaoId) {
         return votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacaoId); // Verifica se o voto existe
     }
-
 }

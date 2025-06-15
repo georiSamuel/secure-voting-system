@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Classe responsável pela tela de Resultados do JavaFX
+ * Controller responsável pela tela de Resultados do JavaFX
  *
  * @author Suelle
  * @since 26/05/25

@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Classe responsável pela tela de Login do JavaFX.
+ * Controller responsável pela tela de Login do JavaFX.
  *
  * @author Suelle
  * @version 1.1

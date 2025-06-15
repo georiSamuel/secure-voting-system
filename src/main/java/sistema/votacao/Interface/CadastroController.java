@@ -24,7 +24,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Classe responsável pela tela de cadastro dos usuários.
+ * Controller responsável pela tela de cadastro dos usuários.
  * Gerencia a interação entre a interface de usuário (cadastro.fxml) e a lógica de negócio
  * para registro de novos usuários, inferindo o tipo de usuário pelo domínio do e-mail.
  *

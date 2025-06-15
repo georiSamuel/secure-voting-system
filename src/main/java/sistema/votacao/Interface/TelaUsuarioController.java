@@ -18,7 +18,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Classe responsável pela tela do usuário do JavaFX
+ * Controller responsável pela tela do usuário do JavaFX
+ *
  * @author Suelle
  * @since 26/05/25
  * @version 1.6

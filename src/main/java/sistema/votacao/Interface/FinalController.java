@@ -18,7 +18,7 @@ import java.util.Objects;
 /**
  * Controller que gerencia a tela final confirmando que o usuário completou a votação.
  *
- * @author
+ * @author Suelle
  * @version 1.0
  * @since 02/06/25
  */

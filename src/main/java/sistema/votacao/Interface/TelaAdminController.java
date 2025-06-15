@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Classe responsável pela tela do administrador do JavaFX
+ * Controller responsável pela tela do administrador do JavaFX
  *
  * @author Suelle
  * @version 1.1

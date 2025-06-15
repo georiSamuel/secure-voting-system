@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component; // Adicionado para autowire em JavaFX
 
 /**
- * Classe responsável pela tela da criação de Votação personalizável.
+ * Controller responsável pela tela da criação de Votação personalizável.
  *
  * @author Suelle & Lethycia & Georis
  * @since 12/06/25

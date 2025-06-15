@@ -15,6 +15,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox; // Importe VBox
 import javafx.stage.Stage;
+import lombok.Setter; // Setter para setpreviousScreenIsAdmin
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sistema.votacao.Votacao.Model.Votacao;
@@ -29,6 +30,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Controller responsável pela tela de votação
+ *
+ * @author Suelle & Georis
+ * @since 26/05/25
+ * @version 1.6
+ */
 @Component
 public class TeladeVotacaoController {
 
@@ -39,7 +47,8 @@ public class TeladeVotacaoController {
     @FXML private Button votarButton;
     @FXML private Button voltarButton;
     @FXML private VBox opcoesVotoContainer;
-    
+
+    @Setter
     private boolean previousScreenIsAdmin = false;
 
     private ToggleGroup opcoesVotoGroup;
@@ -52,10 +61,6 @@ public class TeladeVotacaoController {
     private ObservableList<Votacao> votacoesAbertas = FXCollections.observableArrayList();
     private Votacao votacaoSelecionada;
     private List<OpcaoVoto> opcoesAtuais;
-
-    public void setPreviousScreenIsAdmin(boolean previousScreenIsAdmin) {
-        this.previousScreenIsAdmin = previousScreenIsAdmin;
-    }
 
     /**
      * Método de inicialização do controller. Chamado automaticamente pelo FXMLLoader após o carregamento do FXML.

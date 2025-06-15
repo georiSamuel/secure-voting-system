@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Classe responsável pela tela de Criar Votação Acadêmica do JavaFx.
+ * Controller responsável pela tela de Criar Votação Acadêmica do JavaFx.
  *
  * @author Suelle
  * @since 26/05/25

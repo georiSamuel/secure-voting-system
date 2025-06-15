@@ -47,7 +47,6 @@ public class TeladeVotacaoController {
     @FXML private Label votacaoDescricaoLabel;
     @FXML private Label mensagemErroLabel;
     @FXML private Button votarButton;
-    @FXML private Button voltarButton;
     @FXML private VBox opcoesVotoContainer;
     @FXML private ToggleGroup opcoesVotoGroup;
 

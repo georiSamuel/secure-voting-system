@@ -51,7 +51,7 @@ public class VoteCountEncryptor implements AttributeConverter<Long, byte[]> {
      * serve para injetar valores de configuração diretamente em campos de um componente gerenciado pelo Spring
      * @throws IllegalArgumentException se a chave for inválida
      */
-    public VoteCountEncryptor(@Value("${voting.app.aes-key}") String secret) {
+    public VoteCountEncryptor(@Value("${VOTING_APP_AES_KEY}") String secret) {
         // A inicialização do Cipher foi removida daqui.
         byte[] decodedKey = Base64.getDecoder().decode(secret);
         this.masterKey = new SecretKeySpec(decodedKey, "AES");

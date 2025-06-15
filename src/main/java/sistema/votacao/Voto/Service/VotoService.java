@@ -32,7 +32,7 @@ public class VotoService {
     private final OpcaoVotoService opcaoVotoService;
 
     // Injeta a chave secreta para o HMAC a partir do application.properties
-    @Value("${voting.app.hmac-secret}")
+    @Value("${VOTING_APP_HMAC_SECRET}")
     private String hmacSecret;
 
     public VotoService(VotoRepository votoRepository, UsuarioService usuarioService, VotacaoService votacaoService,

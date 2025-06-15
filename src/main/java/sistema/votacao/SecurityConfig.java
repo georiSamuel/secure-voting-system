@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
  *
  * @author Lethycia
  * @author Georis
- * @autor Suelle
+ * @author Suelle
  * @version 1.0
  * @since 10/05/2025
  */

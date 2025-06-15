@@ -27,7 +27,9 @@ import org.springframework.stereotype.Component; // Adicionado para autowire em 
 /**
  * Controller responsável pela tela da criação de Votação personalizável.
  *
- * @author Suelle & Lethycia & Georis
+ * @author Suelle
+ * @author Lethycia
+ * @author Georis
  * @since 12/06/25
  * @version 1.0
  */

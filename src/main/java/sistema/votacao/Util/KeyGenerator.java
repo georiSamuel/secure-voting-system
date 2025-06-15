@@ -8,7 +8,7 @@ import java.util.Base64;
  * de cada opção antes de enviá-la ao banco de dados. Além disso, é usada para a chave HMAC de registro de integridade dos votos
  *
  *
- *<h3>Ação necessária</h3>
+ *- Ação necessária -
  * <pre># copiar saída para o application.properties
  * voting.app.aes-key=saída
  * </pre>

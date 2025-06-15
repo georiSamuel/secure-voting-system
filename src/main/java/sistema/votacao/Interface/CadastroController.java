@@ -28,7 +28,8 @@ import java.util.Objects;
  * Gerencia a interação entre a interface de usuário (cadastro.fxml) e a lógica de negócio
  * para registro de novos usuários, inferindo o tipo de usuário pelo domínio do e-mail.
  *
- * @author Suelle & Horlan
+ * @author Suelle
+ * @author Suelle
  * @version 1.0
  * @since 26/05/25
  */

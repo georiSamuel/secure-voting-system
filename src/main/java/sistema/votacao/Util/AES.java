@@ -16,7 +16,7 @@ import java.security.SecureRandom;
  *
  * <p>O AES-GCM é um dos padrões mais modernos e seguros para criptografia simétrica autenticada.</p>
  *
- * <h3>Configuração de criptografia:</h3>
+ * - Configuração de criptografia -
  * <ul>
  * <li><strong>Algoritmo:</strong> AES (Advanced Encryption Standard)</li>
  * <li><strong>Modo:</strong> GCM (Galois/Counter Mode)</li>

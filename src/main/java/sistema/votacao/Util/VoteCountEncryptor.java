@@ -22,7 +22,7 @@ import java.util.Base64;
  * com a propriedade {voting.app.aes-key} em formato Base64.</p>
  *
  *
- * <h3>Configuração necessária:</h3>
+ * - Configuração necessária -
  * <pre>
  * # application.properties
  * voting.app.aes-key=chaveBase64

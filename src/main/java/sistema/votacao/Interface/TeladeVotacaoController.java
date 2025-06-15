@@ -32,7 +32,8 @@ import java.util.Optional;
 /**
  * Controller responsável pela tela de votação.
  *
- * @author Suelle & Georis
+ * @author Suelle
+ * @author Georis
  * @since 26/05/25
  * @version 1.6
  */

@@ -32,7 +32,8 @@ import java.util.Objects;
  * Controller para a tela de criação de votações eleitorais.
  * Gerencia a interação entre a interface de usuário (CriacaoEleitoral.fxml) e a lógica para registro de novas votações eleitorais.
  *
- * @author Suelle & Georis
+ * @author Suelle
+ * @author Georis
  * @version 1.0
  * @since 12/06/2025
  */

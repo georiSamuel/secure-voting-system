@@ -58,7 +58,7 @@ public class CriarAcademicaController {
      * Chamado automaticamente após o carregamento do FXML.
      *
      * @since 26/05/25
-     * @veersion 1.0
+     * @version 1.0
      */
     @FXML public void initialize() {
         cargoComboBox.setItems(FXCollections.observableArrayList(TipoCargoAcademico.values()));
@@ -178,8 +178,8 @@ public class CriarAcademicaController {
 
     /**
      * Lida com a ação de voltar para a tela anterior (TelaAdminController).
-     * @param event O evento de clique no hyperlink.
      *
+     * @param event O evento de clique no hyperlink.
      * @since 26/05/25
      * @version 1.0
      */

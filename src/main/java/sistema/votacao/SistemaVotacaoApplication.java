@@ -26,15 +26,7 @@ import java.util.Objects;
 @SpringBootApplication(scanBasePackages = {"sistema.votacao"})
 public class SistemaVotacaoApplication extends Application {
 
-    /**
-     * O contexto da aplicação Spring.
-     * Este é um atributo estático para que possa ser acessado de qualquer lugar
-     * na aplicação, permitindo que os controladores do JavaFX obtenham beans
-     * gerenciados pelo Spring e carreguem FXMLs com injeção de dependência.
-     *
-     * @since 10/06/25
-     * @version 2.0
-     */
+
     private static ConfigurableApplicationContext springContext;
 
     /**

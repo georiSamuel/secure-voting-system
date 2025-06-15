@@ -17,7 +17,7 @@
                   <Font size="14.0" />
                </font></Text>
 
-                <Button fx:id="botaoVotar" layoutX="105.0" layoutY="229.0" mnemonicParsing="false" onAction="#abrirTelaVotacao" prefHeight="46.0" prefWidth="190.0" style="-fx-background-color: #5B50C0; -fx-text-fill: white;" styleClass="botao-menu" text="Abrir tela de votações">
+                <Button fx:id="botaoVotar" layoutX="105.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleAbrirTelaVotacao" prefHeight="46.0" prefWidth="190.0" style="-fx-background-color: #5B50C0; -fx-text-fill: white;" styleClass="botao-menu" text="Abrir tela de votações">
                <font>
                   <Font size="16.0" />
                </font></Button>

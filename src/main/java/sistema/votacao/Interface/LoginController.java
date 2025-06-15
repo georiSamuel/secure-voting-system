@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sistema.votacao.SistemaVotacaoApplication;
@@ -27,6 +28,7 @@ import java.util.Optional;
  * @version 1.1
  * @since 25/06/25
  */
+@Data
 @Component
 public class LoginController {
 
@@ -149,6 +151,7 @@ public class LoginController {
                             "Erro: " + e.getMessage());
         }
     }
+
     /**
      * Método que aciona o botão "cadastre-se aqui" e abre a tela para o usuário se cadastrar.
      *
@@ -156,7 +159,7 @@ public class LoginController {
      * @since 31/05/25
      * @param actionEvent O evento de ação que disparou este método.
      */
-    public void abrirCadastro(ActionEvent actionEvent) {
+    @FXML public void abrirCadastro(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/cadastro.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
@@ -178,10 +181,10 @@ public class LoginController {
     /**
      * Método para abrir a tela do usuário comum.
      *
-     * @version 1.0
+     * @version 1.2
      * @since 22/05/25
      */
-    private void abrirTelaUsuario() {
+    @FXML private void abrirTelaUsuario() {
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
@@ -192,6 +195,7 @@ public class LoginController {
             Scene cenaAtual = usuarioCampo.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaUsuario));
+            palco.setTitle("Área de Usuário");
             palco.sizeToScene();
         }
         catch (IOException e) {
@@ -209,30 +213,28 @@ public class LoginController {
      * @version 1.0
      * @since 22/05/25
      */
-    private void abrirTelaAdmin() {
+    @FXML private void abrirTelaAdmin() {
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaadmin.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent telaAdmin = loader.load();
             TelaAdminController telaAdminController = loader.getController();
-            telaAdminController.setUsuarioLogadoId(usuarioLogado.getId()); // Passa o ID do usuário logado
+            telaAdminController.setUsuarioLogadoId(usuarioLogado.getId());
 
             Scene cenaAtual = usuarioCampo.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaAdmin));
             palco.setTitle("Área de Administração");
             palco.sizeToScene();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
             mostrarAlerta("Erro", "Não foi possível carregar a tela do administrador.");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do administrador.");
         }
     }
 
-    // Método estático para obter o usuário logado (opcional, dependendo de como outros controllers acessam)
-    public static UsuarioModel getUsuarioLogado() {
-        return usuarioLogado;
-    }
 }

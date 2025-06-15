@@ -257,7 +257,7 @@ public class ResultadosController {
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
-        alert.setHeaderText(null); // Opcional: pode ser usado para um cabeçalho mais detalhado
+        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }

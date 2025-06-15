@@ -29,8 +29,8 @@ Este projeto é um sistema de votação desenvolvido na linguagem **Java**, visa
 ### **Interface Gráfica**
 | Tecnologia        | Versão | Propósito                    |
 |-------------------|--------|------------------------------|
-| **JavaFX**        | Latest | Interface desktop nativa     |
-| **JPA/Hibernate** | 21.0.2 | ORM (Object-Relational Mapping) |
+| **JavaFX**        | 21.0.2 | Interface desktop nativa     |
+| **JPA/Hibernate** | Latest | ORM (Object-Relational Mapping) |
 
 ### **Segurança & Criptografia**
 

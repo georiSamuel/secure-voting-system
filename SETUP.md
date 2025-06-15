@@ -2,12 +2,12 @@
 
 Por padrão, a aplicação vem com as chaves secretas necessárias (AES e HMAC) 
 no arquivo `application.properties`, porém, obviamente essa é uma alternativa sem nenhuma segurança real 
-e escolhia apenas para fins de teste
+e escolhia apenas para fins de teste.
 
 Para uma segurança robusta, definiremos as chaves como *variáveis de ambiente*. Basicamente, 
 você remove as chaves do arquivo application.properties e as define no ambiente onde a aplicação é executada.
 
-Obs: Variáveis de ambiente são "configurações globais", ou seja, são valores definidos no sistema operacional (sem conexão externa) e que os programas podem ler quando precisam de informações importantes, 
+- Obs: Variáveis de ambiente são "configurações globais", ou seja, são valores definidos no sistema operacional (sem conexão externa) e que os programas podem ler quando precisam de informações importantes, 
 especialmente senhas e configurações.
 
 ---

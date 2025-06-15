@@ -53,12 +53,12 @@
             <HBox prefHeight="100.0" prefWidth="200.0" />
             <AnchorPane prefHeight="15.0" prefWidth="740.0">
                <children>
-                      <Button fx:id="verificarIntegridadeButton" layoutX="337.0" layoutY="-5.0" mnemonicParsing="false" onAction="#handleVerificarIntegridade" prefHeight="42.0" prefWidth="308.0" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" text="Verificar Integridade dos Votos">
+                      <Button fx:id="verificarIntegridadeButton" layoutX="341.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleVerificarIntegridade" prefHeight="42.0" prefWidth="308.0" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" text="Verificar Integridade dos Votos">
                           <padding>
                               <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                           </padding>
                       </Button>
-                  <Button fx:id="voltarButton" layoutX="6.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleVoltarButton" prefHeight="40.0" prefWidth="152.0" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" text="Voltar">
+                  <Button fx:id="voltarButton" layoutX="43.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleVoltarButton" prefHeight="40.0" prefWidth="109.0" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" text="Voltar">
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                      </padding>

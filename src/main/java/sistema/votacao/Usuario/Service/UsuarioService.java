@@ -21,7 +21,8 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
-    @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired private PasswordEncoder passwordEncoder; // Estou inicializando o Bean referenciadno a interface que o BCrypt implementa (Polimorfismo!)
+
     @Autowired private final UsuarioRepository usuarioRepository;
 
     @Autowired private final VotoRepository votoRepository;
@@ -68,6 +69,7 @@ public class UsuarioService {
 
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
+            // Use o passwordEncoder injetado para verificar
             if (passwordEncoder.matches(senha, usuario.getSenha())) {
                 return usuario;
             }

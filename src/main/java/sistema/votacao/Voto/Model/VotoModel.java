@@ -27,35 +27,35 @@ public class VotoModel {
     private Long id;
 
 
-    /**
+    /*
      * O selo de autenticidade (HMAC) que garante a integridade deste registro de voto.
      * É gerado a partir dos dados do voto e de uma chave secreta do servidor.
      */
     @Column(name = "voto_hmac", nullable = false)
     private String votoHmac; // CAMPO ADICIONADO PARA O HMAC
 
-    /**
+    /*
      * A opção de voto que foi escolhida.
      */
     @ManyToOne
     @JoinColumn(name = "opcaoVoto_id")
     private OpcaoVoto opcaoVoto;
 
-    /**
+    /*
      * O usuário que registrou o voto. Essencial para prevenir votos duplicados.
      */
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private UsuarioModel usuario;
 
-    /**
+    /*
      * A votação à qual este voto pertence.
      */
     @ManyToOne
     @JoinColumn(name = "votacao_id")
     private Votacao votacao;
 
-    /**
+    /*
      * A data e hora exatas em que o voto foi registrado.
      */
     private LocalDateTime dataHoraVoto;

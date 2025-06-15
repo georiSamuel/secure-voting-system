@@ -1,62 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="backgroundTela" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" stylesheets="@/css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.CriarAcademicaController">
     <children>
-        <AnchorPane fx:id="telaBranca" layoutX="164.0" layoutY="23.0" prefHeight="555.0" prefWidth="549.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" styleClass="painel-principal">
+        <VBox fx:id="telaBranca" alignment="CENTER" layoutX="126.0" layoutY="23.0" prefHeight="555.0" prefWidth="549.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" styleClass="painel-principal" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="23.0">
             <children>
-                <Text fill="#080808" layoutX="78.0" layoutY="46.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-titulo" text="Criar Votação Acadêmica" textAlignment="CENTER" wrappingWidth="394.0">
+                <Text fill="#080808" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-titulo" text="Criar Votação Acadêmica" textAlignment="CENTER" wrappingWidth="394.0">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                    </VBox.margin>
                 </Text>
 
-                <Label layoutX="105.0" layoutY="75.0" text="Título da Votação:">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="tituloCampo" layoutX="105.0" layoutY="100.0" prefWidth="340.0" promptText="Ex: Eleição para Reitor" styleClass="campo-texto" />
+                <VBox alignment="TOP_LEFT" maxWidth="-Infinity" spacing="5.0">
+                    <children>
+                        <Label text="Título da Votação:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="tituloCampo" prefWidth="340.0" promptText="Ex: Eleição para Reitor" styleClass="campo-texto" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </VBox>
 
-                <Label layoutX="105.0" layoutY="145.0" text="Cargo Acadêmico:">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <ComboBox fx:id="cargoComboBox" layoutX="105.0" layoutY="170.0" prefWidth="340.0" promptText="Selecione o cargo" />
+                <VBox alignment="TOP_LEFT" maxWidth="-Infinity" spacing="5.0">
+                    <children>
+                        <Label text="Cargo Acadêmico:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="cargoComboBox" prefWidth="340.0" promptText="Selecione o cargo" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </VBox>
 
-                <Label layoutX="105.0" layoutY="215.0" text="Início da Votação:">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <DatePicker fx:id="inicioDatePicker" layoutX="105.0" layoutY="240.0" prefWidth="170.0" promptText="Selecione a data" styleClass="date-picker" />
-                <TextField fx:id="inicioTimeField" layoutX="275.0" layoutY="240.0" prefWidth="170.0" promptText="HH:MM" styleClass="campo-texto" />
+                <VBox alignment="TOP_LEFT" maxWidth="-Infinity" spacing="5.0">
+                    <children>
+                        <Label text="Início da Votação:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <DatePicker fx:id="inicioDatePicker" prefWidth="170.0" promptText="Selecione a data" styleClass="date-picker" />
+                                <TextField fx:id="inicioTimeField" prefWidth="170.0" promptText="HH:MM" styleClass="campo-texto" />
+                            </children>
+                        </HBox>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </VBox>
 
-                <Label layoutX="105.0" layoutY="285.0" text="Fim da Votação:">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <DatePicker fx:id="fimDatePicker" layoutX="105.0" layoutY="310.0" prefWidth="170.0" promptText="Selecione a data" styleClass="date-picker" />
-                <TextField fx:id="fimTimeField" layoutX="275.0" layoutY="310.0" prefWidth="170.0" promptText="HH:MM" styleClass="campo-texto" />
+                <VBox alignment="TOP_LEFT" maxWidth="-Infinity" spacing="5.0">
+                    <children>
+                        <Label text="Fim da Votação:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <DatePicker fx:id="fimDatePicker" prefWidth="170.0" promptText="Selecione a data" styleClass="date-picker" />
+                                <TextField fx:id="fimTimeField" prefWidth="170.0" promptText="HH:MM" styleClass="campo-texto" />
+                            </children>
+                        </HBox>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </VBox>
 
-                <Label layoutX="105.0" layoutY="355.0" text="Opções de Voto:">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="novaOpcaoCampo" layoutX="105.0" layoutY="380.0" prefWidth="250.0" promptText="Adicione uma opção (ex: Candidato A)" styleClass="campo-texto" />
-                <Button layoutX="365.0" layoutY="380.0" mnemonicParsing="false" onAction="#adicionarOpcao" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-menu-secundario" text="Adicionar" />
+                <VBox alignment="TOP_LEFT" maxWidth="-Infinity" spacing="5.0">
+                    <children>
+                        <Label text="Opções de Voto:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <TextField fx:id="novaOpcaoCampo" prefWidth="250.0" promptText="Adicione uma opção (ex: Candidato A)" styleClass="campo-texto" HBox.hgrow="ALWAYS" />
+                                <Button mnemonicParsing="false" onAction="#adicionarOpcao" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-menu-secundario" text="Adicionar" />
+                            </children>
+                        </HBox>
+                        <ListView fx:id="opcoesListView" prefHeight="80.0" prefWidth="340.0" styleClass="list-view" VBox.vgrow="ALWAYS" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </VBox>
 
-                <ListView fx:id="opcoesListView" layoutX="105.0" layoutY="420.0" prefHeight="80.0" prefWidth="340.0" styleClass="list-view" />
-
-                <Button layoutX="120.0" layoutY="512.0" mnemonicParsing="false" onAction="#criarVotacao" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-menu-primario" text="Criar Votação" />
-                <Button layoutX="295.0" layoutY="512.0" mnemonicParsing="false" onAction="#voltar" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-menu-cancel" text="Voltar" />
+                <HBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#criarVotacao" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-menu-primario" text="Criar Votação" />
+                        <Button mnemonicParsing="false" onAction="#voltar" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-menu-cancel" text="Voltar" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </HBox>
             </children>
-        </AnchorPane>
+            <padding>
+                <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+            </padding>
+        </VBox>
     </children>
 </AnchorPane>

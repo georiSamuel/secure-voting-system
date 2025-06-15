@@ -18,6 +18,7 @@ import sistema.votacao.Usuario.Service.UsuarioService;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 

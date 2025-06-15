@@ -29,13 +29,6 @@ public class TelaAdminController {
     @FXML private Hyperlink desconectar;
     @FXML private Button botaoVotar;
 
-    private Long usuarioLogadoId; // Adicionar este campo
-
-    // Método setter para o usuarioLogadoId
-    public void setUsuarioLogadoId(Long id) {
-        this.usuarioLogadoId = id;
-    }
-
     @FXML public void initialize() {
     }
 
@@ -50,8 +43,6 @@ public class TelaAdminController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaDeVotacao.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            TeladeVotacaoController teladeVotacaoController = loader.getController();
-            teladeVotacaoController.setUsuarioLogadoId(usuarioLogadoId); // Passa o ID do usuário
             Stage stage = (Stage) botaoVotar.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Votações Disponíveis");
@@ -123,7 +114,7 @@ public class TelaAdminController {
             Parent root = loader.load();
             Stage stage = (Stage) menuCriarNovaVotacao.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Criar Votação Personalizável");
+            stage.setTitle("Criar Votação Personalizada");
             stage.show();
         } catch (IOException e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de criação de votação personalizável.");
@@ -196,5 +187,8 @@ public class TelaAdminController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void setUsuarioLogadoId(long id) {
     }
 }

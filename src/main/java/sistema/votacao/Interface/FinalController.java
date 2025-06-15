@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
+import sistema.votacao.SistemaVotacaoApplication;
 
 import java.util.Objects;
 
@@ -37,18 +38,22 @@ public class FinalController {
      * @version 1.0
      */
     @FXML private void voltar() {
-        try {
-            Parent telaLogin = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/login.fxml")));
-            Scene cenaAtual = botaoVoltar.getScene();
-            Stage palco = (Stage) cenaAtual.getWindow();
-            palco.setScene(new Scene(telaLogin));
-            palco.sizeToScene();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Não foi possível desconectar.");
+                loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
+                Parent telaLogin = loader.load();
+
+                Scene cenaAtual = botaoVoltar.getScene();
+                Stage palco = (Stage) cenaAtual.getWindow();
+                palco.setScene(new Scene(telaLogin));
+                palco.sizeToScene();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Não foi possível desconectar.");
+            }
         }
-    }
 
     /**
      * Método que será usado para emitir alertas na tela caso o usuário tenha feito algo fora do planejado e não possa prosseguir.

@@ -12,7 +12,6 @@ import sistema.votacao.Voto.Repository.VotoRepository; // Import VotoRepository
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 /**
@@ -24,11 +23,11 @@ import java.util.stream.Collectors;
 public class VotacaoService {
 
     private final VotacaoRepository votacaoRepository;
-    private final VotoRepository votoRepository; // Injete VotoRepository aqui
+    private final VotoRepository votoRepository;
 
-    public VotacaoService(VotacaoRepository votacaoRepository, VotoRepository votoRepository) { // Atualize o construtor
+    public VotacaoService(VotacaoRepository votacaoRepository, VotoRepository votoRepository) {
         this.votacaoRepository = votacaoRepository;
-        this.votoRepository = votoRepository; // Inicialize votoRepository
+        this.votoRepository = votoRepository;
     }
 
     public Votacao criarVotacao(Votacao votacao) {
@@ -58,21 +57,6 @@ public class VotacaoService {
         return votacaoRepository.findByInicioBeforeAndFimAfter(agora, agora);
     }
 
-    /**
-     * Busca votações ativas nas quais o usuário ainda não votou.
-     *
-     * @param usuarioId O ID do usuário para verificar.
-     * @return Uma lista de votações ativas que o usuário ainda não votou.
-     * @since 14/06/25
-     * @version 1.0
-     */
-    public List<Votacao> buscarVotacoesAtivasNaoVotadasPeloUsuario(Long usuarioId) {
-        List<Votacao> votacoesAtivas = buscarVotacoesAtivas();
-        return votacoesAtivas.stream()
-                .filter(votacao -> !votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacao.getId()))
-                .collect(Collectors.toList());
-    }
-
     public Votacao encerrarVotacao(Long id) {
         Votacao votacao = buscarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Votação não encontrada com o ID: " + id));
@@ -94,23 +78,5 @@ public class VotacaoService {
         } // exemplo de regra específica
         return votacaoRepository.save(votacao);
     }
-
-    /**
-     * Gera o resultado para uma votação personalizada.
-     *
-     * @param votacaoId O ID da votação personalizada.
-     * @return Uma string contendo o resultado da votação.
-     */
-    public String gerarResultadoPersonalizado(Long votacaoId) {
-        // Recupera a votação pelo ID
-        Votacao votacao = votacaoRepository.findById(votacaoId)
-                .orElseThrow(() -> new RuntimeException("Votação personalizada não encontrada com o ID: " + votacaoId));
-
-        if (!(votacao instanceof VotacaoPersonalizada)) {
-            throw new IllegalArgumentException("A votação com ID " + votacaoId + " não é do tipo Personalizada.");
-        }
-
-        long totalVotos = votoRepository.countByVotacaoId(votacaoId);
-        return "Resultado da votação personalizada - Total de votos: " + totalVotos;
-    }
+    
 }

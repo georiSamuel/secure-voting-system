@@ -12,12 +12,11 @@
                <font>
                   <Font name="System Bold" size="30.0" />
                </font></Text>
-                <Text fx:id="selecioneText" fill="#b1b1b1" layoutX="133.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-subtitulo" text="Selecione uma opção:">
+                <Text fx:id="selecioneText" fill="#b1b1b1" layoutX="132.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-subtitulo" text="Selecione uma opção:">
                <font>
                   <Font size="14.0" />
                </font></Text>
-
-                <Button fx:id="botaoVotar" layoutX="105.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleAbrirTelaVotacao" prefHeight="46.0" prefWidth="190.0" style="-fx-background-color: #5B50C0; -fx-text-fill: white;" styleClass="botao-menu" text="Abrir tela de votações">
+                <Button fx:id="botaoVotacao" layoutX="110.0" layoutY="229.0" mnemonicParsing="false" onAction="#abrirTelaVotacao" prefHeight="43.0" prefWidth="180.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-menu" text="Abrir tela de votação">
                <font>
                   <Font size="16.0" />
                </font></Button>

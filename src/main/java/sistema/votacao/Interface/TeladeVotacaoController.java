@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
@@ -16,7 +15,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox; // Importe VBox
 import javafx.stage.Stage;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sistema.votacao.Votacao.Model.Votacao;
@@ -30,8 +28,7 @@ import sistema.votacao.Usuario.Service.UsuarioService;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-@Data
+
 @Component
 public class TeladeVotacaoController {
 
@@ -40,8 +37,8 @@ public class TeladeVotacaoController {
     @FXML private Label votacaoDescricaoLabel;
     @FXML private Label mensagemErroLabel;
     @FXML private Button votarButton;
+    @FXML private Button voltarButton;
     @FXML private VBox opcoesVotoContainer;
-    @FXML private Button desconectarButton;
 
     private ToggleGroup opcoesVotoGroup;
 
@@ -54,19 +51,6 @@ public class TeladeVotacaoController {
     private Votacao votacaoSelecionada;
     private List<OpcaoVoto> opcoesAtuais;
 
-    private Long usuarioLogadoId;
-
-    /**
-     * Define o ID do usuário logado. Este método deve ser chamado pela tela que navega para esta.
-     * @param usuarioId O ID do usuário logado.
-     * @since 14/06/25
-     * @version 1.0
-     */
-    public void setUsuarioLogadoId(Long usuarioId) {
-        this.usuarioLogadoId = usuarioId;
-        initializeVotacoesList();
-    }
-
     /**
      * Método de inicialização do controller. Chamado automaticamente pelo FXMLLoader após o carregamento do FXML.
      *
@@ -75,6 +59,10 @@ public class TeladeVotacaoController {
      */
     @FXML public void initialize() {
         opcoesVotoGroup = new ToggleGroup();
+
+        if (votacaoService != null) {
+            initializeVotacoesList();
+        }
 
         votacoesDisponiveisListView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
@@ -86,20 +74,15 @@ public class TeladeVotacaoController {
 
     /**
      * Inicializa a lista de votações disponíveis na {@link #votacoesDisponiveisListView}.
-     * Busca as votações ativas nas quais o usuário ainda não votou através do {@link VotacaoService} e exibe na tela.
+     * Busca as votações ativas através do {@link VotacaoService} e exibe na tela
      *
      * @since 13/06/25
      * @version 1.0
      */
     @FXML private void initializeVotacoesList() {
-        if (usuarioLogadoId == null) {
-            System.err.println("Erro: usuarioLogadoId não foi definido antes de initializeVotacoesList.");
-            return; // Não prossegue se o ID do usuário não estiver disponível
-        }
-
         try {
-            List<Votacao> ativasNaoVotadas = votacaoService.buscarVotacoesAtivasNaoVotadasPeloUsuario(usuarioLogadoId);
-            votacoesAbertas.setAll(ativasNaoVotadas);
+            List<Votacao> ativas = votacaoService.buscarVotacoesAtivas();
+            votacoesAbertas.setAll(ativas);
             votacoesDisponiveisListView.setItems(votacoesAbertas);
 
             votacoesDisponiveisListView.setCellFactory(lv -> new javafx.scene.control.ListCell<Votacao>() {
@@ -108,15 +91,6 @@ public class TeladeVotacaoController {
                     setText(empty ? null : votacao.getTitulo());
                 }
             });
-
-            if (ativasNaoVotadas.isEmpty()) {
-                votacaoTituloLabel.setText("Nenhuma votação disponível.");
-                votacaoDescricaoLabel.setText("Você já votou em todas as votações ou não há novas votações.");
-                opcoesVotoContainer.getChildren().clear();
-                votarButton.setDisable(true);
-            } else {
-                votarButton.setDisable(false);
-            }
 
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível carregar as votações disponíveis: " + e.getMessage());
@@ -162,8 +136,7 @@ public class TeladeVotacaoController {
     /**
      * Manipula o clique do botão "Votar".
      * Verifica se uma votação e uma opção de voto foram selecionadas,
-     * e então tenta registrar o voto do usuário. Após o voto, apresenta uma opção para
-     * o usuário continuar votando ou finalizar.
+     * e então tenta registrar o voto do usuário. Após o voto, atualiza a lista de votações
      *
      * @param event O evento de ação que disparou este método.
      * @since 13/06/25
@@ -183,35 +156,39 @@ public class TeladeVotacaoController {
 
         Long opcaoVotoId = (Long) selectedRadioButton.getUserData();
 
+        // TODO: pegar o id atual do bd
+        Long usuarioId = 1L;
+
         VotoRequestDTO votoRequestDTO = new VotoRequestDTO();
-        votoRequestDTO.setUsuarioId(usuarioLogadoId);
+        votoRequestDTO.setUsuarioId(usuarioId);
         votoRequestDTO.setVotacaoId(votacaoSelecionada.getId());
         votoRequestDTO.setOpcaoVotoId(opcaoVotoId);
 
         try {
+            if (usuarioService.verificarSeUsuarioJaVotou(usuarioId, votacaoSelecionada.getId())) {
+                showAlert(Alert.AlertType.WARNING, "Voto Já Registrado", "Você já votou nesta eleição.");
+                return;
+            }
+
             votoService.registrarVoto(votoRequestDTO);
             showAlert(Alert.AlertType.INFORMATION, "Voto Registrado", "Seu voto foi registrado com sucesso!");
 
-            Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmAlert.setTitle("Voto Registrado");
-            confirmAlert.setHeaderText("Seu voto foi registrado com sucesso!");
-            confirmAlert.setContentText("Deseja votar em outra votação ou finalizar?");
+            initializeVotacoesList();
+            votacaoTituloLabel.setText("Selecione uma votação.");
+            votacaoDescricaoLabel.setText("");
+            opcoesVotoContainer.getChildren().clear();
+            opcoesVotoGroup.selectToggle(null);
 
-            ButtonType votarNovamenteButton = new ButtonType("Votar em outra votação");
-            ButtonType finalizarButton = new ButtonType("Finalizar");
-
-            confirmAlert.getButtonTypes().setAll(votarNovamenteButton, finalizarButton);
-
-            Optional<ButtonType> result = confirmAlert.showAndWait();
-
-            if (result.isPresent() && result.get() == votarNovamenteButton) {
-                initializeVotacoesList();
-                votacaoTituloLabel.setText("Selecione uma votação.");
-                votacaoDescricaoLabel.setText("");
-                opcoesVotoContainer.getChildren().clear();
-                opcoesVotoGroup.selectToggle(null);
-            } else {
-                irParaTelaFinal();
+            try {
+                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/final.fxml")));
+                Parent root = loader.load();
+                Stage stage = (Stage) votarButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Voto Confirmado");
+                stage.show();
+            } catch (IOException e) {
+                showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela final.");
+                e.printStackTrace();
             }
 
 
@@ -226,41 +203,22 @@ public class TeladeVotacaoController {
     }
 
     /**
-     * Navega para a tela do usuário.
+     * Manipula o clique do botão "Voltar", redirecionando o usuário para a tela de usuário.
      *
-     * @since 14/06/25
-     * @version 1.0
-     */
-    private void irParaTelaFinal() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/final.fxml")));
-            Parent root = loader.load();
-            Stage stage = (Stage) votarButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Tela final");
-            stage.show();
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela final.");
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Manipula o clique do botão "Desconectar", redirecionando o usuário para a tela de usuário.
-     *
+     * @param event O evento de ação que disparou este método.
      * @since 13/06/25
      * @version 1.0
      */
-    @FXML private void desconectar() {
+    @FXML private void handleVoltarButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml")));
             Parent root = loader.load();
-            Stage stage = (Stage) desconectarButton.getScene().getWindow();
+            Stage stage = (Stage) voltarButton.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Tela de Login");
-
+            stage.setTitle("Tela do Usuário");
+            stage.show();
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erro ao navegar.", "Não foi possível desconectar.");
+            showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela do usuário.");
             e.printStackTrace();
         }
     }

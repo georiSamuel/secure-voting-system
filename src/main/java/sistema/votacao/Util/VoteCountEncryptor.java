@@ -39,7 +39,6 @@ import java.util.Base64;
 public class VoteCountEncryptor implements AttributeConverter<Long, byte[]> {
 
     private final SecretKey masterKey;
-    // O campo 'cipher' foi removido, pois a lógica agora está centralizada na classe AES.
 
     /**
      * Construtor que inicializa o encriptador com a chave secreta configurada.

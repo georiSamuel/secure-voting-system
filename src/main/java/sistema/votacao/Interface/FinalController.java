@@ -47,6 +47,7 @@ public class FinalController {
                 Scene cenaAtual = botaoVoltar.getScene();
                 Stage palco = (Stage) cenaAtual.getWindow();
                 palco.setScene(new Scene(telaLogin));
+                palco.setTitle("Sistema de Votação");
                 palco.sizeToScene();
 
             } catch (Exception e) {

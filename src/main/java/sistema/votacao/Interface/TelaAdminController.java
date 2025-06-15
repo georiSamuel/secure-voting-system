@@ -181,6 +181,7 @@ public class TelaAdminController {
             Scene cenaAtual = desconectar.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaLogin));
+            palco.setTitle("Sistema de Votação");
             palco.sizeToScene();
 
         } catch (Exception e) {

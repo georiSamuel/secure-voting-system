@@ -31,9 +31,7 @@ public class VotacaoEleitoral extends Votacao {
     @NotBlank(message = "Seção eleitoral é obrigatória")
     private String secaoEleitoral;
 
-    private boolean votoObrigatorio = true;
     private boolean permiteVotoEmBranco = true;
-    private boolean votoSegundoTurno = false;
 
     /**
      * Construtor padrão da classe VotacaoEleitoral.

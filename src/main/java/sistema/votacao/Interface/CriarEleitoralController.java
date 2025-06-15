@@ -43,7 +43,6 @@ public class CriarEleitoralController {
     @FXML private ComboBox<TipoCargoEleitoral> cargoComboBox;
     @FXML private TextField zonaEleitoralCampo;
     @FXML private TextField secaoEleitoralCampo;
-    @FXML private CheckBox votoObrigatorioCheckBox;
     @FXML private CheckBox permiteVotoEmBrancoCheckBox;
     @FXML private DatePicker inicioDatePicker;
     @FXML private TextField inicioTimeField;
@@ -67,7 +66,6 @@ public class CriarEleitoralController {
 
         opcoesListView.setItems(opcoesDeVoto);
 
-        votoObrigatorioCheckBox.setSelected(true);
         permiteVotoEmBrancoCheckBox.setSelected(true);
     }
 
@@ -79,6 +77,13 @@ public class CriarEleitoralController {
      */
     @FXML private void adicionarOpcao(ActionEvent event) {
         String novaOpcao = novaOpcaoCampo.getText().trim();
+
+        if (novaOpcao.equalsIgnoreCase("Branco")) {
+            showAlert(Alert.AlertType.WARNING, "Opção Inválida", "A opção 'Branco' é gerenciada automaticamente pela caixa de seleção 'Permite Voto em Branco'.");
+            novaOpcaoCampo.clear();
+            return;
+        }
+
         if (!novaOpcao.isEmpty()) {
             if (opcoesDeVoto.contains(novaOpcao)) {
                 showAlert(Alert.AlertType.WARNING, "Opção Duplicada", "Esta opção já foi adicionada.");
@@ -105,7 +110,6 @@ public class CriarEleitoralController {
         TipoCargoEleitoral cargo = cargoComboBox.getValue();
         String zonaEleitoral = zonaEleitoralCampo.getText().trim();
         String secaoEleitoral = secaoEleitoralCampo.getText().trim();
-        boolean votoObrigatorio = votoObrigatorioCheckBox.isSelected();
         boolean permiteVotoEmBranco = permiteVotoEmBrancoCheckBox.isSelected();
         LocalDate inicioDate = inicioDatePicker.getValue();
         String inicioTimeStr = inicioTimeField.getText().trim();
@@ -151,7 +155,6 @@ public class CriarEleitoralController {
         novaVotacao.setCargo(cargo);
         novaVotacao.setZonaEleitoral(zonaEleitoral);
         novaVotacao.setSecaoEleitoral(secaoEleitoral);
-        novaVotacao.setVotoObrigatorio(votoObrigatorio);
         novaVotacao.setPermiteVotoEmBranco(permiteVotoEmBranco);
         novaVotacao.setInicio(inicioTimestamp);
         novaVotacao.setFim(fimTimestamp);
@@ -164,6 +167,15 @@ public class CriarEleitoralController {
             opcao.setVotacao(novaVotacao);
             opcoesParaVotacao.add(opcao);
         }
+
+        if (permiteVotoEmBranco) {
+            OpcaoVoto opcaoBranco = new OpcaoVoto();
+            opcaoBranco.setDescricao("Branco");
+            opcaoBranco.setQuantidadeVotos(0L);
+            opcaoBranco.setVotacao(novaVotacao);
+            opcoesParaVotacao.add(opcaoBranco);
+        }
+
         novaVotacao.setOpcoes(opcoesParaVotacao);
 
         try {
@@ -213,7 +225,6 @@ public class CriarEleitoralController {
         cargoComboBox.getSelectionModel().clearSelection();
         zonaEleitoralCampo.clear();
         secaoEleitoralCampo.clear();
-        votoObrigatorioCheckBox.setSelected(true);
         permiteVotoEmBrancoCheckBox.setSelected(true);
         inicioDatePicker.setValue(null);
         inicioTimeField.clear();

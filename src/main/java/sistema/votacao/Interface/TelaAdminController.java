@@ -6,8 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -49,7 +47,7 @@ public class TelaAdminController {
      */
     @FXML private void abrirTelaVotacao() {
         try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/teladeVotacao.fxml")));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaDeVotacao.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent root = loader.load();
             TeladeVotacaoController teladeVotacaoController = loader.getController();

@@ -220,6 +220,7 @@ public class LoginController {
             Scene cenaAtual = usuarioCampo.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaAdmin));
+            palco.setTitle("Área de Administração");
             palco.sizeToScene();
         } catch (IOException e) {
             e.printStackTrace();

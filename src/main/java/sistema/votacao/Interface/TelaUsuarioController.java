@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import sistema.votacao.SistemaVotacaoApplication; // Importe a classe principal da aplicação
 import sistema.votacao.SistemaVotacaoApplication;
 import sistema.votacao.Votacao.Service.VotacaoService; // Importar o serviço de votação
 import sistema.votacao.Votacao.Model.Votacao; // Importar o modelo de votação
@@ -29,7 +30,7 @@ import java.util.Objects;
  * Classe responsável pela tela do usuário do JavaFX
  * @author Suelle
  * @since 26/05/25
- * @version 1.0
+ * @version 1.6
  */
 @Data
 @Component
@@ -83,6 +84,7 @@ public class TelaUsuarioController {
      */
     private void abrirVotacao(String tipoVotacao) {
         System.out.println("Abrindo votação: " + tipoVotacao);
+        // ir para a tela de votação
     }
 
     /**
@@ -144,11 +146,11 @@ public class TelaUsuarioController {
      */
     @FXML private void desconectar() {
         try {
-            Parent telaLogin = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-            Scene cenaAtual = desconectar.getScene();
-            Stage palco = (Stage) cenaAtual.getWindow();
-            palco.setScene(new Scene(telaLogin));
-            palco.sizeToScene();
+        Parent telaLogin = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
+        Scene cenaAtual = desconectar.getScene();
+        Stage palco = (Stage) cenaAtual.getWindow();
+        palco.setScene(new Scene(telaLogin));
+        palco.sizeToScene();
 
         } catch (Exception e) {
             e.printStackTrace();

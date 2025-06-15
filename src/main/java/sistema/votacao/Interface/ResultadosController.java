@@ -81,15 +81,12 @@ public class ResultadosController {
      */
     @FXML
     public void initialize() {
-        // Configura as colunas da TableView para mapear as propriedades de OpcaoVoto
         opcaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         votosColumn.setCellValueFactory(new PropertyValueFactory<>("quantidadeVotos"));
 
-        // Adiciona um listener para a seleção de itens na ListView de votações
         votacoesListView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        integridadeStatusLabel.setText(""); // Limpa o status ao selecionar nova votação
                         handleVotacaoSelection(newValue);
                     }
                 });
@@ -105,12 +102,10 @@ public class ResultadosController {
     private void initializeVotacoesList() {
         if (votacaoService != null) {
             try {
-                // Busca todas as votações e adiciona na ListView
                 List<Votacao> todasVotacoes = votacaoService.buscarTodasVotacoes();
                 ObservableList<Votacao> observableVotacoes = FXCollections.observableArrayList(todasVotacoes);
                 votacoesListView.setItems(observableVotacoes);
 
-                // Define como os objetos Votacao são exibidos na List (só o título)
                 votacoesListView.setCellFactory(lv -> new javafx.scene.control.ListCell<Votacao>() {
                     @Override
                     protected void updateItem(Votacao votacao, boolean empty) {
@@ -120,9 +115,9 @@ public class ResultadosController {
                 });
 
             } catch (Exception e) {
-                // Esses alertas são todos básicos, podem ser implementados para alerta visual depois, mas por enquanto é
-                // só para ver a funcionalidade
-                System.err.println("Erro ao carregar votações: " + e.getMessage());
+                showAlert(Alert.AlertType.ERROR, "Erro de Carregamento", "Não foi possível carregar as votações disponíveis: " + e.getMessage());
+                System.err.println("Erro ao carregar votações: " + e.getMessage()); // Mantenha para depuração no console
+                e.printStackTrace();
             }
         }
     }
@@ -150,7 +145,10 @@ public class ResultadosController {
                 resultadosTableView.setItems(observableResultados);
 
             } catch (Exception e) {
-                System.err.println("Erro ao carregar opções de voto para a votação " + votacao.getId() + ": " + e.getMessage());
+                // Exibe alerta visual em caso de erro ao carregar opções de voto
+                showAlert(Alert.AlertType.ERROR, "Erro de Carregamento", "Erro ao carregar opções de voto para a votação " + votacao.getId() + ": " + e.getMessage());
+                System.err.println("Erro ao carregar opções de voto para a votação " + votacao.getId() + ": " + e.getMessage()); // Mantenha para depuração
+                e.printStackTrace();
             }
         }
     }
@@ -158,7 +156,7 @@ public class ResultadosController {
     /**
      * Acionado pelo botão "Verificar Integridade". Este método busca todos os votos
      * da votação selecionada e verifica a integridade de cada um usando o serviço de voto.
-     * Atualiza o label 'integridadeStatusLabel' com o resultado da verificação.
+     * Exibe o resultado da verificação em uma janela de alerta (Alert).
      *
      * @since 14/06/2025
      * @version 1.0
@@ -168,46 +166,58 @@ public class ResultadosController {
         Votacao votacaoSelecionada = votacoesListView.getSelectionModel().getSelectedItem();
 
         if (votacaoSelecionada == null) {
-            integridadeStatusLabel.setText("Por favor, selecione uma votação primeiro.");
-            integridadeStatusLabel.setTextFill(Color.PURPLE);
+            showAlert(Alert.AlertType.WARNING, "Seleção Necessária", "Por favor, selecione uma votação primeiro para verificar a integridade.");
+            // integridadeStatusLabel.setText("Por favor, selecione uma votação primeiro."); // REMOVIDO
+            // integridadeStatusLabel.setTextFill(Color.PURPLE); // REMOVIDO
             return;
         }
 
-        integridadeStatusLabel.setText("Verificando... por favor, aguarde.");
-        integridadeStatusLabel.setTextFill(Color.PURPLE);
+        showAlert(Alert.AlertType.INFORMATION, "Verificação de Integridade", "Iniciando verificação... Por favor, aguarde.");
+
 
         try {
             List<VotoModel> votos = votoService.buscarVotosPorVotacao(votacaoSelecionada.getId());
 
             if (votos.isEmpty()) {
-                integridadeStatusLabel.setText("Nenhum voto registrado para esta votação.");
-                integridadeStatusLabel.setTextFill(Color.PURPLE);
+                showAlert(Alert.AlertType.INFORMATION, "Verificação Concluída", "Nenhum voto registrado para esta votação. Integridade não aplicável.");
+                // integridadeStatusLabel.setText("Nenhum voto registrado para esta votação."); // REMOVIDO
+                // integridadeStatusLabel.setTextFill(Color.PURPLE); // REMOVIDO
                 return;
             }
 
             AtomicInteger votosAdulterados = new AtomicInteger(0);
+            // Itera sobre a lista de votos para verificar a integridade de cada um
             votos.forEach(voto -> {
                 try {
+                    // Se o voto não for íntegro, incrementa o contador de adulterados
                     if (!votoService.verificarIntegridadeVoto(voto.getId())) {
                         votosAdulterados.incrementAndGet();
                     }
                 } catch (Exception e) {
+                    // Em caso de erro na verificação de um voto específico, também o considera adulterado
                     votosAdulterados.incrementAndGet();
+                    System.err.println("Erro ao verificar integridade do voto ID " + voto.getId() + ": " + e.getMessage()); // Para depuração
+                    e.printStackTrace();
                 }
             });
 
             if (votosAdulterados.get() == 0) {
-                integridadeStatusLabel.setText(String.format("Verificação concluída: %d votos analisados. Todos íntegros!", votos.size()));
-                integridadeStatusLabel.setTextFill(Color.PURPLE);
+                showAlert(Alert.AlertType.INFORMATION, "Integridade Verificada",
+                        String.format("Verificação concluída: %d votos analisados. Todos os votos estão íntegros!", votos.size()));
+                // integridadeStatusLabel.setText(String.format("Verificação concluída: %d votos analisados. Todos íntegros!", votos.size())); // REMOVIDO
+                // integridadeStatusLabel.setTextFill(Color.PURPLE); // REMOVIDO
             } else {
-                integridadeStatusLabel.setText(String.format("ALERTA: %d de %d votos foram ADULTERADOS!", votosAdulterados.get(), votos.size()));
-                integridadeStatusLabel.setTextFill(Color.RED);
+                showAlert(Alert.AlertType.ERROR, "ALERTA DE SEGURANÇA: Votos Adulterados!",
+                        String.format("ALERTA: %d de %d votos foram ADULTERADOS! Verifique os logs para detalhes.", votosAdulterados.get(), votos.size()));
+                // integridadeStatusLabel.setText(String.format("ALERTA: %d de %d votos foram ADULTERADOS!", votosAdulterados.get(), votos.size())); // REMOVIDO
+                // integridadeStatusLabel.setTextFill(Color.RED); // REMOVIDO
             }
 
         } catch (Exception e) {
-            integridadeStatusLabel.setText("Erro ao realizar a verificação de integridade.");
-            integridadeStatusLabel.setTextFill(Color.RED);
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erro na Verificação", "Ocorreu um erro ao realizar a verificação de integridade: " + e.getMessage());
+            // integridadeStatusLabel.setText("Erro ao realizar a verificação de integridade."); // REMOVIDO
+            // integridadeStatusLabel.setTextFill(Color.RED); // REMOVIDO
+            e.printStackTrace(); // Mantenha para depuração
         }
     }
 
@@ -220,15 +230,35 @@ public class ResultadosController {
      */
     @FXML private void handleVoltarButton() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/telaAdmin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/telaadmin.fxml"));
             Parent root = loader.load();
+
             Stage stage = (Stage) voltarButton.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Tela do Admin");
+            stage.setTitle("Área de Administração");
+            stage.show();
 
         } catch (IOException e) {
-            System.err.println("Erro ao carregar a tela do Admin: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de administração    .");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Exibe um alerta na tela.
+     * Este método é uma utilidade para exibir mensagens de forma consistente.
+     * @param alertType O tipo de alerta (INFORMATION, ERROR, WARNING, etc.).
+     * @param title O título do alerta.
+     * @param message A mensagem a ser exibida no alerta.
+     *
+     * @version 1.0
+     * @since 28/05/25 (ajustado de outros controllers para consistência)
+     */
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null); // Opcional: pode ser usado para um cabeçalho mais detalhado
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

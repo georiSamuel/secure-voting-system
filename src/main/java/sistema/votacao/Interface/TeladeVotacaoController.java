@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 import sistema.votacao.Usuario.Model.TipoUsuario;
 import sistema.votacao.Usuario.Model.UsuarioModel;
 import sistema.votacao.Votacao.Model.Votacao;
+import sistema.votacao.Votacao.Model.VotacaoAcademica;
+import sistema.votacao.Votacao.Model.VotacaoEleitoral;
 import sistema.votacao.Votacao.Service.VotacaoService;
 import sistema.votacao.Voto.DTO.VotoRequestDTO;
 import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
@@ -99,7 +101,23 @@ public class TeladeVotacaoController {
             votacoesDisponiveisListView.setCellFactory(lv -> new javafx.scene.control.ListCell<Votacao>() {
                 @Override protected void updateItem(Votacao votacao, boolean empty) {
                     super.updateItem(votacao, empty);
-                    setText(empty ? null : votacao.getTitulo());
+                    if (empty || votacao == null) {
+                        setText(null);
+                    } else {
+                        String titulo = votacao.getTitulo();
+                        String cargoStr = "";
+                        if (votacao instanceof VotacaoAcademica) {
+                            cargoStr = ((VotacaoAcademica) votacao).getCargo().toString().replace("_", " ");
+                        } else if (votacao instanceof VotacaoEleitoral) {
+                            cargoStr = ((VotacaoEleitoral) votacao).getCargo().toString().replace("_", " ");
+                        }
+
+                        if (cargoStr != null && !cargoStr.isEmpty()) {
+                            setText(titulo + " - Cargo: " + cargoStr);
+                        } else {
+                            setText(titulo);
+                        }
+                    }
                 }
             });
 

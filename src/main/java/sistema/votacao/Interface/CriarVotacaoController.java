@@ -161,7 +161,7 @@ public class CriarVotacaoController {
     }
 
     /**
-     * Método responsável pela ação do botão "Cancelar". Limpa todos os campos
+     * Método responsável por limpar todos os campos.
      *
      * @version 1.0
      * @since 12/06/25
@@ -169,7 +169,6 @@ public class CriarVotacaoController {
     @FXML private void cancelar() {
         listaItens.getItems().clear();
         campoTitulo.clear();
-        // comboTipo.getSelectionModel().clearSelection(); // Removido, se ComboBox não existe
         campoItem.clear();
         inicioDatePicker.setValue(null);
         inicioTimeField.clear();

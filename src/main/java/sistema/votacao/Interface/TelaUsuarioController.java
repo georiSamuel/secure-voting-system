@@ -44,6 +44,11 @@ public class TelaUsuarioController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaDeVotacao.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent root = loader.load();
+
+            // A para configurar a tela de votação e pegar o id correto
+            TeladeVotacaoController votacaoController = loader.getController();
+            votacaoController.setUsuarioLogadoId(this.usuarioLogadoId); // Passa o ID que este controller já possui
+
             Stage stage = (Stage) botaoVotacao.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Votações Disponíveis");

@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sistema.votacao.SistemaVotacaoApplication;
@@ -41,6 +42,7 @@ public class LoginController {
 
     @Autowired private UsuarioService usuarioService;
 
+    @Getter
     private static UsuarioModel usuarioLogado;
 
     /**

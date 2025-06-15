@@ -39,7 +39,6 @@ import java.util.Objects;
  */
 @Component
 public class TeladeVotacaoController {
-
     @FXML private ListView<Votacao> votacoesDisponiveisListView;
     @FXML private Label votacaoTituloLabel;
     @FXML private Label votacaoDescricaoLabel;
@@ -57,6 +56,10 @@ public class TeladeVotacaoController {
     @Autowired private OpcaoVotoService opcaoVotoService;
     @Autowired private VotoService votoService;
     @Autowired private UsuarioService usuarioService;
+
+    @Setter
+    private Long usuarioLogadoId;
+
 
     private ObservableList<Votacao> votacoesAbertas = FXCollections.observableArrayList();
     private Votacao votacaoSelecionada;
@@ -167,11 +170,14 @@ public class TeladeVotacaoController {
 
         Long opcaoVotoId = (Long) selectedRadioButton.getUserData();
 
-        // TODO: pegar o id atual do bd
-        Long usuarioId = 1L;
+        if (this.usuarioLogadoId == null) {
+            showAlert(Alert.AlertType.ERROR, "Erro de Autenticação", "Não foi possível identificar o usuário. Tente fazer login novamente.");
+            return;
+        }
+        Long usuarioId = this.usuarioLogadoId;
 
         VotoRequestDTO votoRequestDTO = new VotoRequestDTO();
-        votoRequestDTO.setUsuarioId(usuarioId);
+        votoRequestDTO.setUsuarioId(usuarioLogadoId);
         votoRequestDTO.setVotacaoId(votacaoSelecionada.getId());
         votoRequestDTO.setOpcaoVotoId(opcaoVotoId);
 

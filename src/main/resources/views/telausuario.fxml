@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="backgroundTela" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.TelaUsuarioController">
+<AnchorPane fx:id="backgroundTela" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.TelaUsuarioController">
     <children>
         <AnchorPane fx:id="telaBranca" layoutX="200.0" layoutY="71.0" prefHeight="457.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
             <children>
@@ -12,7 +12,7 @@
                <font>
                   <Font name="System Bold" size="30.0" />
                </font></Text>
-                <Text fx:id="selecioneText" fill="#b1b1b1" layoutX="132.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-subtitulo" text="Selecione uma opção:">
+                <Text fx:id="selecioneText" fill="#b1b1b1" layoutX="128.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-subtitulo" text="Selecione uma opção:">
                <font>
                   <Font size="14.0" />
                </font></Text>

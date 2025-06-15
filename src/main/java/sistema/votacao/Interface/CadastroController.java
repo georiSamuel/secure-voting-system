@@ -73,6 +73,11 @@ public class CadastroController {
             return;
         }
 
+        if (senha.length() < 6) {
+            showAlert(Alert.AlertType.ERROR, "Erro de Cadastro", "A senha deve ter no mínimo 6 dígitos.");
+            return;
+        }
+
         if (!senha.equals(confirmarSenha)) {
             showAlert(Alert.AlertType.ERROR, "Erro de Cadastro", "As senhas não coincidem.");
             return;

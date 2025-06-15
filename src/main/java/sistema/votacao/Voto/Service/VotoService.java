@@ -17,6 +17,7 @@ import sistema.votacao.Voto.Repository.VotoRepository;
 import sistema.votacao.Util.ReproduzirSom;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
@@ -95,6 +96,14 @@ public class VotoService {
             voto.setUsuario(usuario);
             voto.setDataHoraVoto(LocalDateTime.now());
 
+            /*  Trunca o tempo para microssegundos ANTES de definir no objeto e usar no HMAC. Isso é necessário porque A maioria dos bancos de dados,
+            incluindo o MySQL, não armazena a precisão total de nanossegundos sendo que o HAMC PRECISA do valor exato para realizar a verivicação por hash
+            */
+            LocalDateTime timestampTruncado = LocalDateTime.now().truncatedTo(ChronoUnit.MICROS);
+            voto.setDataHoraVoto(timestampTruncado);
+
+            //Passos de geração de hash com chave secreta HMAC:
+
             // 1. Criar a string com os dados do voto para gerar o selo de integridade
             String dadosParaAutenticar = String.format("usuarioId:%d;votacaoId:%d;opcaoId:%d;timestamp:%s",
                     dto.getUsuarioId(),
@@ -152,17 +161,20 @@ public class VotoService {
         // 1. Buscar o voto no banco de dados
         VotoModel voto = buscarPorId(votoId);
 
-        // 2. Reconstruir a string de dados original EXATAMENTE como foi criada durante o registro
+        // Apenas para garantir, mesmo que a leitura do banco já deva vir truncada, é uma boa prática re-truncar para garantir consistência total.
+        LocalDateTime timestampVerificacao = voto.getDataHoraVoto().truncatedTo(ChronoUnit.MICROS);
+
+        // 2. Reconstruir a string de dados original EXATAMENTE como foi criada
         String dadosParaAutenticar = String.format("usuarioId:%d;votacaoId:%d;opcaoId:%d;timestamp:%s",
                 voto.getUsuario().getId(),
                 voto.getVotacao().getId(),
                 voto.getOpcaoVoto().getId(),
-                voto.getDataHoraVoto().toString());
+                timestampVerificacao.toString()); // Usa a string do timestamp truncado
 
-        // 3. Recalcular o HMAC com os dados atuais do voto
+        // 3. Recalcular o HMAC
         String hmacRecalculado = HMAC.calcularHmac(dadosParaAutenticar, hmacSecret);
 
-        // 4. Comparar o HMAC armazenado com o HMAC recalculado de forma segura
+        // 4. Comparar
         return hmacRecalculado.equals(voto.getVotoHmac());
     }
 }

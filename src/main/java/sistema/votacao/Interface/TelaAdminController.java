@@ -39,24 +39,30 @@ public class TelaAdminController {
      * @version 1.0
      */
     @FXML private void abrirTelaVotacao() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaDeVotacao.fxml")));
-            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
-            Parent root = loader.load();
+            try {
+                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaDeVotacao.fxml")));
+                loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
+                Parent root = loader.load();
 
-            TeladeVotacaoController votacaoController = loader.getController();
-            votacaoController.setPreviousScreenIsAdmin(true); // Confirmar que a tela para a qual deve-se voltar é a de admin
+                TeladeVotacaoController votacaoController = loader.getController();
+                votacaoController.setPreviousScreenIsAdmin(true);
 
+                // A alteração mais importante é aqui:
+                // Precisamos do ID do admin logado. O LoginController já o obtém.
+                // Vamos assumir que TelaAdminController também terá acesso a ele.
+                // O seu LoginController já faz a chamada: telaAdminController.setUsuarioLogadoId(usuarioLogado.getId());
+                // Então, o ID já está disponível.
+                votacaoController.setUsuarioLogadoId(LoginController.getUsuarioLogado().getId()); // Passa o ID do usuário logado
 
-            Stage stage = (Stage) botaoVotar.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Votações Disponíveis");
-            stage.show();
-        } catch (IOException e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de votação.");
-            e.printStackTrace();
+                Stage stage = (Stage) botaoVotar.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Votações Disponíveis");
+                stage.show();
+            } catch (IOException e) {
+                mostrarAlerta(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de votação.");
+                e.printStackTrace();
+            }
         }
-    }
 
     /**
      * Lida com a ação de clicar no botão "Criar Nova Votação".

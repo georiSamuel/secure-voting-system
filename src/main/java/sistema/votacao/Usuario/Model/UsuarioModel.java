@@ -42,9 +42,6 @@ public class UsuarioModel {
     @Column(nullable = false)
     private String senha;
 
-    @Column(name = "ja_votou")
-    private boolean jaVotou = false;
-
     @Column(unique = true, nullable = false)
     private String cpf;
 

@@ -109,8 +109,7 @@ public class VotoService {
             // 3. Salvar o voto no banco de dados
             VotoModel salvo = votoRepository.save(voto);
 
-            // 4. Atualizar status e contagem
-            usuarioService.atualizarStatusVoto(dto.getUsuarioId(), true);
+            // 4. Atualizar contagem
             opcaoVotoService.incrementarVotos(dto.getOpcaoVotoId());
 
             // Tocando som após operação de voto realizado

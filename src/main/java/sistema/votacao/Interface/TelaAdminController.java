@@ -43,6 +43,11 @@ public class TelaAdminController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telaDeVotacao.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
             Parent root = loader.load();
+
+            TeladeVotacaoController votacaoController = loader.getController();
+            votacaoController.setPreviousScreenIsAdmin(true); // Confirmar que a tela para a qual deve-se voltar é a de admin
+
+
             Stage stage = (Stage) botaoVotar.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Votações Disponíveis");
@@ -160,7 +165,13 @@ public class TelaAdminController {
      */
     @FXML private void desconectar(ActionEvent event) {
         try {
-            Parent telaLogin = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/login.fxml")));
+            // Criando um novo FXMLLoader pra não dar bug ao desconectar na tela de admin
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/login.fxml")));
+            // Configurando o ControllerFactory para que o Spring injete as dependências
+            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
+
+            Parent telaLogin = loader.load(); // Carregue a tela de login
+
             Scene cenaAtual = desconectar.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaLogin));

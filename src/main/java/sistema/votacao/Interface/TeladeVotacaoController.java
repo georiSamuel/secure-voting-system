@@ -39,6 +39,8 @@ public class TeladeVotacaoController {
     @FXML private Button votarButton;
     @FXML private Button voltarButton;
     @FXML private VBox opcoesVotoContainer;
+    
+    private boolean previousScreenIsAdmin = false;
 
     private ToggleGroup opcoesVotoGroup;
 
@@ -50,6 +52,10 @@ public class TeladeVotacaoController {
     private ObservableList<Votacao> votacoesAbertas = FXCollections.observableArrayList();
     private Votacao votacaoSelecionada;
     private List<OpcaoVoto> opcoesAtuais;
+
+    public void setPreviousScreenIsAdmin(boolean previousScreenIsAdmin) {
+        this.previousScreenIsAdmin = previousScreenIsAdmin;
+    }
 
     /**
      * Método de inicialização do controller. Chamado automaticamente pelo FXMLLoader após o carregamento do FXML.
@@ -211,18 +217,30 @@ public class TeladeVotacaoController {
      */
     @FXML private void handleVoltarButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml")));
-            Parent root = loader.load();
+            FXMLLoader loader;
+            String title;
+            String viewPath;
+
+            if (previousScreenIsAdmin) {
+                viewPath = "/views/telaadmin.fxml";
+                title = "Tela de Admin";
+            } else {
+                viewPath = "/views/telausuario.fxml";
+                title = "Tela do Usuário";
+            }
+
+            loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(viewPath)));
+            Parent root = loader.load(); // No need for setControllerFactory here if the target controllers are already Spring Components and loaded via FXML
+
             Stage stage = (Stage) voltarButton.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Tela do Usuário");
+            stage.setTitle(title);
             stage.show();
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela do usuário.");
+            showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela anterior.");
             e.printStackTrace();
         }
     }
-
     /**
      * Exibe um alerta pop-up com o tipo, título e mensagem especificados.
      *

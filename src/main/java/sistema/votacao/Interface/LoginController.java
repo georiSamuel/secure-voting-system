@@ -135,21 +135,39 @@ public class LoginController {
      */
     @FXML private void abrirRepositorio(ActionEvent event) {
         try {
+            // Verifica se o Desktop é suportado antes de tentar usar
             if (Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();
 
+                // Verifica se a ação BROWSE é suportada
                 if (desktop.isSupported(Desktop.Action.BROWSE)) {
                     desktop.browse(new URI("https://github.com/georiSamuel/secure-voting-system"));
                 } else {
+                    // Fallback: mostrar URL para o usuário copiar
                     mostrarAlerta("Link do Repositório",
                             "Não foi possível abrir o navegador automaticamente.\n" +
                                     "Acesse manualmente: https://github.com/georiSamuel/secure-voting-system");
                 }
             } else {
+                // Desktop não suportado - usar comando do sistema
+                String os = System.getProperty("os.name").toLowerCase();
                 String url = "https://github.com/georiSamuel/secure-voting-system";
-                mostrarAlerta("Link do Repositório", "Sistema não suportado para abrir URLs automaticamente.\n" +
-                        "Acesse manualmente: " + url);
 
+                if (os.contains("win")) {
+                    // Windows
+                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
+                } else if (os.contains("mac")) {
+                    // macOS
+                    Runtime.getRuntime().exec("open " + url);
+                } else if (os.contains("nix") || os.contains("nux")) {
+                    // Linux
+                    Runtime.getRuntime().exec("xdg-open " + url);
+                } else {
+                    // Sistema não reconhecido - mostrar URL
+                    mostrarAlerta("Link do Repositório",
+                            "Sistema não suportado para abrir URLs automaticamente.\n" +
+                                    "Acesse manualmente: " + url);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -179,10 +197,10 @@ public class LoginController {
 
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Não foi possível carregar a tela de cadastro: " + e.getMessage()); // Adicionado o erro
+            mostrarAlerta("Erro", "Não foi possível carregar a tela de cadastro.");
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela de cadastro: " + e.getMessage()); // Adicionado o erro
+            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela de cadastro.");
         }
     }
 
@@ -203,15 +221,15 @@ public class LoginController {
             Scene cenaAtual = usuarioCampo.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaUsuario));
-            palco.setTitle("Área de Usuário");
+            palco.setTitle("Tela do Usuário");
             palco.sizeToScene();
         }
         catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Não foi possível carregar a tela do usuário.: ");
+            mostrarAlerta("Erro", "Não foi possível carregar a tela do usuário.");
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do usuário: ");
+            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do usuário.");
         }
     }
 
@@ -232,7 +250,7 @@ public class LoginController {
             Scene cenaAtual = usuarioCampo.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaAdmin));
-            palco.setTitle("Área de Administração");
+            palco.setTitle("Tela de Admin");
             palco.sizeToScene();
         }
         catch (IOException e) {
@@ -241,8 +259,7 @@ public class LoginController {
         }
         catch (Exception e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do administrador: " + e.getMessage());
+            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do administrador.");
         }
     }
-
 }

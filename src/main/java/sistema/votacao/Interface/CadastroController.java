@@ -94,7 +94,6 @@ public class CadastroController {
         usuario.setCpf(cpf);
         usuario.setSenha(senha);
         usuario.setTipoUsuario(tipoUsuario);
-        usuario.setJaVotou(false);
         usuario.setDataCadastro(LocalDate.now());
 
         try {

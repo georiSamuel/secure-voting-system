@@ -73,6 +73,12 @@ public class CadastroController {
             return;
         }
 
+        // Garante que o cpf deve ter 11 dígitos e todos dever ser numéricos
+        if (!cpf.matches("\\d{11}")) {
+            showAlert(Alert.AlertType.ERROR, "Erro de Cadastro", "CPF inválido. Deve conter exatamente 11 dígitos numéricos.");
+            return;
+        }
+
         if (senha.length() < 6) {
             showAlert(Alert.AlertType.ERROR, "Erro de Cadastro", "A senha deve ter no mínimo 6 dígitos.");
             return;
@@ -137,7 +143,7 @@ public class CadastroController {
             Parent root = loader.load();
             Stage stage = (Stage) btnVoltarLogin.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Login");
+            stage.setTitle("Sistema de Votação");
             stage.show();
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erro de Navegação", "Não foi possível carregar a tela de login.");

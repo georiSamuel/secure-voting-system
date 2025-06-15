@@ -42,6 +42,10 @@ public class UsuarioModel {
     @Column(nullable = false)
     private String senha;
 
+    /*
+     Mesmo o usuário só digitando os números do CPF é necessário deixar esse número como string
+     se não os 0's à esquerda seriam perdidos (no caso do tipo ser Long ou Int) e  CPFs podem começar com zero
+     */
     @Column(unique = true, nullable = false)
     private String cpf;
 

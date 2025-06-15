@@ -18,7 +18,6 @@ import sistema.votacao.Usuario.Service.UsuarioService;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -193,24 +192,27 @@ public class LoginController {
      * @since 22/05/25
      */
     @FXML private void abrirTelaUsuario() {
-            try {
-                URL telaUsuarioFxmlUrl = Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml"));
-                Parent telaUsuario = FXMLLoader.load(telaUsuarioFxmlUrl); // Carregamento simplificado
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml")));
+            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
+            Parent telaUsuario = loader.load();
+            TelaUsuarioController telaUsuarioController = loader.getController();
+            telaUsuarioController.setUsuarioLogadoId(usuarioLogado.getId());
 
-                Scene cenaAtual = usuarioCampo.getScene();
-                Stage palco = (Stage) cenaAtual.getWindow();
-                palco.setScene(new Scene(telaUsuario));
-                palco.setTitle("Área de Usuário");
-                palco.sizeToScene();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-                mostrarAlerta("Erro de Carregamento", "Não foi possível carregar a tela do usuário. Verifique se 'telausuario.fxml' está no caminho correto e sem erros de sintaxe.");
-            } catch (Exception e) {
-                e.printStackTrace();
-                mostrarAlerta("Erro Inesperado", "Ocorreu um erro inesperado ao abrir a tela do usuário: " + e.getMessage());
-            }
+            Scene cenaAtual = usuarioCampo.getScene();
+            Stage palco = (Stage) cenaAtual.getWindow();
+            palco.setScene(new Scene(telaUsuario));
+            palco.setTitle("Área de Usuário");
+            palco.sizeToScene();
         }
+        catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Erro", "Não foi possível carregar a tela do usuário.: ");
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do usuário: ");
+        }
+    }
 
     /**
      * Método para abrir a tela do administrador.

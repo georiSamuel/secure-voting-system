@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.CriarEleitoralController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.CriarEleitoralController">
     <children>
-        <AnchorPane layoutX="114.0" layoutY="59.0" prefHeight="483.0" prefWidth="572.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
+        <AnchorPane layoutX="128.0" layoutY="58.0" prefHeight="530.0" prefWidth="547.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
             <children>
                 <Label layoutX="106.0" layoutY="14.0" prefHeight="45.0" prefWidth="360.0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #080808;" text="Criar Votação Eleitoral" wrapText="true">
                <font>
@@ -68,18 +68,18 @@
                         <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                             <children>
                                 <TextField fx:id="novaOpcaoCampo" prefWidth="140.0" promptText="Adicionar nova opção" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc; -fx-padding: 5;" />
-                                <Button onAction="#adicionarOpcao" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 10;" text="Add" />
+                                <Button onAction="#adicionarOpcao" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 10;" text="Adicionar" />
                             </children>
                         </HBox>
                     </children>
                 </GridPane>
 
-                <ListView fx:id="opcoesListView" layoutX="116.0" layoutY="384.0" prefHeight="50.0" prefWidth="340.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc;" />
+                <ListView fx:id="opcoesListView" layoutX="116.0" layoutY="384.0" prefHeight="78.0" prefWidth="340.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ccc;" />
 
-                <HBox layoutX="116.0" layoutY="439.0" spacing="10.0">
+                <HBox alignment="CENTER" layoutX="116.0" layoutY="468.0" prefHeight="47.0" prefWidth="340.0" spacing="10.0">
                     <children>
-                        <Button onAction="#criarVotacao" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 15;" text="Criar Votação" />
-                        <Button onAction="#voltar" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 15;" text="Voltar" />
+                        <Button onAction="#voltar" prefHeight="31.0" prefWidth="111.0" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 15;" text="Voltar" />
+                        <Button onAction="#criarVotacao" prefHeight="35.0" prefWidth="166.0" style="-fx-background-color: #6555DB; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 15;" text="Criar Votação" />
                     </children>
                 </HBox>
             </children>

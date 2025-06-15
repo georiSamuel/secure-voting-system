@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="backgroundTela" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" stylesheets="@/css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.CriarVotacaoController">
+<AnchorPane fx:id="backgroundTela" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: #5B50C0;" stylesheets="@/css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.CriarVotacaoController">
     <children>
-        <AnchorPane fx:id="telaBranca" layoutX="165.0" layoutY="50.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" styleClass="painel-principal">
+        <AnchorPane fx:id="telaBranca" layoutX="165.0" layoutY="50.0" prefHeight="590.0" prefWidth="470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" styleClass="painel-principal">
             <children>
                 <Text fx:id="tituloText" fill="#080808" layoutX="-6.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-titulo" text="Criar Votação Personalizada" textAlignment="CENTER" wrappingWidth="476.0">
                     <font>
@@ -21,7 +21,7 @@
                 <HBox layoutX="82.0" layoutY="209.0" spacing="10.0">
                     <children>
                         <DatePicker fx:id="inicioDatePicker" prefWidth="170.0" promptText="Data de Início" />
-                        <TextField fx:id="inicioTimeField" prefWidth="120.0" promptText="HH:mm" />
+                        <TextField fx:id="inicioTimeField" prefWidth="120.0" promptText="HH:MM" />
                     </children>
                 </HBox>
 
@@ -29,15 +29,15 @@
                 <HBox layoutX="82.0" layoutY="279.0" spacing="10.0">
                     <children>
                         <DatePicker fx:id="fimDatePicker" prefWidth="170.0" promptText="Data de Fim" />
-                        <TextField fx:id="fimTimeField" prefWidth="120.0" promptText="HH:mm" />
+                        <TextField fx:id="fimTimeField" prefWidth="120.0" promptText="HH:MM" />
                     </children>
                 </HBox>
 
                 <Label fx:id="labelItens" layoutX="84.0" layoutY="322.0" styleClass="texto-label" text="Itens Votáveis:" />
-                <HBox layoutX="82.0" layoutY="349.0" spacing="5.0">
+                <HBox layoutX="82.0" layoutY="349.0" prefHeight="23.0" prefWidth="301.0" spacing="5.0">
                     <children>
-                        <TextField fx:id="campoItem" prefWidth="220.0" promptText="Digite um item votável" />
-                        <Button fx:id="botaoAdicionar" mnemonicParsing="false" onAction="#adicionarItem" styleClass="botao-pequeno" text="+" />
+                        <TextField fx:id="campoItem" prefHeight="23.0" prefWidth="271.0" promptText="Digite um item votável" />
+                        <Button fx:id="botaoAdicionar" mnemonicParsing="false" onAction="#adicionarItem" prefHeight="23.0" prefWidth="140.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-pequeno" text="Adicionar" />
                     </children>
                 </HBox>
 
@@ -47,10 +47,8 @@
                     </placeholder>
                 </ListView>
 
-                <Button fx:id="botaoCancelar" layoutX="110.0" layoutY="522.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-secundario" text="Cancelar" />
-                <Button fx:id="botaoCriar" layoutX="252.0" layoutY="522.0" mnemonicParsing="false" onAction="#criarVotacao" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-primario" text="Criar" />
-
-                <Hyperlink fx:id="linkVoltar" layoutX="166.0" layoutY="576.0" onAction="#voltar" styleClass="link-voltar" text="Voltar para tela anterior" />
+                <Button fx:id="botaoVoltar" layoutX="82.0" layoutY="522.0" mnemonicParsing="false" onAction="#voltar" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-secundario" text="Voltar" />
+                <Button fx:id="botaoCriar" layoutX="232.0" layoutY="522.0" mnemonicParsing="false" onAction="#criarVotacao" prefHeight="35.0" prefWidth="153.0" style="-fx-background-color: #6555DB; -fx-text-fill: white;" styleClass="botao-primario" text="Criar votação" />
             </children>
         </AnchorPane>
     </children>

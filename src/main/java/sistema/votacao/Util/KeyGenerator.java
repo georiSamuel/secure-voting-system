@@ -37,11 +37,11 @@ public class KeyGenerator {
         String base64Key2 = Base64.getEncoder().encodeToString(key2);
 
         System.out.println("<--- Chave Mestra (AES-256 / Base64) --->");
-        System.out.println("Copiar esta chave para o arquivo application.properties (voting.app.aes-key):");
+        System.out.println("Copiar esta chave para o arquivo application.properties (VOTING_APP_AES_KEY):");
         System.out.println(base64Key1 + "\n");
 
         System.out.println("<--- Chave Secreta (HMAC / Base64) --->");
-        System.out.println("Copiar esta chave para o arquivo application.properties (voting.app.hmac-secret):");
+        System.out.println("Copiar esta chave para o arquivo application.properties (VOTING_APP_HMAC_SECRET):");
         System.out.println(base64Key2);
     }
 }

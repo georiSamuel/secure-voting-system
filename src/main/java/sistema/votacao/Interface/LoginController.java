@@ -204,6 +204,7 @@ public class LoginController {
             Scene cenaAtual = usuarioCampo.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaUsuario));
+            palco.setTitle("Tela do Usuário");
             palco.sizeToScene();
         }
         catch (IOException e) {

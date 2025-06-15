@@ -82,11 +82,19 @@ public class CriarVotacaoController {
         LocalDate fimDate = fimDatePicker.getValue();
         String fimTimeStr = fimTimeField.getText().trim();
 
-        if (titulo.isEmpty() || listaItens.getItems().isEmpty() || inicioDate == null || inicioTimeStr.isEmpty() ||
+        // Validação dos campos obrigatórios
+        if (titulo.isEmpty() || inicioDate == null || inicioTimeStr.isEmpty() ||
                 fimDate == null || fimTimeStr.isEmpty()) {
-            mostrarAlerta("Erro", "Todos os campos e pelo menos um item votável são obrigatórios.");
+            mostrarAlerta("Erro", "Todos os campos (título, data/hora) são obrigatórios.");
             return;
         }
+
+        // Validação para ter no mínimo 2 opções de voto
+        if (listaItens.getItems().size() < 2) {
+            mostrarAlerta("Erro de Opções", "É necessário adicionar no mínimo 2 opções de voto.");
+            return;
+        }
+
 
         Timestamp inicioTimestamp;
         Timestamp fimTimestamp;
@@ -160,6 +168,8 @@ public class CriarVotacaoController {
      */
     @FXML private void cancelar() {
         listaItens.getItems().clear();
+        campoTitulo.clear();
+        // comboTipo.getSelectionModel().clearSelection(); // Removido, se ComboBox não existe
         campoItem.clear();
         inicioDatePicker.setValue(null);
         inicioTimeField.clear();

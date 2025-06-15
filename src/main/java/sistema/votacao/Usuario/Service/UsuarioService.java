@@ -86,16 +86,4 @@ public class UsuarioService {
         return votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacaoId); // Verifica se o voto existe
     }
 
-    /**
-     * Método para atualizar o status de voto de um usuário.
-     * @param usuarioId ID do usuário cujo status de voto será atualizado.
-     * @param status Novo status de voto (true se já votou, false caso contrário).
-     * @throws RuntimeException se o usuário não for encontrado.
-     */
-    public void atualizarStatusVoto(Long usuarioId, boolean status) {
-        UsuarioModel usuario = this.buscarPorId(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado")); // Verifica se o usuário existe
-        usuario.setJaVotou(status);
-        usuarioRepository.save(usuario);
-    }
 }

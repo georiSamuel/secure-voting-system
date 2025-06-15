@@ -61,9 +61,6 @@ public class TelaUsuarioController {
      * Configura os event handlers para os botões e itens de menu.
      */
     @FXML public void initialize() {
-        MenuItem abrirVotacoesItem = new MenuItem("Abrir Votações Disponíveis");
-        abrirVotacoesItem.setOnAction(this::handleAbrirTelaVotacao);
-        menuVotacoesAbertas.getItems().add(abrirVotacoesItem);
 
         if (botaoVotar != null) {
             botaoVotar.setOnAction(this::handleAbrirTelaVotacao);

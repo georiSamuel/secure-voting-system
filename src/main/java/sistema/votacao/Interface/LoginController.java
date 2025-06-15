@@ -18,6 +18,7 @@ import sistema.votacao.Usuario.Service.UsuarioService;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -77,6 +78,13 @@ public class LoginController {
 
         if(email.isEmpty() || senha.isEmpty()) {
             mostrarAlerta("Erro de Login", "Por favor, preencha todos os campos.");
+            return;
+        }
+
+        // Adiciona uma verificação para garantir que o serviço de usuário não seja nulo
+        if (usuarioService == null) {
+            mostrarAlerta("Erro de Configuração", "O serviço de usuário não foi inicializado corretamente. " +
+                    "Verifique a configuração do Spring ou as anotações na classe UsuarioService.");
             return;
         }
 
@@ -140,7 +148,7 @@ public class LoginController {
             } else {
                 String url = "https://github.com/georiSamuel/secure-voting-system";
                 mostrarAlerta("Link do Repositório", "Sistema não suportado para abrir URLs automaticamente.\n" +
-                                "Acesse manualmente: " + url);
+                        "Acesse manualmente: " + url);
 
             }
         } catch (Exception e) {
@@ -159,7 +167,7 @@ public class LoginController {
      * @since 31/05/25
      * @param actionEvent O evento de ação que disparou este método.
      */
-    @FXML public void abrirCadastro(ActionEvent actionEvent) {
+    public void abrirCadastro(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/cadastro.fxml")));
             loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
@@ -171,10 +179,10 @@ public class LoginController {
 
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Não foi possível carregar a tela de cadastro.");
+            mostrarAlerta("Erro", "Não foi possível carregar a tela de cadastro: " + e.getMessage()); // Adicionado o erro
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela de cadastro.");
+            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela de cadastro: " + e.getMessage()); // Adicionado o erro
         }
     }
 
@@ -185,27 +193,24 @@ public class LoginController {
      * @since 22/05/25
      */
     @FXML private void abrirTelaUsuario() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml")));
-            loader.setControllerFactory(SistemaVotacaoApplication.getSpringContext()::getBean);
-            Parent telaUsuario = loader.load();
-            TelaUsuarioController telaUsuarioController = loader.getController();
-            telaUsuarioController.setUsuarioLogadoId(usuarioLogado.getId());
+            try {
+                URL telaUsuarioFxmlUrl = Objects.requireNonNull(getClass().getResource("/views/telausuario.fxml"));
+                Parent telaUsuario = FXMLLoader.load(telaUsuarioFxmlUrl); // Carregamento simplificado
 
-            Scene cenaAtual = usuarioCampo.getScene();
-            Stage palco = (Stage) cenaAtual.getWindow();
-            palco.setScene(new Scene(telaUsuario));
-            palco.setTitle("Área de Usuário");
-            palco.sizeToScene();
+                Scene cenaAtual = usuarioCampo.getScene();
+                Stage palco = (Stage) cenaAtual.getWindow();
+                palco.setScene(new Scene(telaUsuario));
+                palco.setTitle("Área de Usuário");
+                palco.sizeToScene();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+                mostrarAlerta("Erro de Carregamento", "Não foi possível carregar a tela do usuário. Verifique se 'telausuario.fxml' está no caminho correto e sem erros de sintaxe.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                mostrarAlerta("Erro Inesperado", "Ocorreu um erro inesperado ao abrir a tela do usuário: " + e.getMessage());
+            }
         }
-        catch (IOException e) {
-            e.printStackTrace();
-            mostrarAlerta("Erro", "Não foi possível carregar a tela do usuário.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do usuário.");
-        }
-    }
 
     /**
      * Método para abrir a tela do administrador.
@@ -229,11 +234,11 @@ public class LoginController {
         }
         catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Não foi possível carregar a tela do administrador.");
+            mostrarAlerta("Erro", "Não foi possível carregar a tela do administrador: " + e.getMessage());
         }
         catch (Exception e) {
             e.printStackTrace();
-            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do administrador.");
+            mostrarAlerta("Erro", "Ocorreu um erro inesperado ao abrir a tela do administrador: " + e.getMessage());
         }
     }
 

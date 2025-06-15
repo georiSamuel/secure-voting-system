@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="backgroundCor" prefHeight="600" prefWidth="800" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.LoginController">
+<AnchorPane fx:id="backgroundCor" prefHeight="600" prefWidth="800" style="-fx-background-color: #5B50C0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.votacao.Interface.LoginController">
     <AnchorPane fx:id="telaBranca" layoutX="200.0" layoutY="71.0" prefHeight="457.0" prefWidth="400" style="-fx-background-color: white; -fx-background-radius: 10;">
-        <Label fx:id="tituloText" layoutX="121.0" layoutY="30.0" prefHeight="40.0" prefWidth="157.0" text="Bem-vindo" textFill="#2b2b2b">
+        <Label fx:id="tituloText" layoutX="121.0" layoutY="30.0" prefHeight="42.0" prefWidth="228.0" text="Bem-vindo" textFill="#2b2b2b">
             <font>
                 <Font name="System Bold" size="30.0" />
             </font>
         </Label>
-        <Label fx:id="descricaoText" layoutX="131.0" layoutY="176.0" prefHeight="18.0" prefWidth="137.0" text="Faça login para continuar" textAlignment="CENTER" textFill="#7a7a7a" />
+        <Label fx:id="descricaoText" layoutX="122.0" layoutY="190.0" prefHeight="18.0" prefWidth="157.0" text="Faça login para continuar" textAlignment="CENTER" textFill="#7a7a7a" />
         <TextField fx:id="usuarioCampo" layoutX="50.0" layoutY="229.0" prefHeight="35" prefWidth="300" promptText="Digite seu usuário" />
         <PasswordField fx:id="senhaCampo" layoutX="50.0" layoutY="291.0" prefHeight="35" prefWidth="300" promptText="Digite sua senha" />
         <Button fx:id="botaoLogin" layoutX="50.0" layoutY="352.0" mnemonicParsing="false" onAction="#fazerLogin" prefHeight="40" prefWidth="300" style="-fx-background-color: #6555DB; -fx-text-fill: white;" text="Entrar" />

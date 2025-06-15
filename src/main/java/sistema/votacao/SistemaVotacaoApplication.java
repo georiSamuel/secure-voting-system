@@ -14,21 +14,54 @@ import java.util.Objects;
 /**
  * Aplicação do JavaFX integrada com Spring Boot.
  * Esta classe inicia o contexto Spring e lança a interface gráfica.
+ *
+ * <p>A anotação {@code @SpringBootApplication} habilita a configuração automática,
+ * a varredura de componentes e a capacidade de ser uma fonte de definições de bean.
+ * O {@code scanBasePackages} garante que todos os componentes dentro do pacote
+ * "sistema.votacao" e seus subpacotes sejam detectados pelo Spring.</p>
+ *
  * @version 2.1
  * @since 10/06/25
  */
 @SpringBootApplication(scanBasePackages = {"sistema.votacao"})
 public class SistemaVotacaoApplication extends Application {
 
+    /**
+     * O contexto da aplicação Spring.
+     * Este é um atributo estático para que possa ser acessado de qualquer lugar
+     * na aplicação, permitindo que os controladores do JavaFX obtenham beans
+     * gerenciados pelo Spring e carreguem FXMLs com injeção de dependência.
+     *
+     * @since 10/06/25
+     * @version 2.0
+     */
     private static ConfigurableApplicationContext springContext;
 
-    @Override
-    public void init() throws Exception {
+    /**
+     * Método de inicialização da aplicação JavaFX.
+     * É chamado antes do método {@code start()}.
+     * Neste método, o contexto da aplicação Spring Boot é inicializado.
+     *
+     * @throws Exception se ocorrer um erro durante a inicialização do contexto Spring.
+     * @since 10/06/25
+     * @version 1.0
+     */
+    @Override public void init() throws Exception {
         springContext = new SpringApplication(SistemaVotacaoApplication.class).run();
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+
+    /**
+     * Método de início da aplicação JavaFX.
+     * É chamado após o método {@code init()} e é responsável por configurar e exibir
+     * a interface gráfica principal da aplicação.
+     *
+     * @param primaryStage o palco (janela principal) da aplicação JavaFX.
+     * @throws Exception se ocorrer um erro ao carregar o arquivo FXML ou configurar a cena.
+     * @since 10/06/25
+     * @version 1.0
+     */
+    @Override public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/views/login.fxml")));
         loader.setControllerFactory(springContext::getBean);
 
@@ -40,14 +73,31 @@ public class SistemaVotacaoApplication extends Application {
         primaryStage.show();
     }
 
-    @Override
-    public void stop() throws Exception {
+    /**
+     * Método de parada da aplicação JavaFX.
+     * É chamado quando a aplicação está sendo encerrada, permitindo a limpeza de recursos.
+     * Neste método, o contexto do Spring é fechado.
+     *
+     * @throws Exception se ocorrer um erro durante o fechamento do contexto Spring ou na parada padrão.
+     * @since 10/06/25
+     * @version 1.0
+     */
+    @Override public void stop() throws Exception {
         if (springContext != null) {
             springContext.close();
         }
         super.stop();
     }
 
+    /**
+     * Método principal da aplicação.
+     * Este é o ponto de entrada para a execução do programa.
+     * Ele chama o método {@code launch()} do JavaFX para iniciar a aplicação.
+     *
+     * @param args argumentos de linha de comando.
+     * @since 10/06/25
+     * @version 1.0
+     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -55,7 +105,10 @@ public class SistemaVotacaoApplication extends Application {
     /**
      * Método estático para permitir que os controllers acessem o contexto Spring
      * e carreguem outros FXMLs com injeção de dependências.
+     *
      * @return O contexto da aplicação Spring.
+     * @since 10/06/25
+     * @version 1.0
      */
     public static ConfigurableApplicationContext getSpringContext() {
         return springContext;

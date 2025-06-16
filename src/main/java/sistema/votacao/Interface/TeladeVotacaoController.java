@@ -255,18 +255,29 @@ public class TeladeVotacaoController {
     @FXML private void handleVoltarButton(ActionEvent event) {
         try {
             String fxmlPath;
+            String newTitle; // Variável para guardar o novo título
 
+            // Verifica o tipo de usuário para definir o caminho do FXML e o título
             if (usuarioLogado != null && usuarioLogado.getTipoUsuario() == TipoUsuario.Tipo.ADMIN) {
                 fxmlPath = "/views/telaadmin.fxml";
+                newTitle = "Tela de Admin"; // Define o título para Admin
             } else {
                 fxmlPath = "/views/telausuario.fxml";
+                newTitle = "Tela do Usuário"; // Define o título para Usuário
             }
 
+            // Carrega o FXML de forma estática
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+
+            // Obtém a janela atual
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Define a nova cena e o novo título
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle(newTitle);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR,"Erro", "Não foi possível voltar para a tela anterior.");

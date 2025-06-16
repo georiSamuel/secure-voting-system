@@ -162,9 +162,9 @@ public class TelaAdminController {
             ResultadosController controller = loader.getController();
 
             controller.setServices(
-                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.Votacao.Service.VotacaoService.class),
-                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.OpcaoVoto.Service.OpcaoVotoService.class),
-                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.Voto.Service.VotoService.class)
+                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.votacao.service.VotacaoService.class),
+                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.opcao_voto.service.OpcaoVotoService.class),
+                    SistemaVotacaoApplication.getSpringContext().getBean(sistema.votacao.voto.service.VotoService.class)
             );
 
             Stage stage = (Stage) botaoResultados.getScene().getWindow();

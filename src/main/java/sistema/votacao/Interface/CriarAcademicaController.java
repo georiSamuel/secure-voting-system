@@ -11,10 +11,10 @@ import javafx.event.ActionEvent;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sistema.votacao.Votacao.Model.TipoCargoAcademico;
-import sistema.votacao.Votacao.Model.VotacaoAcademica;
-import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
-import sistema.votacao.Votacao.Service.VotacaoService;
+import sistema.votacao.votacao.model.TipoCargoAcademico;
+import sistema.votacao.votacao.model.VotacaoAcademica;
+import sistema.votacao.opcao_voto.model.OpcaoVoto;
+import sistema.votacao.votacao.service.VotacaoService;
 import sistema.votacao.SistemaVotacaoApplication; // Importa a aplicação principal
 import javafx.stage.Stage;
 

@@ -9,9 +9,9 @@ import javafx.stage.Stage;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 import sistema.votacao.SistemaVotacaoApplication;
-import sistema.votacao.Votacao.Service.VotacaoService;
-import sistema.votacao.Votacao.Model.VotacaoPersonalizada; // Import para VotacaoPersonalizada
-import sistema.votacao.OpcaoVoto.Model.OpcaoVoto; // Import para OpcaoVoto
+import sistema.votacao.votacao.service.VotacaoService;
+import sistema.votacao.votacao.model.VotacaoPersonalizada; // Import para VotacaoPersonalizada
+import sistema.votacao.opcao_voto.model.OpcaoVoto; // Import para OpcaoVoto
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

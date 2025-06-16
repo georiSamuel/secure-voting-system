@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2025-06-16">
-<meta name="description" content="declaration: package: sistema.votacao.Usuario.Repository, interface: UsuarioRepository">
+<meta name="description" content="declaration: package: sistema.votacao.usuario.repository, interface: UsuarioRepository">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.min.css" title="Style">
@@ -82,17 +82,17 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">sistema.votacao.Usuario.Repository</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">sistema.votacao.usuario.repository</a></div>
 <h1 title="Interface UsuarioRepository" class="title">Interface UsuarioRepository</h1>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Superinterfaces:</dt>
-<dd><code>org.springframework.data.repository.CrudRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code>, <code>org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code>, <code>org.springframework.data.repository.ListCrudRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code>, <code>org.springframework.data.repository.ListPagingAndSortingRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code>, <code>org.springframework.data.repository.PagingAndSortingRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code>, <code>org.springframework.data.repository.query.QueryByExampleExecutor&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>&gt;</code>, <code>org.springframework.data.repository.Repository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code></dd>
+<dd><code>org.springframework.data.repository.CrudRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code>, <code>org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code>, <code>org.springframework.data.repository.ListCrudRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code>, <code>org.springframework.data.repository.ListPagingAndSortingRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code>, <code>org.springframework.data.repository.PagingAndSortingRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code>, <code>org.springframework.data.repository.query.QueryByExampleExecutor&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>&gt;</code>, <code>org.springframework.data.repository.Repository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">UsuarioRepository</span><span class="extends-implements">
-extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</span></div>
+extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;</span></div>
 <div class="block">Interface responsável por definir os métodos de acesso aos dados de usuários no banco de dados.</div>
 <dl class="notes">
 <dt>Since:</dt>
@@ -117,16 +117,16 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../Mod
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#existsByTipoUsuario(sistema.votacao.Usuario.Model.TipoUsuario.Tipo)" class="member-name-link">existsByTipoUsuario</a><wbr>(<a href="../Model/TipoUsuario.Tipo.html" title="enum class in sistema.votacao.Usuario.Model">TipoUsuario.Tipo</a>&nbsp;tipo)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#existsByTipoUsuario(sistema.votacao.Usuario.Model.TipoUsuario.Tipo)" class="member-name-link">existsByTipoUsuario</a><wbr>(<a href="../Model/TipoUsuario.Tipo.html" title="enum class in sistema.votacao.usuario.model">TipoUsuario.Tipo</a>&nbsp;tipo)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Método para verificar se já existe um usuário com o tipo especificado.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findByCpf(java.lang.String)" class="member-name-link">findByCpf</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cpf)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Método para encontrar um usuário pelo seu cpf.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findByEmail(java.lang.String)" class="member-name-link">findByEmail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;email)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Método para encontrar um usuário pelo seu email.</div>
@@ -166,7 +166,7 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../Mod
 <li>
 <section class="detail" id="findByEmail(java.lang.String)">
 <h3>findByEmail</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>&gt;</span>&nbsp;<span class="element-name">findByEmail</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;email)</span></div>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>&gt;</span>&nbsp;<span class="element-name">findByEmail</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;email)</span></div>
 <div class="block">Método para encontrar um usuário pelo seu email.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -179,7 +179,7 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../Mod
 <li>
 <section class="detail" id="findByCpf(java.lang.String)">
 <h3>findByCpf</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.Usuario.Model">UsuarioModel</a>&gt;</span>&nbsp;<span class="element-name">findByCpf</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cpf)</span></div>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../Model/UsuarioModel.html" title="class in sistema.votacao.usuario.model">UsuarioModel</a>&gt;</span>&nbsp;<span class="element-name">findByCpf</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cpf)</span></div>
 <div class="block">Método para encontrar um usuário pelo seu cpf.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -192,7 +192,7 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../Mod
 <li>
 <section class="detail" id="existsByTipoUsuario(sistema.votacao.Usuario.Model.TipoUsuario.Tipo)">
 <h3>existsByTipoUsuario</h3>
-<div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">existsByTipoUsuario</span><wbr><span class="parameters">(<a href="../Model/TipoUsuario.Tipo.html" title="enum class in sistema.votacao.Usuario.Model">TipoUsuario.Tipo</a>&nbsp;tipo)</span></div>
+<div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">existsByTipoUsuario</span><wbr><span class="parameters">(<a href="../Model/TipoUsuario.Tipo.html" title="enum class in sistema.votacao.usuario.model">TipoUsuario.Tipo</a>&nbsp;tipo)</span></div>
 <div class="block">Método para verificar se já existe um usuário com o tipo especificado.
  O nome do método foi atualizado para corresponder ao nome da propriedade 'tipoUsuario' em UsuarioModel.</div>
 <dl class="notes">

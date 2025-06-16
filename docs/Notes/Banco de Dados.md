@@ -53,7 +53,7 @@ Para que o MySQL funcione corretamente dentro do Spring Boot, é necessário:
     - Ou manualmente no arquivo `pom.xml` (projetos Maven)
 
 
-![image (4).png](../../Assets/image%20%284%29.png)
+![image (4).png](../../assets/image%20%284%29.png)
 
 
 2. **Configurar os dados de conexão** no arquivo `application.properties` (localizado em `src/main/resources`)
@@ -94,7 +94,7 @@ Além das configurações do MySQL, outra ferramenta essencial na integração c
 - Gerencia a conexão com o banco
 
 
-![image (5).png](../../Assets/image%20%285%29.png)
+![image (5).png](../../assets/image%20%285%29.png)
 
 
 
@@ -129,7 +129,7 @@ Para integração com o banco de dados, as classes mais fundamentais são:
 
 O pacote **model** contém as entidades do banco de dados - classes Java que representam tabelas no banco relacional.
 
-![image (6).png](../../Assets/image%20%286%29.png)
+![image (6).png](../../assets/image%20%286%29.png)
 
 #### Anotações Principais
 
@@ -168,4 +168,4 @@ Em segundo plano, o **Hibernate** atua como implementação do JPA:
 
 Com essa integração, o Spring Boot permite que os repositórios forneçam de forma simples e eficiente os métodos para salvar, buscar, atualizar e deletar dados diretamente no banco.
 
-![image (7).png](../../Assets/image%20%287%29.png)
+![image (7).png](../../assets/image%20%287%29.png)

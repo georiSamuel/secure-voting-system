@@ -59,7 +59,7 @@ O pulo do 🐱: A chave pública criptografa mensagem, mas não pode descritogra
 
 ### Como funciona
 
-![image (3).png](../../Assets/image%20%283%29.png)
+![image (3).png](../../assets/image%20%283%29.png)
 
 Segue o funcionamento genérico:
 

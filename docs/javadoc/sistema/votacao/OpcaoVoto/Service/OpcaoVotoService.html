@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2025-06-16">
-<meta name="description" content="declaration: package: sistema.votacao.OpcaoVoto.Service, class: OpcaoVotoService">
+<meta name="description" content="declaration: package: sistema.votacao.opcao_voto.service, class: OpcaoVotoService">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.min.css" title="Style">
@@ -82,11 +82,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">sistema.votacao.OpcaoVoto.Service</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">sistema.votacao.opcao_voto.service</a></div>
 <h1 title="Class OpcaoVotoService" class="title">Class OpcaoVotoService</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">sistema.votacao.OpcaoVoto.Service.OpcaoVotoService</div>
+<div class="inheritance">sistema.votacao.opcao_voto.service.OpcaoVotoService</div>
 </div>
 <section class="class-description" id="class-description">
 <hr>
@@ -115,8 +115,8 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(sistema.votacao.OpcaoVoto.Repository.OpcaoVotoRepository,sistema.votacao.Votacao.Repository.VotacaoRepository)" class="member-name-link">OpcaoVotoService</a><wbr>(<a href="../Repository/OpcaoVotoRepository.html" title="interface in sistema.votacao.OpcaoVoto.Repository">OpcaoVotoRepository</a>&nbsp;opcaoVotoRepository,
- <a href="../../Votacao/Repository/VotacaoRepository.html" title="interface in sistema.votacao.Votacao.Repository">VotacaoRepository</a>&nbsp;votacaoRepository)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(sistema.votacao.OpcaoVoto.Repository.OpcaoVotoRepository,sistema.votacao.Votacao.Repository.VotacaoRepository)" class="member-name-link">OpcaoVotoService</a><wbr>(<a href="../Repository/OpcaoVotoRepository.html" title="interface in sistema.votacao.opcao_voto.repository">OpcaoVotoRepository</a>&nbsp;opcaoVotoRepository,
+ <a href="../../Votacao/Repository/VotacaoRepository.html" title="interface in sistema.votacao.votacao.repository">VotacaoRepository</a>&nbsp;votacaoRepository)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Construtor que injeta os repositórios de opção de voto e votação.</div>
 </div>
@@ -134,23 +134,23 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarOpcoesPorVotacao(java.lang.Long)" class="member-name-link">buscarOpcoesPorVotacao</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Busca todas as opções de voto associadas a uma votação.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarPorId(java.lang.Long)" class="member-name-link">buscarPorId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Busca uma opção de voto pelo seu ID.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarRankingPorVotacao(java.lang.Long)" class="member-name-link">buscarRankingPorVotacao</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retorna o ranking das opções de voto de uma votação, ordenadas pela
  quantidade de votos.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarVencedoraPorVotacao(java.lang.Long)" class="member-name-link">buscarVencedoraPorVotacao</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Busca a opção de voto vencedora de uma votação.</div>
@@ -160,15 +160,15 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Conta quantas opções de voto existem em uma determinada votação.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#criarOpcaoVoto(java.lang.String,java.lang.Long)" class="member-name-link">criarOpcaoVoto</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descricao,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Cria uma nova opção de voto com base em uma descrição e ID da votação.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#criarOpcaoVoto(java.lang.String,sistema.votacao.Votacao.Model.Votacao)" class="member-name-link">criarOpcaoVoto</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descricao,
- <a href="../../Votacao/Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a>&nbsp;votacao)</code></div>
+ <a href="../../Votacao/Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a>&nbsp;votacao)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Cria uma nova opção de voto com base em uma descrição e objeto Votacao.</div>
 </div>
@@ -184,7 +184,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Verifica se já existe uma opção de voto com a mesma descrição em uma
  determinada votação.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#incrementarVotos(java.lang.Long)" class="member-name-link">incrementarVotos</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;opcaoId)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Incrementa a quantidade de votos de uma opção de voto específica.</div>
@@ -209,8 +209,8 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="&lt;init&gt;(sistema.votacao.OpcaoVoto.Repository.OpcaoVotoRepository,sistema.votacao.Votacao.Repository.VotacaoRepository)">
 <h3>OpcaoVotoService</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">OpcaoVotoService</span><wbr><span class="parameters">(<a href="../Repository/OpcaoVotoRepository.html" title="interface in sistema.votacao.OpcaoVoto.Repository">OpcaoVotoRepository</a>&nbsp;opcaoVotoRepository,
- <a href="../../Votacao/Repository/VotacaoRepository.html" title="interface in sistema.votacao.Votacao.Repository">VotacaoRepository</a>&nbsp;votacaoRepository)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">OpcaoVotoService</span><wbr><span class="parameters">(<a href="../Repository/OpcaoVotoRepository.html" title="interface in sistema.votacao.opcao_voto.repository">OpcaoVotoRepository</a>&nbsp;opcaoVotoRepository,
+ <a href="../../Votacao/Repository/VotacaoRepository.html" title="interface in sistema.votacao.votacao.repository">VotacaoRepository</a>&nbsp;votacaoRepository)</span></div>
 <div class="block">Construtor que injeta os repositórios de opção de voto e votação.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -231,7 +231,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="criarOpcaoVoto(java.lang.String,java.lang.Long)">
 <h3>criarOpcaoVoto</h3>
 <div class="member-signature"><span class="annotations">@Transactional
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a></span>&nbsp;<span class="element-name">criarOpcaoVoto</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descricao,
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a></span>&nbsp;<span class="element-name">criarOpcaoVoto</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descricao,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</span></div>
 <div class="block">Cria uma nova opção de voto com base em uma descrição e ID da votação.</div>
 <dl class="notes">
@@ -247,8 +247,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="criarOpcaoVoto(java.lang.String,sistema.votacao.Votacao.Model.Votacao)">
 <h3>criarOpcaoVoto</h3>
 <div class="member-signature"><span class="annotations">@Transactional
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a></span>&nbsp;<span class="element-name">criarOpcaoVoto</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descricao,
- <a href="../../Votacao/Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a>&nbsp;votacao)</span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a></span>&nbsp;<span class="element-name">criarOpcaoVoto</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descricao,
+ <a href="../../Votacao/Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a>&nbsp;votacao)</span></div>
 <div class="block">Cria uma nova opção de voto com base em uma descrição e objeto Votacao.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -263,7 +263,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="buscarOpcoesPorVotacao(java.lang.Long)">
 <h3>buscarOpcoesPorVotacao</h3>
 <div class="member-signature"><span class="annotations">@Transactional(readOnly=true)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a>&gt;</span>&nbsp;<span class="element-name">buscarOpcoesPorVotacao</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a>&gt;</span>&nbsp;<span class="element-name">buscarOpcoesPorVotacao</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</span></div>
 <div class="block">Busca todas as opções de voto associadas a uma votação.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -277,7 +277,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="incrementarVotos(java.lang.Long)">
 <h3>incrementarVotos</h3>
 <div class="member-signature"><span class="annotations">@Transactional
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a></span>&nbsp;<span class="element-name">incrementarVotos</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;opcaoId)</span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a></span>&nbsp;<span class="element-name">incrementarVotos</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;opcaoId)</span></div>
 <div class="block">Incrementa a quantidade de votos de uma opção de voto específica.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -291,7 +291,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="buscarPorId(java.lang.Long)">
 <h3>buscarPorId</h3>
 <div class="member-signature"><span class="annotations">@Transactional(readOnly=true)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a></span>&nbsp;<span class="element-name">buscarPorId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a></span>&nbsp;<span class="element-name">buscarPorId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 <div class="block">Busca uma opção de voto pelo seu ID.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -338,7 +338,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="buscarRankingPorVotacao(java.lang.Long)">
 <h3>buscarRankingPorVotacao</h3>
 <div class="member-signature"><span class="annotations">@Transactional(readOnly=true)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a>&gt;</span>&nbsp;<span class="element-name">buscarRankingPorVotacao</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a>&gt;</span>&nbsp;<span class="element-name">buscarRankingPorVotacao</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</span></div>
 <div class="block">Retorna o ranking das opções de voto de uma votação, ordenadas pela
  quantidade de votos.</div>
 <dl class="notes">
@@ -353,7 +353,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="buscarVencedoraPorVotacao(java.lang.Long)">
 <h3>buscarVencedoraPorVotacao</h3>
 <div class="member-signature"><span class="annotations">@Transactional(readOnly=true)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.OpcaoVoto.Model">OpcaoVoto</a>&gt;</span>&nbsp;<span class="element-name">buscarVencedoraPorVotacao</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../Model/OpcaoVoto.html" title="class in sistema.votacao.opcao_voto.model">OpcaoVoto</a>&gt;</span>&nbsp;<span class="element-name">buscarVencedoraPorVotacao</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;votacaoId)</span></div>
 <div class="block">Busca a opção de voto vencedora de uma votação.</div>
 <dl class="notes">
 <dt>Parameters:</dt>

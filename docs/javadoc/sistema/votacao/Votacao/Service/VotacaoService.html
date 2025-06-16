@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2025-06-16">
-<meta name="description" content="declaration: package: sistema.votacao.Votacao.Service, class: VotacaoService">
+<meta name="description" content="declaration: package: sistema.votacao.votacao.service, class: VotacaoService">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.min.css" title="Style">
@@ -82,11 +82,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">sistema.votacao.Votacao.Service</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">sistema.votacao.votacao.service</a></div>
 <h1 title="Class VotacaoService" class="title">Class VotacaoService</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">sistema.votacao.Votacao.Service.VotacaoService</div>
+<div class="inheritance">sistema.votacao.votacao.service.VotacaoService</div>
 </div>
 <section class="class-description" id="class-description">
 <hr>
@@ -115,8 +115,8 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(sistema.votacao.Votacao.Repository.VotacaoRepository,sistema.votacao.Voto.Repository.VotoRepository)" class="member-name-link">VotacaoService</a><wbr>(<a href="../Repository/VotacaoRepository.html" title="interface in sistema.votacao.Votacao.Repository">VotacaoRepository</a>&nbsp;votacaoRepository,
- <a href="../../Voto/Repository/VotoRepository.html" title="interface in sistema.votacao.Voto.Repository">VotoRepository</a>&nbsp;votoRepository)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(sistema.votacao.Votacao.Repository.VotacaoRepository,sistema.votacao.Voto.Repository.VotoRepository)" class="member-name-link">VotacaoService</a><wbr>(<a href="../Repository/VotacaoRepository.html" title="interface in sistema.votacao.votacao.repository">VotacaoRepository</a>&nbsp;votacaoRepository,
+ <a href="../../Voto/Repository/VotoRepository.html" title="interface in sistema.votacao.voto.repository">VotoRepository</a>&nbsp;votoRepository)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Construtor que injeta as dependências dos repositórios de votação e voto.</div>
 </div>
@@ -134,28 +134,28 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarPorId(java.lang.Long)" class="member-name-link">buscarPorId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Busca uma votação pelo seu ID.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarTodasVotacoes()" class="member-name-link">buscarTodasVotacoes</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Busca todas as votações cadastradas.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarVotacoesAtivas()" class="member-name-link">buscarVotacoesAtivas</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Busca as votações que estão ativas no momento da consulta.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#criarVotacao(sistema.votacao.Votacao.Model.Votacao)" class="member-name-link">criarVotacao</a><wbr>(<a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a>&nbsp;votacao)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#criarVotacao(sistema.votacao.Votacao.Model.Votacao)" class="member-name-link">criarVotacao</a><wbr>(<a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a>&nbsp;votacao)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Cria uma nova votação após validar as datas.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/VotacaoPersonalizada.html" title="class in sistema.votacao.Votacao.Model">VotacaoPersonalizada</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#criarVotacaoPersonalizada(sistema.votacao.Votacao.Model.VotacaoPersonalizada)" class="member-name-link">criarVotacaoPersonalizada</a><wbr>(<a href="../Model/VotacaoPersonalizada.html" title="class in sistema.votacao.Votacao.Model">VotacaoPersonalizada</a>&nbsp;votacao)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/VotacaoPersonalizada.html" title="class in sistema.votacao.votacao.model">VotacaoPersonalizada</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#criarVotacaoPersonalizada(sistema.votacao.Votacao.Model.VotacaoPersonalizada)" class="member-name-link">criarVotacaoPersonalizada</a><wbr>(<a href="../Model/VotacaoPersonalizada.html" title="class in sistema.votacao.votacao.model">VotacaoPersonalizada</a>&nbsp;votacao)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Cria uma votação personalizada, aplicando regras específicas para este tipo.</div>
 </div>
@@ -164,7 +164,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Deleta uma votação pelo seu ID, se existir.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#encerrarVotacao(java.lang.Long)" class="member-name-link">encerrarVotacao</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Encerra uma votação definindo seu fim como o momento atual.</div>
@@ -194,8 +194,8 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="&lt;init&gt;(sistema.votacao.Votacao.Repository.VotacaoRepository,sistema.votacao.Voto.Repository.VotoRepository)">
 <h3>VotacaoService</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">VotacaoService</span><wbr><span class="parameters">(<a href="../Repository/VotacaoRepository.html" title="interface in sistema.votacao.Votacao.Repository">VotacaoRepository</a>&nbsp;votacaoRepository,
- <a href="../../Voto/Repository/VotoRepository.html" title="interface in sistema.votacao.Voto.Repository">VotoRepository</a>&nbsp;votoRepository)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">VotacaoService</span><wbr><span class="parameters">(<a href="../Repository/VotacaoRepository.html" title="interface in sistema.votacao.votacao.repository">VotacaoRepository</a>&nbsp;votacaoRepository,
+ <a href="../../Voto/Repository/VotoRepository.html" title="interface in sistema.votacao.voto.repository">VotoRepository</a>&nbsp;votoRepository)</span></div>
 <div class="block">Construtor que injeta as dependências dos repositórios de votação e voto.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -215,7 +215,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="criarVotacao(sistema.votacao.Votacao.Model.Votacao)">
 <h3>criarVotacao</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a></span>&nbsp;<span class="element-name">criarVotacao</span><wbr><span class="parameters">(<a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a>&nbsp;votacao)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a></span>&nbsp;<span class="element-name">criarVotacao</span><wbr><span class="parameters">(<a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a>&nbsp;votacao)</span></div>
 <div class="block">Cria uma nova votação após validar as datas.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -231,7 +231,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="buscarTodasVotacoes()">
 <h3>buscarTodasVotacoes</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a>&gt;</span>&nbsp;<span class="element-name">buscarTodasVotacoes</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a>&gt;</span>&nbsp;<span class="element-name">buscarTodasVotacoes</span>()</div>
 <div class="block">Busca todas as votações cadastradas.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -242,7 +242,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="buscarPorId(java.lang.Long)">
 <h3>buscarPorId</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a>&gt;</span>&nbsp;<span class="element-name">buscarPorId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a>&gt;</span>&nbsp;<span class="element-name">buscarPorId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 <div class="block">Busca uma votação pelo seu ID.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -268,7 +268,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="buscarVotacoesAtivas()">
 <h3>buscarVotacoesAtivas</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a>&gt;</span>&nbsp;<span class="element-name">buscarVotacoesAtivas</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a>&gt;</span>&nbsp;<span class="element-name">buscarVotacoesAtivas</span>()</div>
 <div class="block">Busca as votações que estão ativas no momento da consulta.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -279,7 +279,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="encerrarVotacao(java.lang.Long)">
 <h3>encerrarVotacao</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/Votacao.html" title="class in sistema.votacao.Votacao.Model">Votacao</a></span>&nbsp;<span class="element-name">encerrarVotacao</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/Votacao.html" title="class in sistema.votacao.votacao.model">Votacao</a></span>&nbsp;<span class="element-name">encerrarVotacao</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 <div class="block">Encerra uma votação definindo seu fim como o momento atual.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -309,7 +309,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="criarVotacaoPersonalizada(sistema.votacao.Votacao.Model.VotacaoPersonalizada)">
 <h3>criarVotacaoPersonalizada</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/VotacaoPersonalizada.html" title="class in sistema.votacao.Votacao.Model">VotacaoPersonalizada</a></span>&nbsp;<span class="element-name">criarVotacaoPersonalizada</span><wbr><span class="parameters">(<a href="../Model/VotacaoPersonalizada.html" title="class in sistema.votacao.Votacao.Model">VotacaoPersonalizada</a>&nbsp;votacao)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Model/VotacaoPersonalizada.html" title="class in sistema.votacao.votacao.model">VotacaoPersonalizada</a></span>&nbsp;<span class="element-name">criarVotacaoPersonalizada</span><wbr><span class="parameters">(<a href="../Model/VotacaoPersonalizada.html" title="class in sistema.votacao.votacao.model">VotacaoPersonalizada</a>&nbsp;votacao)</span></div>
 <div class="block">Cria uma votação personalizada, aplicando regras específicas para este tipo.</div>
 <dl class="notes">
 <dt>Parameters:</dt>

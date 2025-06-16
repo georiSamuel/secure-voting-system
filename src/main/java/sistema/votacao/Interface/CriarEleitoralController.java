@@ -8,10 +8,10 @@ import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sistema.votacao.Votacao.Model.TipoCargoEleitoral;
-import sistema.votacao.Votacao.Model.VotacaoEleitoral;
-import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
-import sistema.votacao.Votacao.Service.VotacaoService;
+import sistema.votacao.votacao.model.TipoCargoEleitoral;
+import sistema.votacao.votacao.model.VotacaoEleitoral;
+import sistema.votacao.opcao_voto.model.OpcaoVoto;
+import sistema.votacao.votacao.service.VotacaoService;
 import sistema.votacao.SistemaVotacaoApplication; // Importa a aplicação principal
 import javafx.scene.Parent;
 import javafx.scene.Scene;

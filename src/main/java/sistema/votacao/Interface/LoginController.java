@@ -12,9 +12,9 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sistema.votacao.SistemaVotacaoApplication;
-import sistema.votacao.Usuario.Model.UsuarioModel;
-import sistema.votacao.Usuario.Model.TipoUsuario;
-import sistema.votacao.Usuario.Service.UsuarioService;
+import sistema.votacao.usuario.model.UsuarioModel;
+import sistema.votacao.usuario.model.TipoUsuario;
+import sistema.votacao.usuario.service.UsuarioService;
 
 import java.awt.Desktop;
 import java.io.IOException;

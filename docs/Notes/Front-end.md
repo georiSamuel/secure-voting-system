@@ -2,7 +2,7 @@
 
 *(Tela de login. -Versão sujeita a mudanças.)*
 
-![image (2).png](../../Assets/image%20%282%29.png)
+![image (2).png](../../assets/image%20%282%29.png)
 
 #  Desenvolvimento:
 
@@ -23,7 +23,7 @@ A Interface Gráfica do projeto será desenvolvido utilizando principalmente o [
 
 Os arquivos FXML são documentos XML desenvolvidos especificamente para o JavaFX, com a finalidade de descrever interfaces gráficas (UI) de forma declarativa. Eles têm uma estrutura hierárquica, sintaxe específica e vinculação com Controllers. Ele permite associar elementos a métodos e campos de classes Java através de atributos como fx:id (nome da variável) e onAction (método que será chamado).
 
-![image (8).png](../../Assets/image%20%288%29.png)
+![image (8).png](../../assets/image%20%288%29.png)
 
 ### 2. Controllers
 
@@ -42,4 +42,4 @@ O Scene Builder é uma ferramenta visual para design de interfaces JavaFX. Com e
 - Suas principais vantagens incluem maior produtividade, visualização em tempo real, clara separação entre interface e lógica, além de suporte a CSS.
 - No arquivo FXML, é possível visualizar e editar diretamente pelo Scene Builder na própria IDE (IntelliJ), simplificando o processo de edição visual.
 
-![image (1).png](../../Assets/image%20%281%29.png)
+![image (1).png](../../assets/image%20%281%29.png)

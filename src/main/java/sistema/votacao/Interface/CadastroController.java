@@ -12,10 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sistema.votacao.Usuario.Model.TipoUsuario;
-import sistema.votacao.Usuario.Model.UsuarioModel;
-import sistema.votacao.Usuario.Service.TipoUsuarioInvalido;
-import sistema.votacao.Usuario.Service.UsuarioService;
+import sistema.votacao.usuario.model.UsuarioModel;
+import sistema.votacao.usuario.service.TipoUsuarioInvalido;
+import sistema.votacao.usuario.service.UsuarioService;
 import sistema.votacao.SistemaVotacaoApplication;
 
 import java.io.IOException;

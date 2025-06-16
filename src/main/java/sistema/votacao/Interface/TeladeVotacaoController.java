@@ -14,17 +14,17 @@ import javafx.stage.Stage;
 import lombok.Setter; // Setter para setpreviousScreenIsAdmin
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sistema.votacao.Usuario.Model.TipoUsuario;
-import sistema.votacao.Usuario.Model.UsuarioModel;
-import sistema.votacao.Votacao.Model.Votacao;
-import sistema.votacao.Votacao.Model.VotacaoAcademica;
-import sistema.votacao.Votacao.Model.VotacaoEleitoral;
-import sistema.votacao.Votacao.Service.VotacaoService;
-import sistema.votacao.Voto.DTO.VotoRequestDTO;
-import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
-import sistema.votacao.OpcaoVoto.Service.OpcaoVotoService;
-import sistema.votacao.Voto.Service.VotoService;
-import sistema.votacao.Usuario.Service.UsuarioService;
+import sistema.votacao.usuario.model.TipoUsuario;
+import sistema.votacao.usuario.model.UsuarioModel;
+import sistema.votacao.votacao.model.Votacao;
+import sistema.votacao.votacao.model.VotacaoAcademica;
+import sistema.votacao.votacao.model.VotacaoEleitoral;
+import sistema.votacao.votacao.service.VotacaoService;
+import sistema.votacao.voto.dto.VotoRequestDTO;
+import sistema.votacao.opcao_voto.model.OpcaoVoto;
+import sistema.votacao.opcao_voto.service.OpcaoVotoService;
+import sistema.votacao.voto.service.VotoService;
+import sistema.votacao.usuario.service.UsuarioService;
 
 import java.io.IOException;
 import java.util.List;

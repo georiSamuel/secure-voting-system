@@ -10,12 +10,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
-import sistema.votacao.Votacao.Model.Votacao;
-import sistema.votacao.Votacao.Service.VotacaoService;
-import sistema.votacao.OpcaoVoto.Model.OpcaoVoto;
-import sistema.votacao.Voto.Model.VotoModel;
-import sistema.votacao.OpcaoVoto.Service.OpcaoVotoService;
-import sistema.votacao.Voto.Service.VotoService;
+import sistema.votacao.votacao.model.Votacao;
+import sistema.votacao.votacao.service.VotacaoService;
+import sistema.votacao.opcao_voto.model.OpcaoVoto;
+import sistema.votacao.voto.model.VotoModel;
+import sistema.votacao.opcao_voto.service.OpcaoVotoService;
+import sistema.votacao.voto.service.VotoService;
 
 import java.io.IOException;
 import java.util.Comparator;

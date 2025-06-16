@@ -27,8 +27,9 @@ import java.util.List;
  * segurança usando HMAC.
  * 
  * @author Lethycia
- * @version 1.0
- * @since 26/05/25
+ * @author Horlan
+ * @version 2.0
+ * @since 29/05/25
  */
 @Service
 public class VotoService {
@@ -42,6 +43,13 @@ public class VotoService {
     @Value("${VOTING_APP_HMAC_SECRET}")
     private String hmacSecret;
 
+    /**
+     * Construtor do serviço de votos.
+     * @param votoRepository
+     * @param usuarioService
+     * @param votacaoService
+     * @param opcaoVotoService
+     */
     public VotoService(VotoRepository votoRepository, UsuarioService usuarioService, VotacaoService votacaoService,
             OpcaoVotoService opcaoVotoService) {
         this.votoRepository = votoRepository;
@@ -50,22 +58,45 @@ public class VotoService {
         this.opcaoVotoService = opcaoVotoService;
     }
 
+    /**
+     *  Cria um novo voto no sistema.
+     *  Este método é responsável por persistir um voto no banco de dados.
+     *  Ele não verifica a integridade do voto, apenas o salva.
+     * @param voto
+     * @return  O voto criado e salvo no banco de dados.
+     */
     @Transactional
     public VotoModel criarVoto(VotoModel voto) {
         return votoRepository.save(voto);
     }
 
+    /**
+     *  Busca todos os votos registrados no sistema.
+     * @return uma lista de todos os votos.
+     */
     @Transactional(readOnly = true)
     public List<VotoModel> buscarTodosVotos() {
         return votoRepository.findAll();
     }
 
+    /**
+     *  Busca um voto específico pelo seu ID.
+     *  Se o voto não for encontrado, lança uma exceção.
+     * @param id
+     * @return O voto encontrado com o ID especificado.
+     * @throws RuntimeException se o voto não for encontrado.
+     */
     @Transactional(readOnly = true)
     public VotoModel buscarPorId(Long id) {
         return votoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Voto não encontrado com ID: " + id));
     }
 
+    /**
+     * Este método verifica se o voto existe antes de tentar deletá-lo.
+     * @param id
+     * @throws RuntimeException se o voto não for encontrado.
+     */
     @Transactional
     public void deletarVoto(Long id) {
         if (!votoRepository.existsById(id)) {
@@ -76,9 +107,11 @@ public class VotoService {
 
     /**
      * Registra um novo voto, garantindo sua integridade através de um HMAC.
-     *
      * @param dto O objeto de transferência de dados com as informações do voto.
      * @return Um DTO com a confirmação do voto registrado.
+     * @throws IllegalStateException se o usuário já tiver votado ou se a votação não estiver ativa.
+     * @throws RuntimeException se ocorrer um erro ao buscar a votação ou o usuário, ou ao gerar o HMAC.
+     * @throws runtimeException se ocorrer um erro ao registrar o voto.
      */
     @Transactional
     public VotoResponseDTO registrarVoto(VotoRequestDTO dto) {
@@ -147,11 +180,22 @@ public class VotoService {
         }
     }
 
+    /**
+     * Busca todos os votos associados a uma votação específica.
+     * @param votacaoId ID da votação para a qual os votos serão buscados.
+     * @return Lista de votos associados à votação especificada.
+     */
     @Transactional(readOnly = true)
     public List<VotoModel> buscarVotosPorVotacao(Long votacaoId) {
         return votoRepository.findByVotacaoId(votacaoId);
     }
 
+    /**
+     *  Verifica se um usuário já votou em uma votação específica.
+     * @param usuarioId
+     * @param votacaoId
+     * @return  true se o usuário já tiver votado, false caso contrário.
+     */
     @Transactional(readOnly = true)
     public boolean usuarioJaVotou(Long usuarioId, Long votacaoId) {
         return votoRepository.existsByUsuarioIdAndVotacaoId(usuarioId, votacaoId);
@@ -160,12 +204,9 @@ public class VotoService {
     /**
      * Verifica a integridade de um registro de voto comparando seu HMAC armazenado
      * com um HMAC recém-calculado a partir dos dados do voto.
-     *
      * @param votoId O ID do voto a ser verificado.
-     * @return true se o voto for íntegro (o selo corresponde), false caso
-     *         contrário.
-     * @throws Exception se ocorrer um erro durante o processo (ex: voto não
-     *                   encontrado).
+     * @return true se o voto for íntegro (o selo corresponde), false casocontrário.
+     * @throws Exception se ocorrer um erro durante o processo (ex: voto nãoencontrado).
      */
     @Transactional(readOnly = true)
     public boolean verificarIntegridadeVoto(Long votoId) throws Exception {

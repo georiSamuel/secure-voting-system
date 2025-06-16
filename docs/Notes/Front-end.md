@@ -23,7 +23,7 @@ A Interface Gráfica do projeto será desenvolvido utilizando principalmente o [
 
 Os arquivos FXML são documentos XML desenvolvidos especificamente para o JavaFX, com a finalidade de descrever interfaces gráficas (UI) de forma declarativa. Eles têm uma estrutura hierárquica, sintaxe específica e vinculação com Controllers. Ele permite associar elementos a métodos e campos de classes Java através de atributos como fx:id (nome da variável) e onAction (método que será chamado).
 
-![image.png](attachment:f199897b-dfda-4cbb-9175-cd3b8c8ea26d:image.png)
+![image (8).png](../../Assets/image%20%288%29.png)
 
 ### 2. Controllers
 

@@ -28,7 +28,7 @@ import java.util.Objects;
  * para registro de novos usuários, inferindo o tipo de usuário pelo domínio do e-mail.
  *
  * @author Suelle
- * @author Suelle
+ * @author Horlan
  * @version 1.0
  * @since 26/05/25
  */

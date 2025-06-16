@@ -12,7 +12,6 @@ import sistema.votacao.SistemaVotacaoApplication;
 import sistema.votacao.Votacao.Service.VotacaoService;
 import sistema.votacao.Votacao.Model.VotacaoPersonalizada; // Import para VotacaoPersonalizada
 import sistema.votacao.OpcaoVoto.Model.OpcaoVoto; // Import para OpcaoVoto
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

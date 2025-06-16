@@ -30,7 +30,7 @@ No desenvolvimento do backend, segmentei o sistema em três áreas: **Usuário**
 
 ---
 
-## ⚙ Tecnologias de Apoio
+##  Tecnologias de Apoio
 
 - **Spring Data JPA**: Facilita CRUD e consultas complexas com métodos declarativos.
 - **Spring Security**: Para autenticação, autorização e proteção de endpoints.

@@ -1,15 +1,10 @@
 package sistema.votacao.Interface;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
-import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import sistema.votacao.SistemaVotacaoApplication; // Importe a classe principal da aplicação
@@ -73,6 +68,7 @@ public class TelaUsuarioController {
             Scene cenaAtual = desconectar.getScene();
             Stage palco = (Stage) cenaAtual.getWindow();
             palco.setScene(new Scene(telaLogin));
+            palco.setTitle("Sistema de Votação");
             palco.sizeToScene();
 
         } catch (Exception e) {

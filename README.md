@@ -85,6 +85,8 @@ Este projeto é um sistema de votação desenvolvido na linguagem **Java**, visa
 3. Configurar JavaFX (veja em [SETUP.MD](SETUP.md))
 4. Executar classe `SistemaVotacaoApplication`
 
+- Obs: ⚠️ [JDK 21 LTS](https://www.oracle.com/br/java/technologies/downloads/#java21) é necessário. 
+Qualquer substituição por outra versão pode gerar erro fatal de execução
 - Obs: Para configurações de segurança, veja [SETUP.MD](SETUP.md)
 
 ## Autores:

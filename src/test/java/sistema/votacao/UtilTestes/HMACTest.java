@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0
  * @since 13/06/2025
  */
-class HMACTest {
+public class HMACTest {
 
     @Test
     @DisplayName("Deve calcular HMAC corretamente")

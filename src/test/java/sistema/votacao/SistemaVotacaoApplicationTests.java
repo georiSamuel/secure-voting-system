@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 
 @SpringBootTest
-class SistemaVotacaoApplicationTests {
+public class SistemaVotacaoApplicationTests {
 
 	@Test
 	@DisplayName("A inicialização da aplicação não deve apresentar erros")

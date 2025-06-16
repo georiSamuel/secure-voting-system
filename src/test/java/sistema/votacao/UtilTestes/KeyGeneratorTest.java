@@ -16,7 +16,7 @@ import java.util.Base64;
  * @version 1.0
  * @since 13/06/2025
  */
-class KeyGeneratorTest {
+public class KeyGeneratorTest {
 
     @Test
     void deveGerarChaveValida() {

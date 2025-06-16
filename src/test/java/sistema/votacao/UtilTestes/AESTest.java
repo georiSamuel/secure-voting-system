@@ -16,7 +16,7 @@ import javax.crypto.SecretKey;
  * @version 1.0
  * @since 13/06/2025
  */
-class AESTest {
+public class AESTest {
 
     @Test
     @DisplayName("Deve criptografar e descriptografar texto corretamente")

@@ -16,7 +16,7 @@ import java.security.SecureRandom;
  * @version 1.0
  * @since 13/06/2025
  */
-class VoteCountEncryptorTest {
+public class VoteCountEncryptorTest {
 
     private VoteCountEncryptor encryptor;
     private String chaveSecreta;

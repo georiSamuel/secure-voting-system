@@ -73,7 +73,7 @@ public class VotacaoEleitoral extends Votacao {
         return true;
     }
 
-    /**
+    /*
      * Retorna a descrição do cargo eleitoral relacionado a esta votação.
      * 
      * @return a descrição do cargo eleitoral ou "Cargo Eleitoral Não Definido" caso

@@ -55,7 +55,7 @@ public class VotacaoAcademica extends Votacao {
         return true;
     }
 
-    /**
+    /*
      * Retorna a descrição do cargo acadêmico relacionado a esta votação.
      * 
      * @return o nome do cargo acadêmico ou "Cargo Acadêmico Não Definido" caso não
@@ -66,7 +66,7 @@ public class VotacaoAcademica extends Votacao {
         return this.cargo != null ? this.cargo.name() : "Cargo Acadêmico Não Definido";
     }
 
-    /**
+    /*
      * Define o cargo acadêmico para esta votação.
      * 
      * @param cargo o tipo de cargo acadêmico

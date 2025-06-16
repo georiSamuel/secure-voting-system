@@ -111,7 +111,7 @@ public class VotoService {
      * @return Um DTO com a confirmação do voto registrado.
      * @throws IllegalStateException se o usuário já tiver votado ou se a votação não estiver ativa.
      * @throws RuntimeException se ocorrer um erro ao buscar a votação ou o usuário, ou ao gerar o HMAC.
-     * @throws runtimeException se ocorrer um erro ao registrar o voto.
+     * @throws RuntimeException se ocorrer um erro ao registrar o voto.
      */
     @Transactional
     public VotoResponseDTO registrarVoto(VotoRequestDTO dto) {

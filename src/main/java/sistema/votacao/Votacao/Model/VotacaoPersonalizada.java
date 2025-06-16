@@ -53,7 +53,7 @@ public class VotacaoPersonalizada extends Votacao {
         return permiteVotoMultiplo;
     }
 
-    /**
+    /*
      * Define se esta votação permite votos múltiplos.
      * 
      * @param permiteVotoMultiplo para permitir voto múltiplo;

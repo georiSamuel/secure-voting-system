@@ -1,0 +1,17 @@
+sistema.votacao
+sistema.votacao.Interface
+sistema.votacao.OpcaoVoto.Model
+sistema.votacao.OpcaoVoto.Repository
+sistema.votacao.OpcaoVoto.Service
+sistema.votacao.Usuario.Model
+sistema.votacao.Usuario.Repository
+sistema.votacao.Usuario.Service
+sistema.votacao.Util
+sistema.votacao.UtilTestes
+sistema.votacao.Votacao.Model
+sistema.votacao.Votacao.Repository
+sistema.votacao.Votacao.Service
+sistema.votacao.Voto.DTO
+sistema.votacao.Voto.Model
+sistema.votacao.Voto.Repository
+sistema.votacao.Voto.Service

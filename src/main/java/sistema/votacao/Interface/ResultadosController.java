@@ -50,6 +50,23 @@ public class ResultadosController {
     private VotoService votoService;
 
     /**
+     * Construtor padrão da classe ResultadosController.
+     * <p>
+     * Este construtor é utilizado pelos frameworks Spring e JavaFX para instanciar o controller.
+     * A inicialização dos componentes da interface e a configuração de dependências
+     * ocorrem após a construção do objeto, através das anotações {@literal @FXML} e {@literal @Autowired}.
+     * A lógica de inicialização da tela, como o carregamento dos dados, deve ser colocada
+     * no método {@code initialize()}.
+     * </p>
+     *
+     * @since 10/06/25
+     * @version 1.0
+     */
+    public ResultadosController() {
+        // Construtor vazio, a inicialização é feita pelo framework via injeção de dependência.
+    }
+
+    /**
      * Define os serviços necessários para o controlador.
      * Este método é usado para injetar as dependências (serviços) no controller.
      * @param votacaoService O serviço para operações de votação.
@@ -174,8 +191,6 @@ public class ResultadosController {
                 resultadosTableView.setPlaceholder(null);
             }
         }
-
-
 
     /**
      * Acionado pelo botão "Verificar Integridade". Este método busca todos os votos

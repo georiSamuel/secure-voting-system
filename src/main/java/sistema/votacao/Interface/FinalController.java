@@ -28,6 +28,30 @@ public class FinalController {
     @FXML private Text mensagemSucesso;
     @FXML private Button botaoVoltar;
 
+    /**
+     * Construtor padrão da classe FinalController.
+     * <p>
+     * Este construtor é utilizado pelos frameworks Spring e JavaFX para instanciar o controller.
+     * A inicialização dos componentes da interface e a configuração de dependências
+     * ocorrem após a construção do objeto, através das anotações {@literal @FXML} e {@literal @Autowired}.
+     * A lógica de inicialização da tela deve ser colocada em um método anotado com {@literal @FXML},
+     * como o método {@code initialize()}.
+     * </p>
+     *
+     * @since 16/06/25
+     * @version 1.0
+     */
+    public FinalController() {
+        // Construtor vazio, a inicialização é feita pelo framework via injeção de dependência.
+    }
+
+    /**
+     * Método de inicialização que pode ser usado para configurar a tela
+     * assim que ela for carregada. Pode inicializar recursos aqui se necessário.
+     *
+     * @since 10/06/25
+     * @version 1.0
+     */
     @FXML public void initialize() {
     }
 

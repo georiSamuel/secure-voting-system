@@ -53,9 +53,28 @@ public class CriarAcademicaController {
     private VotacaoService votacaoService;
     private ObservableList<String> opcoesDeVoto = FXCollections.observableArrayList();
 
+
+    /**
+     * Construtor padrão da classe.
+     * <p>
+     * Este construtor é utilizado pelos frameworks Spring e JavaFX para instanciar o controller.
+     * A inicialização dos componentes da interface e a configuração de dependências
+     * ocorrem após a construção do objeto através das anotações {@literal @FXML} e {@literal @Autowired}.
+     * A lógica de inicialização está no {@link #initialize()}.
+     * </p>
+     *
+     * @since 10/06/25
+     * @version 1.0
+     */
+    public CriarAcademicaController() {
+        // Construtor vazio, a inicialização é feita pelos frameworks.
+    }
+
     /**
      * Método de inicialização do controlador.
-     * Chamado automaticamente após o carregamento do FXML.
+     * Chamado automaticamente após o carregamento do FXML, esse método é responsável por configurar
+     * os componentes da interface, como popular o ComboBox de cargos e
+     * associar a lista de opções de voto ao ListView.
      *
      * @since 26/05/25
      * @version 1.0

@@ -26,6 +26,30 @@ public class TelaUsuarioController {
     @FXML private Hyperlink desconectar;
     @FXML private Button botaoVotacao;
 
+    /**
+     * Construtor padrão da classe TelaUsuarioController.
+     * <p>
+     * Este construtor é utilizado pelos frameworks Spring e JavaFX para instanciar o controller.
+     * A inicialização dos componentes da interface e a configuração de dependências
+     * ocorrem após a construção do objeto, através das anotações {@literal @FXML} e {@literal @Autowired}.
+     * A lógica de inicialização da tela, como o carregamento das votações disponíveis,
+     * deve ser colocada no método {@code initialize()}.
+     * </p>
+     *
+     * @since 10/06/25
+     * @version 1.0
+     */
+    public TelaUsuarioController() {
+        // Construtor vazio, a inicialização é feita pelo framework via injeção de dependência.
+    }
+
+    /**
+     * Método de inicialização que pode ser usado para configurar a tela
+     * assim que ela for carregada.
+     *
+     * @since 10/06/25
+     * @version 1.0
+     */
     @FXML public void initialize() {
     }
 

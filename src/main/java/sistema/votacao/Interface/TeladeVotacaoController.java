@@ -64,6 +64,23 @@ public class TeladeVotacaoController {
     private List<OpcaoVoto> opcoesAtuais;
 
     /**
+     * Construtor padrão da classe TeladeVotacaoController.
+     * <p>
+     * Este construtor é utilizado pelos frameworks Spring e JavaFX para instanciar o controller.
+     * A inicialização dos componentes da interface e a configuração de dependências
+     * ocorrem após a construção do objeto, através das anotações {@literal @FXML} e {@literal @Autowired}.
+     * A lógica de inicialização da tela, como o carregamento dos dados da votação,
+     * deve ser colocada no método {@code initialize()}.
+     * </p>
+     *
+     * @since 10/06/25
+     * @version 1.0
+     */
+    public TeladeVotacaoController() {
+        // Construtor vazio, a inicialização é feita pelo framework via injeção de dependência.
+    }
+
+    /**
      * Método de inicialização do controller. Chamado automaticamente pelo FXMLLoader após o carregamento do FXML.
      *
      * @since 13/05/25

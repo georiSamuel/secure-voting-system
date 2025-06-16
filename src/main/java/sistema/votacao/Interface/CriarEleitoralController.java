@@ -57,6 +57,23 @@ public class CriarEleitoralController {
     private ObservableList<String> opcoesDeVoto = FXCollections.observableArrayList();
 
     /**
+     * Construtor padrão da classe CriarEleitoralController.
+     * <p>
+     * Este construtor é utilizado pelos frameworks Spring e JavaFX para instanciar o controller.
+     * A inicialização dos componentes da interface e a configuração de dependências
+     * ocorrem após a construção do objeto, através das anotações {@literal @FXML} e {@literal @Autowired}.
+     * A lógica de inicialização da tela deve ser colocada em um método anotado com {@literal @FXML},
+     * como o método {@code initialize()}.
+     * </p>
+     *
+     * @since 10/06/25
+     * @version 1.0
+     */
+    public CriarEleitoralController() {
+        // Construtor vazio, a inicialização é feita pelo framework.
+    }
+
+    /**
      * Método de inicialização do controlador.
      * Chamado automaticamente após o carregamento do FXML.
      * @version 1.0

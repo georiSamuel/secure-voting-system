@@ -44,6 +44,23 @@ public class LoginController {
     private static UsuarioModel usuarioLogado;
 
     /**
+     * Construtor padrão da classe LoginController.
+     * <p>
+     * Este construtor é utilizado pelos frameworks Spring e JavaFX para instanciar o controller.
+     * A inicialização dos componentes da interface e a configuração de dependências
+     * ocorrem após a construção do objeto, através das anotações {@literal @FXML} e {@literal @Autowired}.
+     * A lógica de inicialização da tela deve ser colocada em um método anotado com {@literal @FXML},
+     * como por exemplo, o método {@code initialize()}.
+     * </p>
+     *
+     * @since 10/06/25
+     * @version 1.0
+     */
+    public LoginController() {
+        // Construtor vazio, a inicialização é feita pelo framework via injeção de dependência.
+    }
+
+    /**
      * O initialize é um método para que o JavaFx inicialize e configure todos os componentes da interface
      * após a carga do arquivo fxml. Funciona como um "construtor".
      *

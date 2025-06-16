@@ -106,22 +106,12 @@ public class CadastroController {
             return;
         }
 
-        TipoUsuario.Tipo tipoUsuario;
-        if (email.endsWith("@admin.com")) {
-            tipoUsuario = TipoUsuario.Tipo.ADMIN;
-        } else if (email.endsWith("@usuario.com")) {
-            tipoUsuario = TipoUsuario.Tipo.COMUM;
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Erro de Cadastro", "Domínio de email inválido. Utilize @admin.com ou @usuario.com.");
-            return;
-        }
 
         UsuarioModel usuario = new UsuarioModel();
         usuario.setNome(nome);
         usuario.setEmail(email);
         usuario.setCpf(cpf);
         usuario.setSenha(senha);
-        usuario.setTipoUsuario(tipoUsuario);
         usuario.setDataCadastro(LocalDate.now());
 
         try {

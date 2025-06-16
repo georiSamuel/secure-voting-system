@@ -11,10 +11,9 @@ public class TipoUsuarioInvalido extends RuntimeException {
 
     /**
      * Construtor para inicializar a exceção com uma mensagem específica.
-     * @param email
+     * @param mensagem
      */
-    public TipoUsuarioInvalido(String email) {
-        super("Tipo inválido de email para os tipos de usuários(ADMIN ou COMUM): " + email);
+    public TipoUsuarioInvalido(String mensagem) {
+        super(mensagem);
     }
-
 }

@@ -23,6 +23,13 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
     Optional<UsuarioModel> findByEmail(String email);
 
     /**
+     * Método para encontrar um usuário pelo seu cpf.
+     * @param cpf O cpf do usuário a ser encontrado.
+     * @return Um Optional contendo o usuário se encontrado, ou vazio caso contrário.
+     */
+    Optional<UsuarioModel> findByCpf(String cpf);
+
+    /**
      * Método para verificar se já existe um usuário com o tipo especificado.
      * O nome do método foi atualizado para corresponder ao nome da propriedade 'tipoUsuario' em UsuarioModel.
      * @param tipo O tipo de usuário a ser verificado.

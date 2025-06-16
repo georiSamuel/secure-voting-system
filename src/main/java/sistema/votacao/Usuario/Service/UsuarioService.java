@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import sistema.votacao.Usuario.Model.TipoUsuario;
 import sistema.votacao.Usuario.Model.UsuarioModel;
 import sistema.votacao.Usuario.Repository.UsuarioRepository;
 import sistema.votacao.Voto.Repository.VotoRepository;
@@ -39,8 +40,18 @@ public class UsuarioService {
             throw new RuntimeException("Email já cadastrado.");
         }
 
-        if (usuario.getTipoUsuario() == null) { // Acessando diretamente de UsuarioModel
-            throw new TipoUsuarioInvalido("Tipo de usuário não pode ser nulo.");
+        if (usuarioRepository.findByCpf(usuario.getCpf()).isPresent()) {
+            throw new RuntimeException("CPF já cadastrado.");
+        }
+
+        String email = usuario.getEmail();
+        if (email.endsWith("@admin.com")) {
+            usuario.setTipoUsuario(TipoUsuario.Tipo.ADMIN);
+        } else if (email.endsWith("@usuario.com")) {
+            usuario.setTipoUsuario(TipoUsuario.Tipo.COMUM);
+        } else {
+            // Se o domínio não for válido, o próprio serviço lança a exceção.
+            throw new TipoUsuarioInvalido("Domínio de email inválido. Utilize @admin.com ou @usuario.com.");
         }
 
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));

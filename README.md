@@ -93,5 +93,5 @@ Qualquer substituição por outra versão pode gerar erro fatal de execução
 
 - [@georiSamuel](https://github.com/georiSamuel)
 - [@Horlanlacerda](https://github.com/Horlanlacerda)
-- [@lethy-while](https://github.com/lethy-while)
+- [@lethy-while](https://github.com/lethy-while) / [@moon-byme](https://github.com/moon-byme)
 - [@SuelleMaciel](https://github.com/SuelleMaciel)

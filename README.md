@@ -2,20 +2,20 @@
 
 Este projeto é um sistema de votação desenvolvido em **Java**, com o objetivo de simular uma **urna eletrônica**, garantindo segurança, integridade e sigilo dos votos.
 
-## Objetivos
+## Objetivos:
 
 - Permitir que eleitores votem de forma simples e segura
 - Utilizar **criptografia** para proteger os dados dos votos
 - Simular funcionalidades de uma **urna eletrônica oficial**
 - Garantir auditabilidade e transparência no processo
 
-## Tecnologias
+## Tecnologias:
 
 - Java 17+
 - Criptografia simétrica e/ou assimétrica (ex: AES, RSA)
 - Interface gráfica (futuramente)
 
-## Funcionalidades previstas
+## Funcionalidades previstas:
 
 - Cadastro de candidatos
 - Identificação do eleitor
